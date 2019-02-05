@@ -1,0 +1,80 @@
+.header
+{
+	background-color:#000;
+	margin:0px;
+	display:flex;
+	width:100%;
+}
+a
+{
+	color:white;
+	text-decoration: none;
+}
+.header h1
+{
+	margin-left:20px;
+	color:#0AF;
+	width:25%;
+}
+html,body
+{
+	margin:0px;
+	font-family:roboto;
+	overflow-x:hidden;
+	background-color:black;
+}
+.header .options
+{
+	display:flex;
+	position:relative;
+	margin-left:30px;
+	background-color:#222;
+	width:100%;
+	color:#FFF;
+}
+.header .options *
+{
+	width:100%;
+	transition-duration:1s;
+}
+.header .options * *
+{
+	margin-left:10px;
+	margin-right:10px;
+}
+.header .options .connect
+{
+	border-bottom:8px solid #F00;
+}
+.header .options .connect:hover
+{
+	background-color:#F00;
+	box-shadow: -10px 10px 10px 10px black;
+}
+.header .options .forum
+{
+	border-bottom:8px solid #FF0;
+}
+.header .options .forum:hover
+{
+	background-color:#FF0;
+	box-shadow: -10px 10px 10px 10px black;
+}
+.header .options .course
+{
+	border-bottom:8px solid #0F0;
+}
+.header .options .course:hover
+{
+	background-color:#0F0;
+	box-shadow: -10px 10px 10px 10px black;
+}
+.header .options .tutorial
+{
+	border-bottom:8px solid #0FF;
+}
+.header .options .tutorial:hover
+{
+	background-color:#0FF;
+	box-shadow: -10px 10px 10px 10px black;
+}

@@ -1,0 +1,43 @@
+section
+{
+	width:100%;
+	margin:0px;
+}
+section
+{
+	margin:0px;
+	padding-top:100px;
+	padding-bottom:100px;
+	
+	height:100%;
+	text-align:center;
+}
+.slogan
+{
+	
+	background: url(../../images/parallax0.png) no-repeat center fixed; 
+	background-size:cover;
+	
+}
+h4
+{
+	color:white;
+	font-size:20px;
+}
+h3
+{
+	font-size:30px;
+}
+mark
+{
+	background-color:#0F0;
+}
+.title
+{
+	text-align:center;
+}
+.apprendre
+{
+	background: url(../../images/parallax1.png) no-repeat center fixed; 
+	background-size:cover;
+}
