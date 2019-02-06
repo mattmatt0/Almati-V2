@@ -36,6 +36,7 @@ html,body
 {
 	width:100%;
 	transition-duration:1s;
+
 }
 .header .options * *
 {
@@ -44,37 +45,51 @@ html,body
 }
 .header .options .connect
 {
+	background-color:#222;
 	border-bottom:8px solid #F00;
 }
 .header .options .connect:hover
 {
 	background-color:#F00;
 	box-shadow: -10px 10px 10px 10px black;
+	
+	
+	
 }
 .header .options .forum
 {
+	background-color:#222;
 	border-bottom:8px solid #FF0;
 }
 .header .options .forum:hover
 {
 	background-color:#FF0;
 	box-shadow: -10px 10px 10px 10px black;
+	
+	
 }
 .header .options .course
 {
 	border-bottom:8px solid #0F0;
+	background-color:#222;
 }
 .header .options .course:hover
 {
 	background-color:#0F0;
 	box-shadow: -10px 10px 10px 10px black;
+	
+	
 }
 .header .options .tutorial
 {
+
+	background-color:#222;
 	border-bottom:8px solid #0FF;
 }
 .header .options .tutorial:hover
 {
 	background-color:#0FF;
 	box-shadow: -10px 10px 10px 10px black;
+	
+	
 }
