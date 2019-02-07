@@ -1,0 +1,45 @@
+@keyframes brokenbar
+{
+	0%
+	{
+		transform:rotate(0deg) translateY(0px);
+	}
+	100%
+	{
+		transform:rotate(50deg) translateY(1000px);
+	}
+
+}
+@keyframes brokenbody
+{
+	0%
+	{
+		transform:rotateX(0deg) translateY(0px)
+	}
+	50%
+	{
+		transform:rotateX(0deg) translateY(0px)
+	}
+	100%
+	{
+		transform:rotateX(90deg) translateY(100px)
+	}
+
+}
+.broken0
+{
+	position:relative;
+	animation: brokenbar 2s forwards
+}
+body,html
+{
+	height:100%;
+
+	perspective: 800px;
+	perspective-origin: 50% 50%;
+}
+.broken1
+{
+	transition-style  :preserve-3d;
+	animation:brokenbody 4s forwards;
+}
