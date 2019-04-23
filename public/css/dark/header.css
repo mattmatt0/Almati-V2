@@ -1,95 +1,48 @@
 .header
 {
-	background-color:#000;
-	margin:0px;
-	display:flex;
-	width:100%;
-}
-a
-{
-	color:white;
-	text-decoration: none;
-}
-.header h1
-{
-	margin-left:20px;
-	color:#0AF;
-	width:25%;
-}
-html,body
-{
-	margin:0px;
-	font-family:roboto;
-	overflow-x:hidden;
-	background-color:black;
+	background-color: #000;
+	padding-left: 1%;
+	padding-right: 0%;
+
+	height:80px;
 }
 .header .options
 {
+	float:right;
+	height:78px;
 	display:flex;
-	position:relative;
-	margin-left:30px;
-	background-color:#222;
-	width:100%;
+	
+	
+	margin:0px;
+}
+.header .options>*
+{
+	height:100%;
+	color:#00EDFF;
+	background:#002a2d;
+	border-bottom:2px solid #00EDFF;
+	transition-duration: 1s;
+}
+.header .options div:hover
+{
+	background: #00EDFF;
 	color:#FFF;
 }
-.header .options *
-{
-	width:100%;
-	transition-duration:1s;
 
-}
-.header .options * *
+h2
 {
 	margin-left:10px;
 	margin-right:10px;
 }
-.header .options .connect
+body
 {
-	background-color:#222;
-	border-bottom:8px solid #F00;
+	margin:0px;
+	background-color: #111;
+	font-family: 'Dosis';
 }
-.header .options .connect:hover
+h1
 {
-	background-color:#F00;
-	box-shadow: -10px 10px 10px 10px black;
-	
-	
-	
-}
-.header .options .forum
-{
-	background-color:#222;
-	border-bottom:8px solid #FF0;
-}
-.header .options .forum:hover
-{
-	background-color:#FF0;
-	box-shadow: -10px 10px 10px 10px black;
-	
-	
-}
-.header .options .course
-{
-	border-bottom:8px solid #0F0;
-	background-color:#222;
-}
-.header .options .course:hover
-{
-	background-color:#0F0;
-	box-shadow: -10px 10px 10px 10px black;
-	
-	
-}
-.header .options .tutorial
-{
-
-	background-color:#222;
-	border-bottom:8px solid #0FF;
-}
-.header .options .tutorial:hover
-{
-	background-color:#0FF;
-	box-shadow: -10px 10px 10px 10px black;
-	
-	
+	margin-left:10px;
+	color: #0AF;
+	float:left;
 }

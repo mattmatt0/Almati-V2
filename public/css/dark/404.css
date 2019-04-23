@@ -1,45 +1,106 @@
-@keyframes brokenbar
+@keyframes fallingHeader
 {
 	0%
 	{
-		transform:rotate(0deg) translateY(0px);
+		transform:rotate(0deg);
 	}
 	100%
 	{
-		transform:rotate(50deg) translateY(1000px);
+		transform:rotate(67deg);
 	}
-
 }
-@keyframes brokenbody
+@keyframes backFalling
 {
 	0%
 	{
-		transform:rotateX(0deg) translateY(0px)
-	}
-	50%
-	{
-		transform:rotateX(0deg) translateY(0px)
+		transform:rotateX(0deg);
 	}
 	100%
 	{
-		transform:rotateX(90deg) translateY(100px)
+		transform:rotateX(90deg);
 	}
-
 }
-.broken0
+@keyframes ground
 {
-	position:relative;
-	animation: brokenbar 2s forwards
+	0%
+	{
+		transform:translateY(0%);
+	}
+	100%
+	{
+		transform:translateY(75%);
+	}
 }
-body,html
+/* AOA = 404*/
+@keyframes animAOA
+{
+	0%
+	{
+		top:-50%;
+	}
+	100%
+	{
+		top:25%;
+	}
+}
+@keyframes rotation
+{
+	0%
+	{
+		transform: rotate(0deg);
+	}
+	100%
+	{
+		transform:rotate(360deg);
+	}
+}
+body, html
 {
 	height:100%;
+	transform-style:preserve-3d;
+	perspective-origin: 0% 100%;
+	perspective:800px;
 
-	perspective: 800px;
-	perspective-origin: 50% 50%;
 }
-.broken1
+.header
 {
-	transition-style  :preserve-3d;
-	animation:brokenbody 4s forwards;
+	position:relative;
+	transform-style:preserve-3d;
+	animation: fallingHeader 2s forwards;
 }
+.falling
+{
+
+	transform-style:preserve-3d;
+	animation: backFalling 2s forwards;
+}
+.ground
+{
+	height:100%;
+	transform-style:preserve-3d;
+	animation: ground 2s forwards;
+}
+body>h1
+{
+	position:absolute;
+	top:-50%;
+	left:50%;
+	font-size:100px;
+	color:white;
+	text-align:center;
+	animation:animAOA 1s forwards;
+}
+h1>p
+{
+	font-size:20px;
+}
+body>a
+{
+	font-size:50px;
+	position:sticky;
+	top:50%;
+	left:50%;
+	background-color:red;
+	animation:rotation 1s linear infinite;
+}
+
