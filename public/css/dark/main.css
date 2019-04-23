@@ -1,8 +1,11 @@
+/* Sections entre les images*/
+
 section
 {
 	width:100%;
 	margin:0px;
 }
+
 section
 {
 	margin:0px;
@@ -12,6 +15,8 @@ section
 	height:100%;
 	text-align:center;
 }
+
+/* La première image, avec le slogan */
 .slogan
 {
 	
@@ -19,6 +24,7 @@ section
 	background-size:cover;
 	
 }
+
 h4
 {
 	color:white;
@@ -32,6 +38,7 @@ mark
 {
 	background-color:#0F0;
 }
+
 .title
 {
 	text-align:center;

@@ -23,7 +23,24 @@
 	border-bottom:2px solid #00EDFF;
 	transition-duration: 1s;
 }
-.header .options div:hover
+.header a
+{
+	text-decoration: none;
+	width:200px;
+	text-align:center;
+}
+.news
+{
+	margin:0px;
+	color:black;
+	text-shadow:none;
+	padding:10px;
+}
+.news a
+{
+	float:right;
+}
+.header .options a:hover
 {
 	background: #00EDFF;
 	color:#FFF;
@@ -45,4 +62,8 @@ h1
 	margin-left:10px;
 	color: #0AF;
 	float:left;
+}
+.news
+{
+	background-color:#FF0;
 }
