@@ -67,3 +67,9 @@ h1
 {
 	background-color:#FF0;
 }
+@media screen and (max-width: 500px)
+{
+  .header a {
+    display:none;
+  }
+}
