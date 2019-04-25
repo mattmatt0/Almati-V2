@@ -69,15 +69,21 @@ h1
 }
 .menuButton
 {
-	width:60px;
-	height:60px;
-	margin:10px;
+	width:50px;
+	height:50px;
+	margin:15px;
 	float:right;
+	display:none;
+}
+#menuContainer
+{
 	display:none;
 }
 #menu
 {
 	display:none;
+	padding:0px;
+	margin:0px;
 }
 @media screen and (max-width: 700px)
 {
@@ -88,12 +94,17 @@ h1
   {
   	display:inline-block;
   }
+  #menuContainer
+  {
+  	display:block;
+  }
 }
 #menu a
 {
 	height:100%;
 	text-decoration:none;
 	margin:0px;
+	padding:0px;
 }
 #menu h2
 {

@@ -33,9 +33,18 @@ function hideConnectMenu()
 	mask.style.display = "none";
 	blurred.style.filter = "none";
 }
-function showMenu()
+function switchMenu()
 {
 	var menu = document.getElementById("menu");
-	menu.style.display = "block";
+	switch(menu.style.display)
+	{
+		case "block":
+		menu.style.display = "none";
+		break;
+		default:
+		menu.style.display = "block";
+		break;
+	}
+	
 
 }
