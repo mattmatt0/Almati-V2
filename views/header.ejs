@@ -2,6 +2,7 @@
 <link rel = "stylesheet" href = "css/dark/header.css">
 <script type="text/javascript" src="js/header.js"></script>
 <META CHARSET="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" >
 <link href="https://fonts.googleapis.com/css?family=Dosis|Raleway" rel="stylesheet"> 
 
 <!-- Le header en lui-même -->
@@ -14,6 +15,12 @@
 		<a href = "/learn"><h2> Tutos & Cours </h2></a>
 		<a href = "/forum"><h2> Forum </h2></a>
 	</div>
+	<img onclick="showMenu()" class  = "menuButton" src ="images/menu.png">
 	<script>colorHeader()</script>
-	
 </header>
+<div id = "menu">
+<a onclick="connect()">
+	<h2 style = "background-color:#90D"> Se connecter </h2></a>
+	<a href = "/learn"><h2 style = "background-color:blue"> Tutos & Cours </h2></a>
+	<a href = "/forum"><h2 style = "background-color:#0CF"> Forum </h2></a>
+</div>	

@@ -11,10 +11,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
     res.render('main.ejs');
-    res.cookie(C)
-});
-app.get('/login', function(req, res) {
-    res.render('login.ejs');
+    // res.cookie(C)
 });
 
 // If 404:

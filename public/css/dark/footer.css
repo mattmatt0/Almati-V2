@@ -1,0 +1,16 @@
+footer
+{
+	color:white;
+	display:flex;
+	padding:10px;
+	
+}
+footer table
+{
+	margin-left:50px;
+}
+footer a
+{
+	text-decoration:none;
+	color:#0F2;
+}

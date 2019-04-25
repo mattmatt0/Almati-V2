@@ -1,0 +1,48 @@
+.header
+{
+	background-color: #000;
+	padding-left: 1%;
+	padding-right: 0%;
+
+	height:80px;
+}
+.header .options
+{
+	float:right;
+	height:78px;
+	display:flex;
+	
+	
+	margin:0px;
+}
+.header .options>*
+{
+	height:100%;
+	color:#00EDFF;
+	background:#002a2d;
+	border-bottom:2px solid #00EDFF;
+	transition-duration: 1s;
+}
+.header .options div:hover
+{
+	background: #00EDFF;
+	color:#FFF;
+}
+
+h2
+{
+	margin-left:10px;
+	margin-right:10px;
+}
+body
+{
+	margin:0px;
+	background-color: #111;
+	font-family: 'Dosis';
+}
+h1
+{
+	margin-left:10px;
+	color: #0AF;
+	float:left;
+}

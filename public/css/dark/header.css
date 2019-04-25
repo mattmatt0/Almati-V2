@@ -67,9 +67,37 @@ h1
 {
 	background-color:#FF0;
 }
-@media screen and (max-width: 500px)
+.menuButton
+{
+	width:60px;
+	height:60px;
+	margin:10px;
+	float:right;
+	display:none;
+}
+#menu
+{
+	display:none;
+}
+@media screen and (max-width: 700px)
 {
   .header a {
     display:none;
   }
+  .menuButton
+  {
+  	display:inline-block;
+  }
+}
+#menu a
+{
+	height:100%;
+	text-decoration:none;
+	margin:0px;
+}
+#menu h2
+{
+	padding:10px;
+	
+	color:white;
 }
