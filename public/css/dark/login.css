@@ -13,14 +13,15 @@
 {
 	background-color:#222;
 	position:fixed;
-	top:10%;
+	top:50%;
+  	transform: translate(0px, -50%);
 	left:30%;
 	width:40%;
-	height:80%;
+	padding:10px;
 	display:flex;
 	flex-direction:column;
 	box-shadow: 0px 0px 5px 5px #111;
-	overflow-y:scroll;
+
 }
 .loginForm p
 {
@@ -62,6 +63,17 @@
 }
 #logout img
 {
-	width:50px;
-	height:50px;
+	width:40px;
+	height:40px;
+	text-align:center;
+	margin-top:10px;
+	margin-right:10px;
+}
+@media screen and (max-width: 700px)
+{
+  .loginForm
+  {
+    width:100%;
+    left:0px;
+  }
 }
