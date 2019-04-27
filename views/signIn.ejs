@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sign In</title>
+	<link rel="stylesheet" href="<%=url%>css/dark/main.css">
+	<link rel="stylesheet" href="<%=url%>css/dark/login.css">
+</head>
+<body>
+	<% include header.ejs%>
+	
+	<section class = "signIn">
+		<div id = "signInMask">
+			<div class ="signinForm form">
+				<h1>Créer un conte</h1>
+				<form>
+					<label for="pseudo">Pseudo:</label><br/>
+					<input type="text" name="pseudo"><br/>
+					<label for="email">Email:</label><br/>
+					<input type="email" name="email"><br/>
+					<label for="password">Mot de passe:</label><br/>
+					<input type="password" name="password"><br/>
+					<label for="passwordConf">Confirmer le mot de passe:</label><br/>
+					<input type="password" name="passwordConf"><br/>
+					<input type="submit" name="submit">
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<% include footer.ejs%>
+</body>
+</html>

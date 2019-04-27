@@ -9,6 +9,14 @@
 	padding:5px;
 	display:none;
 }
+#signInMask
+{
+	width:100%;
+	height:100%;
+	background-color:rgba(0,0,0,0.5);
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
 .loginForm
 {
 	background-color:#222;
@@ -21,13 +29,28 @@
 	display:flex;
 	flex-direction:column;
 	box-shadow: 0px 0px 5px 5px #111;
-
+	align-items: center;
 }
-.loginForm p
+.signinForm
+{
+	background-color:#222;
+	width:40%;
+	padding:10px;
+	display:flex;
+	flex-direction:column;
+	box-shadow: 0px 0px 5px 5px #111;
+	align-items: center;
+	margin-top:10px;
+	margin-bottom: 10px;
+	margin-right: auto;
+	margin-left:auto;
+}
+.form p, label
 {
 	margin:5px;
+	color: white;
 }
-.loginForm input
+.form input
 {
 	background-color:black;
 	border:1px solid #0AF;
@@ -38,6 +61,20 @@
 	padding:10px;
 	font-size:30px;
 	font-family: 'Dosis';
+	display: block;
+}
+.form input[type="submit"]
+{
+	padding-top: 0;
+	margin-right: auto;
+	margin-left:auto;
+	cursor: pointer;
+	transition-duration: 0.5s;
+}
+.form input[type="submit"]:hover
+{
+	background: white;
+	color: #0AF;
 }
 #blurred
 {
@@ -54,12 +91,14 @@
 }
 #logout
 {
-	float:right;
-	width:50px;
-	height:50px;
+	display: block;
+	margin-left: auto;
+	margin-right: 5px;
+	width:45px;
+	height:45px;
 	background-color:#222;
 	border:none;
-	margin-right:10px;
+	cursor: pointer;
 }
 #logout img
 {
@@ -71,9 +110,10 @@
 }
 @media screen and (max-width: 700px)
 {
-  .loginForm
+  .form
   {
-    width:100%;
-    left:0px;
+    width:96%;
+    left:5px;
+    padding: 0;
   }
 }

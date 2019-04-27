@@ -3,14 +3,16 @@
 
 <div id = "loginMask">
 	<!-- Le masque -->
-	<div class ="loginForm">
-		<div><h1> Se connecter</h1>
-			<button onclick = "hideConnectMenu()" id = "logout"><img src="<%=url%>images/close.png"/></button>
-		</div>
-		<p>Nom d'utilisateur</p>
-			<input id="username" type="text" name="name">
-		<p>Mot de passe</p>
-			<input id="password" type="password" name="name">
+	<div class ="loginForm form">
+		<button onclick = "hideConnectMenu()" id = "logout"><img src="<%=url%>images/close.png"/></button>
+		<h1> Se connecter</h1>
+		<form>
+		<label for="username">Nom d'utilisateur:</label><br/>
+		<input id="username" type="text" name="username"><br/>
+		<label for="password">Mot de passe:</label><br/>
+		<input id="password" type="password" name="password"><br/>
+		<input type="submit" name="submit" style="margin-left: auto; margin-right: auto; display: block;">
+		</form>
 		<div class = "options">
 			<a href = "<%=url%>user/signUp"> Créer un compte </a> | <a href = "<%=url%>user/motDePasseOublie"> Mot de passe oublié?</a>
 		</div>

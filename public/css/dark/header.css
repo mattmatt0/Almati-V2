@@ -21,6 +21,7 @@
 	background:#002a2d;
 	border-bottom:2px solid #00EDFF;
 	transition-duration: 1s;
+	cursor: pointer;
 }
 .header a
 {

@@ -4,7 +4,7 @@ body
 {
 	height:100%;
 }
-section
+.presentation
 {
 	margin:0px;
 	padding-top:40vh;
@@ -51,6 +51,11 @@ mark
 {
 	background: url(../../images/parallax1.png) no-repeat center fixed; 
 	background-size:cover;
+}
+.signIn
+{
+	background: url("../../images/parallax3.png") no-repeat center fixed;
+	background-size: cover;
 }
 p
 {
