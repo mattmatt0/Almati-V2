@@ -33,6 +33,7 @@ function hideConnectMenu()
 	mask.style.display = "none";
 	blurred.style.filter = "none";
 }
+
 function switchMenu()
 {
 	var menu = document.getElementById("menu");
