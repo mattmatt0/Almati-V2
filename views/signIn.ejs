@@ -15,19 +15,43 @@
 				<h1>Créer un conte</h1>
 				<form>
 					<label for="pseudo">Pseudo:</label><br/>
-					<input type="text" name="pseudo"><br/>
+					<div class="tooltip">
+						<input type="text" name="pseudo" id="pseudo">
+						<div class="bottom" id="pseudoTooltip">
+							<p>Le pseudo doit faire plus de <strong>2</strong> caratères et mois de <strong>15</strong> caratères</p>
+							<i></i>
+						</div>
+					</div><br/>
 					<label for="email">Email:</label><br/>
-					<input type="email" name="email"><br/>
+					<div class="tooltip">
+						<input type="email" name="email">
+						<div class="bottom" id="emailTooltip">
+							<p>Veuillez saisir un email valide</p>
+							<i></i>
+						</div>
+					</div><br/>
 					<label for="password">Mot de passe:</label><br/>
-					<input type="password" name="password"><br/>
+					<div class="tooltip">
+						<input type="password" name="password">
+						<div class="bottom" id="passwordTooltip">
+							<p></p>
+							<i></i>
+						</div>
+					</div><br/>
 					<label for="passwordConf">Confirmer le mot de passe:</label><br/>
-					<input type="password" name="passwordConf"><br/>
+					<div class="tooltip">
+						<input type="password" name="passwordConf">
+						<div class="bottom" id="passwordConfTolltip">
+							<p>Les mots de passes ne correspondent pas</p>
+							<i></i>
+						</div>
+					</div><br/>
 					<input type="submit" name="submit">
 				</form>
 			</div>
 		</div>
 	</section>
-
+	<script type="text/javascript" src="<%=url%>js/signIn.js"></script>
 	<% include footer.ejs%>
 </body>
 </html>
