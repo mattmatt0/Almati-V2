@@ -9,6 +9,14 @@
 	padding:5px;
 	display:none;
 }
+#blurred:target
+{
+	filter: blur(5px);
+}
+#blurred:target ~ #loginMask
+{
+	display: block;
+}
 #signInMask
 {
 	width:100%;

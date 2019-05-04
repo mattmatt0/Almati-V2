@@ -18,21 +18,6 @@ function hideNews()
 	var newsPannel = document.getElementsByClassName("news")[0] // Where the news are displayed
 	newsPannel.style.display = "none";
 }
-function connect()
-{
-	var mask = document.getElementById("loginMask");
-	var blurred = document.getElementById("blurred");
-	mask.style.display = "block";
-	blurred.style.filter = "blur(5px)";
-
-}
-function hideConnectMenu()
-{
-	var mask = document.getElementById("loginMask");
-	var blurred = document.getElementById("blurred");
-	mask.style.display = "none";
-	blurred.style.filter = "none";
-}
 
 function switchMenu()
 {

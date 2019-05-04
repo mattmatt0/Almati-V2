@@ -73,7 +73,13 @@ h1
 	height:50px;
 	margin:15px;
 	float:right;
-	display:none;
+	display: none;
+}
+.linkMenuButton
+{
+  	display: block;
+  	margin-left: auto;
+    margin-right: none;
 }
 #menuContainer
 {
@@ -85,20 +91,6 @@ h1
 	padding:0px;
 	margin:0px;
 }
-@media screen and (max-width: 700px)
-{
-  .header a {
-    display:none;
-  }
-  .menuButton
-  {
-  	display:inline-block;
-  }
-  #menuContainer
-  {
-  	display:block;
-  }
-}
 #menu a
 {
 	height:100%;
@@ -109,6 +101,24 @@ h1
 #menu h2
 {
 	padding:10px;
-	
 	color:white;
+}
+
+@media screen and (max-width: 700px)
+{
+  .header .responsive{
+    display:none;
+  }
+  .menuButton
+  {
+  	display:inline-block;
+  }
+  #menuContainer
+  {
+  	display:block;
+  }
+  #menu:target
+  {
+  	display: block;
+  }
 }
