@@ -29,6 +29,18 @@
 	width:200px;
 	text-align:center;
 }
+#connectA
+{
+	filter: hue-rotate(0deg);
+}
+#tutoA
+{
+	filter: hue-rotate(-60deg);
+}
+#forumA
+{
+	filter: hue-rotate(-120deg);
+}
 .news
 {
 	margin:0px;
@@ -116,9 +128,8 @@ h1
   #menuContainer
   {
   	display:block;
-  }
-  #menu:target
-  {
-  	display: block;
+  	position: absolute;
+  	width: 100%;
+  	background: #111111FF;
   }
 }
