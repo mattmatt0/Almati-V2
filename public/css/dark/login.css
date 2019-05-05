@@ -8,6 +8,7 @@
 	position:fixed;
 	padding:5px;
 	display:none;
+	z-index: 9999999999999999999;
 }
 #blurred:target
 {
@@ -60,6 +61,7 @@
 }
 .form input
 {
+	z-index: 0;
 	background-color:black;
 	border:1px solid #0AF;
 	height:40px;
@@ -116,15 +118,7 @@
 	margin-top:10px;
 	margin-right:10px;
 }
-@media screen and (max-width: 700px)
-{
-  .form
-  {
-    width:96%;
-    left:5px;
-    padding: 0;
-  }
-}
+
 
 .tooltip {
     display:inline-block;
@@ -144,7 +138,7 @@
     font-size:13px;
     border-radius:8px;
     position:absolute;
-    z-index:99999999;
+    z-index:999999999;
     box-sizing:border-box;
     border:1px solid #222;box-shadow:0 1px 8px rgba(0,0,0,0.5);
     display:none;
@@ -169,4 +163,19 @@
     transform:translate(-50%,50%) rotate(45deg);
     background-color:#0FF;
     border:1px solid #222;box-shadow:0 1px 8px rgba(0,0,0,0.5);
+}
+#javascript
+{
+	color: red;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 700px)
+{
+  .form
+  {
+    width:96%;
+    left:5px;
+    padding: 0;
+  }
 }

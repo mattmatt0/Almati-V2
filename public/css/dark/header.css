@@ -5,7 +5,7 @@
 	padding-right: 0%;
 	height:80px;
 }
-.header .options
+.header>.options
 {
 	float:right;
 	height:78px;
@@ -14,7 +14,7 @@
 	
 	margin:0px;
 }
-.header .options>*
+.header>.options>*
 {
 	height:100%;
 	color:#00EDFF;
@@ -22,9 +22,6 @@
 	border-bottom:2px solid #00EDFF;
 	transition-duration: 1s;
 	cursor: pointer;
-}
-.header a
-{
 	text-decoration: none;
 	width:200px;
 	text-align:center;
@@ -52,7 +49,7 @@
 {
 	float:right;
 }
-.header .options a:hover
+.header>.options>a:hover
 {
 	background: #00EDFF;
 	color:#FFF;
@@ -125,11 +122,32 @@ h1
   {
   	display:inline-block;
   }
+  .hideMenu
+  {
+  	display: none;
+  }
+  #menuContainer:target
+  {
+  	display: block;
+  }
+  #menuContainer:target ~ .linkMenuButton>.hideMenu
+  {
+  	display: inline-block;
+  }
+  #menuContainer:target ~ .linkMenuButton>.showMenu
+  {
+  	display: none;
+  }
   #menuContainer
   {
-  	display:block;
-  	position: absolute;
+  	position: fixed;
   	width: 100%;
   	background: #111111FF;
+  	top:80px;
+  	z-index: 999999;
+  }
+  #menu
+  {
+  	display: block;
   }
 }
