@@ -112,7 +112,10 @@ h1
 	padding:10px;
 	color:white;
 }
-
+#showMenu
+{
+	display: none;
+}
 @media screen and (max-width: 700px)
 {
   .header .responsive{
@@ -122,28 +125,18 @@ h1
   {
   	display:inline-block;
   }
-  .hideMenu
-  {
-  	display: none;
-  }
-  #menuContainer:target
+  #showMenu:checked ~ #menuContainer
   {
   	display: block;
   }
-  #menuContainer:target ~ .linkMenuButton>.hideMenu
-  {
-  	display: inline-block;
-  }
-  #menuContainer:target ~ .linkMenuButton>.showMenu
-  {
-  	display: none;
-  }
   #menuContainer
   {
-  	position: fixed;
-  	width: 100%;
+  	position: relative;
+  	width: 101%;
   	background: #111111FF;
-  	top:80px;
+  	top:100%;
+  	left:-1%;
+  	padding-top: 5px;
   	z-index: 999999;
   }
   #menu

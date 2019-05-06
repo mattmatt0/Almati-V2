@@ -16,6 +16,10 @@
 		<a href = "<%=url%>cours" class="responsive" id="tutoA"><h2> Tutos & Cours </h2></a>
 		<a href = "<%=url%>communaute/forum" class="responsive" id="forumA"><h2> Forum </h2></a>
 	</div>
+	<input type="checkbox" name="showMenu" id="showMenu">
+	<label class="linkMenuButton" for="showMenu">
+		<img src ="<%=url%>images/menu.png" class ="menuButton">
+	</label>
 	<div id = "menuContainer">
 		<div id = "menu">
 			<a href="#blurred">
@@ -24,11 +28,5 @@
 			<a href = "<%=url%>forum"><h2 style = "background-color:#0CF"> Forum </h2></a>
 		</div>
 	</div>
-	<a class="linkMenuButton" href="#">
-		<img src ="<%=url%>images/menu.png" class ="menuButton hideMenu">
-	</a>
-	<a class="linkMenuButton" href="#menuContainer">
-		<img src ="<%=url%>images/menu.png" class ="menuButton showMenu">
-	</a>
 </header>
 

@@ -54,6 +54,10 @@
 	margin-right: auto;
 	margin-left:auto;
 }
+#signin
+{
+	margin-bottom: auto;
+}
 .form p, label
 {
 	margin:5px;
