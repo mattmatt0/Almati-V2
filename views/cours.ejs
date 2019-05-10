@@ -2,49 +2,19 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>Sign In</title>
-	<link rel="stylesheet" href="<%=url%>css/dark/main.css">
+	<title>Tutos et cours - Almati</title>
+    <link rel="stylesheet" href="<%=url%>css/dark/cours.css">
 	<link rel="stylesheet" href="<%=url%>css/dark/login.css">
 </head>
 <body>
 	<% include header.ejs%>
-	
-	<section class = "signIn">
-		<div id = "signInMask">
-			<div class ="signinForm form">
-				<h1>Créer un compte</h1>
-				<form>
-
-					<label for="email">Email:</label><br/>
-					<div class="tooltip">
-						<input type="email" name="email">
-						<div class="bottom" id="emailTooltip">
-							<p>Veuillez saisir un email valide</p>
-							<i></i>
-						</div>
-					</div><br/>
-					<label for="password">Mot de passe:</label><br/>
-					<div class="tooltip">
-						<input type="password" name="password">
-						<div class="bottom" id="passwordTooltip">
-							<p></p>
-							<i></i>
-						</div>
-					</div><br/>
-					<label for="passwordConf">Confirmer le mot de passe:</label><br/>
-					<div class="tooltip">
-						<input type="password" name="passwordConf">
-						<div class="bottom" id="passwordConfTolltip">
-							<p>Les mots de passes ne correspondent pas</p>
-							<i></i>
-						</div>
-					</div><br/>
-					<input type="submit" name="submit">
-				</form>
-			</div>
-		</div>
-	</section>
-	<script type="text/javascript" src="<%=url%>js/signIn.js"></script>
-	<% include footer.ejs%>
+    <div id = "presentation">
+        <h3> Tutoriaux & cours</h3>
+        <p> Sur cette page vous pouvez accéder aux tutoriaux et aux cours. Les cours sont constitués de plusieurs pages et vous permettent d'acquérir de nouvelles compétences, tandis que les tutos vous permettent de faire quelque chose, sans se préoccuper de retenir.</p>
+    </div>
+    <div class="liste_cours">
+        <% include liste_cours.ejs %>
+    </div>
+    <% include footer.ejs%>
 </body>
 </html>

@@ -1,0 +1,25 @@
+.front
+{
+    background: url(../../images/courseDefaultBackground.png) no-repeat center;
+    background-size:cover;
+    flex-direction:column-reverse; 
+    display:flex;
+    text-align:center;
+}
+/* tom and mat divs */
+#tom , #mat
+{
+    flex-direction:row;
+    display:flex;
+}
+/* To select all the divs (divs in divs tom & mat)*/
+div>div
+{
+     width:150px;
+    height:225px;
+}
+.title
+{
+    height:75px;
+    background-color: white;
+}

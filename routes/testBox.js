@@ -3,7 +3,7 @@ const route = express.Router();
 
 //in this page we put cours, tuto...
 route.get("",(req,res)=>{
-	res.render('cours.ejs',{url:req.urlForLink})
+    res.render("coursBox",{url:req.urlForLink})
 })
 
 module.exports = route;
