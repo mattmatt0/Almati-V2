@@ -143,4 +143,8 @@ h1
   {
   	display: block;
   }
+  #menu>a>h2
+  {
+	text-align: center;
+  }
 }
