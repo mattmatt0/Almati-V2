@@ -1,25 +1,66 @@
+.courseList
+{
+    display:flex;
+    flex-direction:row;
+}
+.context
+{
+    perspective:800px;
+    perspective-origin:150% 50%;
+}
+.box
+{
+    margin-top:100px;
+    transform-style:preserve-3d;
+    transition-duration:1s;
+    transform-origin:25% 50% 25%;
+    margin-left:200px;
+}
+.front, .side 
+{
+    width:150px;
+    height:250px;
+    position:absolute;
+}
 .front
 {
-    background: url(../../images/courseDefaultBackground.png) no-repeat center;
+    background:url("../../images/courseDefaultBackground.png");
     background-size:cover;
-    flex-direction:column-reverse; 
     display:flex;
+    flex-direction:column-reverse;
+    background-position:bottom;
     text-align:center;
-}
-/* tom and mat divs */
-#tom , #mat
-{
-    flex-direction:row;
-    display:flex;
-}
-/* To select all the divs (divs in divs tom & mat)*/
-div>div
-{
-     width:150px;
-    height:225px;
 }
 .title
 {
-    height:75px;
-    background-color: white;
+    background-color:rgba(255,255,255,0.9);
+}
+.side
+{
+    transition-duration:1s;
+    background-color:#AAA;
+    transform: rotateY(90deg) translateZ(75px) translateX(75px);
+}
+.side p
+{
+    font-size:17px;
+    margin-left:3px;
+}
+.box:hover
+{
+    transform:rotateY(-90deg) translateX(-75px); 
+}
+.box:hover .side
+{
+    background-color:#FFF;
+}
+.top
+{
+    transition-duration:1s;
+    width:150px;
+    height:150px;
+    background:url("../../images/courseDefaultBackground.png");
+    background-size:cover;
+    position:absolute;
+    transform:rotateX(-90deg) translateZ(-75px) translateY(75px);
 }
