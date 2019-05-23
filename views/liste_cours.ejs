@@ -1,31 +1,19 @@
-<!DOCTYPE html>
-<html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<title> Accueil - Almati </title>
-		<link rel="stylesheet" href="<%=url%>css/dark/main.css">
-	</head>
-	<body>
-		<% include header.ejs %>
-		<p class = "news"> Texte aléatoire pour la barre des nouvelles / évènements <a href = "<%=url%>communaute/news">En savoir plus</a> <button onclick = "hideNews()">Fermer</button></p>
-		<section class = "slogan presentation">
-			<h3><mark> Bienvenue sur Almati </mark></h3>
-			<h4> Un site communautaire pour acquérir de nouvelles compétences </h4>
-			
-		</section>
-		<div style = "height:100px"></div>
-		<section class = "community presentation">
-			<h4 class = "title"> Un site fait par la communauté, pour la communauté</h4>
-			<p style = "font-size:20px;text-align:center;"> Sur ce site, vous avez un forum, des tutoriaux et des cours. Le forum est un lieu d'échange entre les utilisateurs. Et les cours ainsi que les tutoriaux sont écrits par la communauté (mais aussi par nous... parfois). De là sort un contenu toujours renouvelé. </p>
-		</section>
-		<div style = "height:100px"></div>
-		<section class = "apprendre presentation">
-			<h4> Découvrir, avec différents formats</h4>
-			<p>
-				Pour les nostalgiques de les bancs de l'école, nous avons les cours. Composés de plusieurs sections, ils contiennent tout ce qui vous est nécessaire pour débuter. Pour un sujet plus précis
-				, vous avez les tutoriels. Plus courts, il  nécessiteront parfois des connaissances préalables.
-			</p>
-		</section>
-	<% include footer.ejs %>
-	</body>
-</html>
+<link rel="stylesheet" href = "<%=url%>css/dark/courseBox.css" >
+
+    <div class = "context">
+        <div class = "box">
+            <div class = "top"></div>
+            <div class = "front"><div class = "title"><h4> Test de cours numéro deux</h4></div></div>
+
+            <div class = "side"><p> Ceci est un texte qui sert à tester la taille du texte que la description du cours peut contenir. Elle doit être assez courte, mais permettre d'accrocher le client... euh non pardon, lecteur. </p></div>
+        </div>
+    </div>
+    <div class = "context">
+        <div class = "box">
+            <div class = "top"></div>
+            <div class = "front"><div class = "title"><h4> Test de cours numéro deux</h4></div></div>
+
+            <div class = "side"><p> Ceci est un texte qui sert à tester la taille du texte que la description du cours peut contenir. Elle doit être assez courte, mais permettre d'accrocher le client... euh non pardon, lecteur. </p></div>
+        </div>
+    </div>
+    <div><div class = "box"></div></div>

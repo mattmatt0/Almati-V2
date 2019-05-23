@@ -2,17 +2,11 @@
 {
     display:flex;
     flex-direction:row;
-    margin-top:250px;
-    overflow-x:scroll;
-    overflow-y:hidden;
-    height:400px;
-    scrollbar-color: white rgba(0,0,0,0) ;
-    scrollbar-width: thin;
 }
 .context
 {
     perspective:800px;
-    perspective-origin:275px 50%;
+    perspective-origin:150% 50%;
 }
 .box
 {
@@ -62,13 +56,16 @@
 {
     background-color:#222;
 }
+#box2:hover #front2
+{
+    transform:rotateY(90deg) translateX(-75px) translateZ(75px);
+}
 .top
 {
-    transform-origin:50% 50%;
     transition-duration:1s;
     width:150px;
     height:150px;
     background-color:#222;
     position:absolute;
-    transform:rotateX(-90deg) translateZ(-75px) translateY(75px);
+    transform:rotateX(-0deg) translateZ(-75px) translateY(75px);
 }

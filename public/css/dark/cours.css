@@ -1,8 +1,23 @@
 h3
 {
     color:white;
+    font-size:5em;
+    text-align:center;
 }
 p
 {
+    text-align:center;
+    font-size:2em;
     color:white;
+}
+body
+{
+    background:url("../../images/backgrounds/courseList.jpg") no-repeat center fixed;
+    background-size:cover;
+}
+.liste_cours
+{
+    margin-top:-300px;
+    position:relativei;
+    padding-bottom:300px;
 }

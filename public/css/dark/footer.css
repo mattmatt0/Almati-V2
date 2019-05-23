@@ -3,7 +3,7 @@ footer
 	color:white;
 	display:flex;
 	padding:10px;
-	
+    background-color:#111;	
 }
 footer table
 {
