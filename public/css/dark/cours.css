@@ -14,10 +14,44 @@ body
 {
     background:url("../../images/backgrounds/courseList.jpg") no-repeat center fixed;
     background-size:cover;
+    overflow-x:hidden
 }
-.liste_cours
+.presentation
 {
-    margin-top:-300px;
-    position:relativei;
-    padding-bottom:300px;
+    width:100%;
+}
+.courseList
+{
+    display:flex;
+    flex-direction:row;
+    overflow-x:scroll;
+    overflow-y:hidden;
+    height:400px;
+    scrollbar-color: white rgba(0,0,0,0) ;
+    scrollbar-width: thin;
+}
+section
+{
+    background-color:rgba(0,0,0,.5)
+}
+#courseSearch
+{
+    background-color:rgba(0,0,0,.5);
+    transition-duration:1s;
+    border:none;
+    color:#FFF;
+    transform-origin:50% 50%;
+    margin-left:50%;
+    transform:translateX(-50%);
+    font-family:'Dosis';
+    margin-bottom:50px;
+    padding:10px;
+    font-size:30px;
+    border-radius:10px;
+    width:10%;
+}
+#courseSearch:focus
+{
+    width:95%;
+    box-shadow: 0px 0px 5px 5px #0AF;
 }

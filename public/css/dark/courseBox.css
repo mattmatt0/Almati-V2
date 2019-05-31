@@ -1,13 +1,7 @@
-.courseList
+h3
 {
-    display:flex;
-    flex-direction:row;
-    margin-top:250px;
-    overflow-x:scroll;
-    overflow-y:hidden;
-    height:400px;
-    scrollbar-color: white rgba(0,0,0,0) ;
-    scrollbar-width: thin;
+    color:white;
+    margin-left:10px;
 }
 .context
 {
@@ -17,10 +11,13 @@
 .box
 {
     margin-top:100px;
+    background-color:rgba(0,255,255,.2);
+    width:150px;
+    height:250px;
     transform-style:preserve-3d;
     transition-duration:1s;
     transform-origin:25% 50% 25%;
-    margin-left:200px;
+    margin-left:75px;
 }
 .front, .side 
 {
@@ -32,10 +29,10 @@
 {
     background:url("../../images/courseDefaultBackground.png");
     background-size:cover;
-    display:flex;
-    flex-direction:column-reverse;
     background-position:bottom;
     text-align:center;
+    display:flex;
+    flex-direction:column-reverse;
 }
 .title
 {
@@ -44,6 +41,7 @@
 }
 .side
 {
+    text-decoration:none;
     transition-duration:1s;
     background-color:#000;
     transform: rotateY(90deg) translateZ(75px) translateX(75px);
@@ -53,10 +51,20 @@
     font-size:17px;
     margin-left:3px;
     color:white;
+    text-overflow: ellipsis;
+    height:130px;
+}
+.side a
+{
+    text-decoration:none;
+    color:#0AF;
+    width:100%;
+    height:20px;
+    flex-direction:reverse;
 }
 .box:hover
 {
-    transform:rotateY(-90deg) translateX(-75px); 
+    transform:rotateY(-90deg) translateX(-75px) translateZ(75px); 
 }
 .box:hover .side
 {
