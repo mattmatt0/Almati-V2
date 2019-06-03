@@ -26,7 +26,7 @@ app.use((req,res,next)=>{
 	if (url != "/favicon.ico" && url != "/")
 	{
 
-		nb = url.split("/").length-1
+		nb = url.split("/").length-1 //get nuber of slashes
 
 		for (var i = 0; i < nb; i++) {
 			urlForLink += "../"
@@ -34,7 +34,6 @@ app.use((req,res,next)=>{
         }
 
     }
-
 	req.urlForLink = urlForLink
 	next()
 
