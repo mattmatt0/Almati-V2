@@ -6,4 +6,7 @@ route.get("",(req,res)=>{
 	res.render('cours.ejs',{url:req.urlForLink})
 })
 
+route.get("/template",(req,res)=>{
+	res.render('template_cours.ejs',{url:req.urlForLink})
+})
 module.exports = route;
