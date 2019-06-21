@@ -1,31 +1,31 @@
 .partie
-    {
-        width:80%;
-        margin-left: 10%;
-    }
-    .partie>input[type="checkbox"]
-    {
-        width:100%;
-        position: absolute;
-        opacity: 0;
-    }
-    .partie article
-    {
+{
+    width:80%;
+    margin-left: 10%;
+}
+.partie>input[type="checkbox"]
+{
+    width:100%;
+    position: absolute;
+    opacity: 0;
+}
+.partie article
+{
 
-    }
-    .partie>input[type="checkbox"]:checked ~ article
-    {
-        /* opacity: 0; */
-        /* height:0px; */
-        display: none;
-    }
-    .partie h2::after
-    {
-        content: "↓";
-        margin-left: 5px;
-        transition-duration: 2s;
-    }
-    .partie>input[type="checkbox"]:checked + h2::after
-    {
-        content: "↑";
-    }
+}
+.partie>input[type="checkbox"]:checked ~ article
+{
+    /* opacity: 0; */
+    /* height:0px; */
+    display: none;
+}
+.partie h2::after
+{
+    content: "↓";
+    margin-left: 5px;
+    transition-duration: 2s;
+}
+.partie>input[type="checkbox"]:checked + h2::after
+{
+    content: "↑";
+}
