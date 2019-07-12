@@ -1,23 +1,23 @@
 .partTitle, h4
 {
     text-align:center;
-    color:black;
+    color:white;
     float:none;
 }
 p
 {
-    color:black;
+    color:#EEE;
     font-size:20px;
 }
 h3
 {
-    color:black;
+    color:white;
     font-size:30px;
     border-bottom:1px solid black;
 }
 h5
 {
-    color:black;
+    color:white;
     font-size:25px;
 }
 .line
@@ -81,9 +81,21 @@ section
 }
 article
 {
-    background: #8E8D8D;
+    background: #111;
     margin-left: 10%;
     margin-right:10%;
     padding-left: 10px;
     padding-right: 10px;
+}
+li::before 
+{ 
+    content: "•"; color: white;
+    display: inline-block; width: 1em;
+    margin-left: -1em;
+}
+ul
+{
+    font-size:20px;
+    list-style:none;
+    color:white;
 }
