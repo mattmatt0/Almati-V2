@@ -1,4 +1,5 @@
 # Almati-V2
-Site web Almati
-Ce site web est un site web qui a pour but de permetre a tout le monde de pouvoir partager ses conaissances avec les autres.
+Ceci est le code source du site web Almati.
+Almati est un site web libre sur lequel les utilisateurs peuvent partager leurs connaîssances en créant des cours, des tutoriaux ou grâce au forum. 
 
+Le site est essentiellement pensé pour l'informatique, mais tout sujet scientifique est intéressant.
