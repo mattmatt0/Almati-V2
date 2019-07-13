@@ -9,4 +9,7 @@ route.get("",(req,res)=>{
 route.get("/template",(req,res)=>{
 	res.render('template_cours.ejs',{url:req.urlForLink})
 })
+route.get("/editor",(req,res)=>{
+    res.render('wysiwyg.ejs',{url:req.urlForLink})
+})
 module.exports = route;
