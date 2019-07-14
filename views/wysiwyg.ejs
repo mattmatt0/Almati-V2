@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="<%=url%>css/dark/wysiwyg.css">
-<div class = "menuBar">
+<meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=2.0" />
+<div id = "menuBar">
     <button onclick = "setBold()">B</button>
     <button onclick = "setItalic()">I</button>
     <button onclick = "setUnderlined()">U</button>
@@ -8,10 +9,14 @@
         <option>Titre de section</option>    
         <option>Titre de sous-section</option>    
     </select>
-    <button style = "float:right">🤔</button>
+    <button onclick = "toogleSmiley()" id = "smiley" style = "float:right">🤔</button>
     <button onclick = "code()" style = "float:right" ></button>
     <button onclick = "note()" style = "float:right" ></button>
 
 </div>
-<div class = "content" contentEditable = true>
+<div id = "content" contentEditable = true>
 </div>
+<div id = "smileyBoard">
+    <%for(i=0;i<79;++i){%><button onclick = "insertSmiley(this)"><%=String.fromCharCode(55357) + String.fromCharCode(56832 + i)%></button><%}%></div>
+
+<script src = "<%=url%>js/wysiwyg.js"></script>
