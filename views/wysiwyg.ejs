@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="<%=url%>css/dark/wysiwyg.css">
+<%include include.ejs%>
 <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=2.0" />
 <div id = "menuBar">
     <button onclick = "setBold()">B</button>
@@ -10,13 +11,31 @@
         <option>Titre de sous-section</option>    
     </select>
     <button onclick = "toogleSmiley()" id = "smiley" style = "float:right">🤔</button>
-    <button onclick = "code()" style = "float:right" ></button>
-    <button onclick = "note()" style = "float:right" ></button>
+    <button onclick = "code()" id = "code" style = "float:right" ></button>
+    <button onclick = "note()" id = "note" style = "float:right" ></button>
 
 </div>
 <div id = "content" contentEditable = true>
 </div>
 <div id = "smileyBoard">
     <%for(i=0;i<79;++i){%><button onclick = "insertSmiley(this)"><%=String.fromCharCode(55357) + String.fromCharCode(56832 + i)%></button><%}%></div>
-
+<div id = "codeDialog" class = "window">
+    <div class = "title">
+        <p>Insérer du code</p>
+        <button class = "windowsOptions" onclick = "hide(this)"></button>
+        <button class = "windowsOptions" onclick = "validate(this)"></button>
+    </div>
+    <table>
+        <tr>
+            <td>Langage</td>
+            <td><input type = "text"></input></td>
+        </tr>
+        <tr><td>Suggestion:</td>
+            <td>[LANGAGE]</td></tr>
+        <tr>
+            <td>Code</td>
+            <td><textarea resizable = "no"></textarea></td>
+        </tr>
+    </table>
+</div>
 <script src = "<%=url%>js/wysiwyg.js"></script>
