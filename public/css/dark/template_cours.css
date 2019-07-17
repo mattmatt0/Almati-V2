@@ -38,7 +38,7 @@ section
     background-color:#2BF;
     min-height:64;
 }
-.info p, .error p, .warning p, .good p
+.info p, .error p, .warning p, .good p, .reset p
 {
     font-weight:900;
     text-shadow:0px 0px 1px #012;
@@ -65,6 +65,11 @@ section
 {
     background-color:#0F0;
     min-height:64;
+}
+.reset
+{
+    min-height:64;
+    background-color:#F0F;
 }
 .pub
 {

@@ -117,7 +117,7 @@ button[onclick = "note()"]
         width:20px;
     }
 }
-#codeDialog
+#codeDialog, #noteDialog
 {
     transition-duration:1s;
     position:fixed;
@@ -190,4 +190,8 @@ select:disabled,select[disabled=""]
 #content[contentEditable="false"]
 {
     background-color:#333 !important;
+}
+#noteDialog
+{
+    overflow-y:scroll;
 }

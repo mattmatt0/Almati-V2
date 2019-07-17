@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="<%=url%>css/dark/wysiwyg.css">
+<link rel="stylesheet" href="<%=url%>css/dark/template_cours.css">
 <%include include.ejs%>
+
 <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=2.0" />
 <div id = "menuBar">
     <button onclick = "setBold()">B</button>
@@ -37,5 +39,17 @@
             <td><textarea resizable = "no"></textarea></td>
         </tr>
     </table>
+</div>
+<div id = "noteDialog">
+    <div class = "title">
+        <button class = "windowsOptions" onclick = "hide(this)"></button>
+        <button class = "windowsOptions" onclick = "validate(this)"></button>
+        <p style = "float:left">Définir ce paragraphe en tant que:</p>
+    </div><br/>
+    <div style = "clear:both" class = "info"><img class = "boxIcon"src = "<%=url%>images/icons/info.png"><p>Information</p></div>
+    <div class = "good"><img class = "boxIcon" src = "<%=url%>images/icons/check.png"><p>Bonne idée / amélioration possible</p></div>
+    <div class = "warning"><img class = "boxIcon" src = "<%=url%>images/icons/warning.png"><p>Avertissement</p></div>
+    <div class = "error"><img class = "boxIcon" src = "<%=url%>images/icons/error.png"><p>Erreur / à ne surtout pas faire</p></div>
+    <div class = "reset"><img class = "boxIcon" src = "<%=url%>images/icons/reset.png"><p>Restaurer un paragraphe normal</p></div>
 </div>
 <script src = "<%=url%>js/wysiwyg.js"></script>
