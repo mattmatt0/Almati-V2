@@ -85,7 +85,7 @@ function enableEverything()
         buttons[i].disabled = false;
     }
     document.getElementsByTagName("select")[0].disabled = false;
-    document.getElementById("smileyBoard").style.filter = ";
+    document.getElementById("smileyBoard").style.filter = "";
 }
 
 function hide(element)
