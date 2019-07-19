@@ -1,3 +1,4 @@
+//dialog box
 toogleSmiley()
 function insertSmiley(button)
 {
@@ -74,6 +75,7 @@ function disableEverything()
     document.getElementsByTagName("select")[0].disabled = true;
     document.getElementById("smileyBoard").style.filter = "blur(10px)";
 }
+
 function enableEverything()
 {
     document.getElementById("content").contentEditable = true;
@@ -101,4 +103,58 @@ function hide(element)
         noteDialog.style.transform = "translateY(100vh) translateX(-50%)";
         enableEverything();
     }
+}
+
+//editor functions
+
+var content = document.getElementById("content")
+var typeText = document.getElementById("typeText")
+/*list of format commands if you want to add command you may add a new button and add command in this list
+of course you must modify css*/
+var listCommand = ["bold","italic","underline"]
+
+textFormat = (format) =>{
+    if (format != undefined && format != "" && format != null)
+    {
+        if (listCommand.indexOf(format) > -1)
+        {
+            //execute the button's command
+            document.execCommand(format,false,"")
+            //set focus on editor
+            content.focus()
+        }
+        else
+        {
+            console.error("commande "+format+" inconue")
+        }
+    }
+    else
+    {
+        console.warn("aucune commande")
+    }
+    buttonUpdate()
+}
+
+buttonUpdate = () =>{
+    //console.log("update")
+    //update the format button's background
+    for (var i = 0; i < listCommand.length; i++) {
+        var buff = listCommand[i]
+        if (document.queryCommandState(buff))
+            document.getElementById(buff).style.backgroundColor = "#0AF"
+        else
+            document.getElementById(buff).style.backgroundColor = "black"
+    }
+}
+content.onclick = buttonUpdate
+content.onkeyup = buttonUpdate
+
+typeText.onchange = () =>{
+    var buf = typeText.selectedOptions[0].value
+
+    document.execCommand("formatBlock",false,buf)
+}
+
+validate = (obj) =>{
+    console.log("validé")
 }

@@ -4,21 +4,21 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=2.0" />
 <div id = "menuBar">
-    <button onclick = "setBold()">B</button>
-    <button onclick = "setItalic()">I</button>
-    <button onclick = "setUnderlined()">U</button>
-    <select>
-        <option>Paragraphe</option>    
-        <option>Titre de section</option>    
-        <option>Titre de sous-section</option>    
+    <button id="bold" onclick = "textFormat('bold')">B</button>
+    <button id="italic" onclick = "textFormat('italic')">I</button>
+    <button id="underline"onclick = "textFormat('underline')">U</button>
+    <select id="typeText">
+        <option value="p">Paragraphe</option>    
+        <option value="h3">Titre de section</option>    
+        <option value="h5">Titre de sous-section</option>    
     </select>
     <button onclick = "toogleSmiley()" id = "smiley" style = "float:right">🤔</button>
     <button onclick = "code()" id = "code" style = "float:right" ></button>
     <button onclick = "note()" id = "note" style = "float:right" ></button>
 
 </div>
-<div id = "content" contentEditable = true>
-</div>
+<article id = "content" class="coursContener" contentEditable = true>
+</article>
 <div id = "smileyBoard">
     <%for(i=0;i<79;++i){%><button onclick = "insertSmiley(this)"><%=String.fromCharCode(55357) + String.fromCharCode(56832 + i)%></button><%}%></div>
 <div id = "codeDialog" class = "window">

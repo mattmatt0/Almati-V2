@@ -52,7 +52,6 @@ button[onclick = "note()"]
     height:calc(100vh - 50px);
     height:-moz-calc(100vh - 50px);
     overflow-y:scroll;
-    width:100%;
     font-family:'Dosis';
     color:white;
     transition-duration:1s;
