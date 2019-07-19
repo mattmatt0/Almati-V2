@@ -150,9 +150,14 @@ content.onclick = buttonUpdate
 content.onkeyup = buttonUpdate
 
 typeText.onchange = () =>{
+    //get the command
     var buf = typeText.selectedOptions[0].value
 
+    //execute the command
     document.execCommand("formatBlock",false,buf)
+
+    //set focus on editor
+    content.focus()
 }
 
 validate = (obj) =>{

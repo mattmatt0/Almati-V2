@@ -1,30 +1,12 @@
 <% include include.ejs %>
 <% include header.ejs %>
+<script src="<%=url%>/js/cours.js"></script>
 <article class="coursContener">
     <h4>Nom du cours (cours UNIQUEMENT) : Linux: entrez dans la matrice!</h4>
     <h1 class = "partTitle">Nom du chapitre / Titre du tutoriel: Utiliser la ligne de commande (partie 1/5) </h1><br/>
     <p>Introduction du chapitre. Exemple: la dernière fois, nous avons vu comment accéder à la ligne de commande sur Linux. Mais à part nous donner l'air d'un "akeur", elle ne nous sert pas à grand chose si l'on ne sait pas s'en servir. C'est pourtant un outil extrêmement puissant, qui permet par exemple de réparer un système, de gérer des fichiers, des services, voire même installer des logiciels! Alors, suivez-moi dans la matrice, c'est parti!</p>
 
-        <script>
-            function toogleSection(element)
-            {
-                var h3 = element.nextElementSibling;
-                var section = h3.nextElementSibling;
-                console.log(section.style.transform);
-                if(section.style.transform != "scaleY(0)")
-                {
-                    section.style.transform = "scaleY(0)";
-                    section.style.height = "0";
-                    h3.innerHTML = "+";
-                }
-                else
-                {
-                    section.style.transform = "scaleY(1)";
-                    section.style.height = "auto";
-                    h3.innerHTML = "-";
-                }
-            }
-        </script>
+        
         <h3 onclick = "toogleSection(this)"> Titre de la section de cours: Première chose: naviguer dans les fichiers</h3>
         <section>
             <p>Une des premières choses que le débutant doit savoir est comment naviguer dans les fichiers. Ici, nous allons voir comment changer de répertoire courant, et comment afficher les fichiers / répertoires qui se trouvent dedans.</p>

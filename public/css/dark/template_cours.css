@@ -14,12 +14,16 @@ h3
     color:white;
     font-size:30px;
     border-bottom:1px solid black;
-    float:left
+    cursor: pointer;
 }
 h3::after
 {
     float:right;
     content: "+";
+    margin-left: auto;
+}
+h3.augm::after{
+    content: "-";
 }
 h5
 {
