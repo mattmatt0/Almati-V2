@@ -61,7 +61,7 @@ function code()
 
 }
 function disableEverything()
-{    
+{
     document.getElementById("content").contentEditable = false;
     buttons = document.getElementsByTagName("button");
     for(i = 0; i<buttons.length; ++i)
@@ -154,13 +154,13 @@ buttonUpdate = () =>{
         selection = window.getSelection()
         if (selection.rangeCount)
         {
-            parent = selection.getRangeAt(0).commonAncestorContainer
-            parent = parent.parentNode
+            _parent = selection.getRangeAt(0).commonAncestorContainer
+            _parent = _parent.parentNode
             //get the parent's type ignoring the balises in listBalise
             while (listBalise.indexOf(parent.nodeName)>-1)
-                parent = parent.parentNode
+                _parent = _parent.parentNode
             //console.log(parent)
-            if (parent.nodeName != "ARTICLE")
+            if (_parent.nodeName != "ARTICLE")
                 typeText.value = parent.nodeName.toLocaleLowerCase()
             else
                 typeText.value = "div"
