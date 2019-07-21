@@ -61,7 +61,7 @@ function code()
 
 }
 function disableEverything()
-{
+{    
     document.getElementById("content").contentEditable = false;
     buttons = document.getElementsByTagName("button");
     for(i = 0; i<buttons.length; ++i)
@@ -113,6 +113,8 @@ var typeText = document.getElementById("typeText")
 of course you must modify css*/
 var listCommand = ["bold","italic","underline"]
 
+//list of balises
+var listBalise = ["I","U","B","SPAN"]
 textFormat = (format) =>{
     if (format != undefined && format != "" && format != null)
     {
@@ -144,6 +146,25 @@ buttonUpdate = () =>{
             document.getElementById(buff).style.backgroundColor = "#0AF"
         else
             document.getElementById(buff).style.backgroundColor = "black"
+    }
+    //update the select
+    var parent, selection
+    if (window.getSelection)
+    {
+        selection = window.getSelection()
+        if (selection.rangeCount)
+        {
+            parent = selection.getRangeAt(0).commonAncestorContainer
+            parent = parent.parentNode
+            //get the parent's type ignoring the balises in listBalise
+            while (listBalise.indexOf(parent.nodeName)>-1)
+                parent = parent.parentNode
+            //console.log(parent)
+            if (parent.nodeName != "ARTICLE")
+                typeText.value = parent.nodeName.toLocaleLowerCase()
+            else
+                typeText.value = "div"
+        }
     }
 }
 content.onclick = buttonUpdate

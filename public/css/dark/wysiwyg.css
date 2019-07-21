@@ -60,6 +60,7 @@ button[onclick = "note()"]
 {
     transition-duration:1s;
     transform:translateY(-100%);
+    /*display: none;*/
     background-color:#222;
     max-height:25vh;
     overflow-y:scroll;
