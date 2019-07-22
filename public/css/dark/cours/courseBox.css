@@ -27,7 +27,7 @@ h3
 }
 .front
 {
-    background:url("../../images/courseDefaultBackground.png");
+    background:url("../../../images/courseBackgrounds/courseDefaultBackground.png");
     background-size:cover;
     background-position:bottom;
     text-align:center;

@@ -42,7 +42,7 @@ app.use((req,res,next)=>{
 
 //main route
 app.get('', function(req, res) {
-    res.render('main.ejs',{url:req.urlForLink})
+    res.render('common/main.ejs',{url:req.urlForLink})
 
 });
 
