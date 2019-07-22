@@ -48,7 +48,7 @@ section
     background-color:#2BF;
     min-height:64;
 }
-.info p, .error p, .warning p, .good p, .reset p
+.tips p
 {
     font-weight:900;
     text-shadow:0px 0px 1px #012;

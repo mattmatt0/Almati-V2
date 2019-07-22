@@ -161,6 +161,11 @@ hr
     color:white;
     font-family:'Dosis';
 }
+#noteDialog>.title
+{
+    top: 1px;
+    background: black;
+}
 .title p
 {
     float:left;

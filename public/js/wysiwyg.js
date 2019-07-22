@@ -1,3 +1,8 @@
+//save the parent into this before click on button
+var parentBuff = 0
+
+//save the selected text into this before click on button
+var textBuff = ""
 //dialog box
 toogleSmiley()
 function insertSmiley(button)
@@ -23,6 +28,8 @@ function toogleSmiley()
 
 function note()
 {
+    parentBuff = getParent()
+    textBuff = getTextSelection()
     var noteDialog = document.getElementById("noteDialog");
     var noteButton = document.getElementById("note");
     if(noteButton.style.backgroundColor === "black")
@@ -68,10 +75,11 @@ function disableEverything()
     {
         buttons[i].disabled = true;
     }
-    document.getElementsByClassName("windowsOptions")[0].disabled = false;
-    document.getElementsByClassName("windowsOptions")[1].disabled = false;
-    document.getElementsByClassName("windowsOptions")[2].disabled = false;
-    document.getElementsByClassName("windowsOptions")[3].disabled = false;
+    options = document.getElementsByClassName("windowsOptions")
+
+    for (var i = 0; i < options.length; i++) {
+        options[i].disabled = false;
+    }
     document.getElementsByTagName("select")[0].disabled = true;
     document.getElementById("smileyBoard").style.filter = "blur(10px)";
 }
@@ -115,6 +123,8 @@ var listCommand = ["bold","italic","underline"]
 
 //list of balises
 var listBalise = ["I","U","B","SPAN"]
+
+
 textFormat = (format) =>{
     if (format != undefined && format != "" && format != null)
     {
@@ -150,7 +160,11 @@ getParent = () =>{
         }
     }
 }
-
+getTextSelection = () =>{
+    textSelection = window.getSelection()
+    text = textSelection.getRangeAt(0).toString()
+    return text
+}
 buttonUpdate = () =>{
     //console.log("update")
     //update the format button's background
@@ -167,7 +181,13 @@ buttonUpdate = () =>{
     while (listBalise.indexOf(parent.nodeName)>-1)
         parent = parent.parentNode
     //console.log(parent)
-    if (parent.nodeName != "ARTICLE")
+    console.log(parent.nodeName)
+    if (parent.nodeName == "BODY")
+    {
+        /*console.log("undo")*/
+        document.execCommand("undo")
+    }
+    else if (parent.nodeName != "ARTICLE")
         textType.value = parent.nodeName.toLocaleLowerCase()
     else
         textType.value = "div"
@@ -187,6 +207,61 @@ textType.onchange = () =>{
     content.focus()
 }
 
+//list of forbiden parent
+var forbiden = ["ARTICLE","H3","H5"]
 validate = (obj) =>{
-    console.log("validé")
+
+    //if the parent isn't a other tips
+    if (parentBuff.nodeName != "P")
+    {
+        //if the parent isn't in forbiden list
+        if (forbiden.indexOf(parentBuff.nodeName) == -1)
+        {
+            //copy the tips and remove atribute id and onclick
+            var copy = obj.cloneNode(true);
+            copy.removeAttribute("onclick")
+            copy.removeAttribute("id")
+
+            console.log(parentBuff.textContent)
+            if (parentBuff.textContent.length > 1)
+            {
+                copy.children[1].textContent = parentBuff.textContent
+            }
+
+
+            //create div and add it
+            var div = document.createElement("div")
+            div.innerHTML = "&nbsp;"
+            parentBuff.insertAdjacentElement("afterend",div)
+
+            //add copyed typs before div
+            parentBuff.insertAdjacentElement("afterend",copy)
+
+            parentBuff.innerHTML = "&nbsp;"
+            //hide the tips' tab
+            var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
+            hide(tab)
+        }
+        else if (parentBuff.nodeName == "ARTICLE")
+        {
+            alert("Hey tapez du texte avant d'insérer un tips dessuite !")
+        }
+        else
+        {
+            alert("ous ne pensez tout de même pas quue l'on peut metre un tips dans un titre, non mais!")
+        }
+        //content.appendChild(copy)
+    }
+    else if (obj.className == "reset")
+    {
+        var div = document.createElement("div")
+        div.textContent = parentBuff.textContent
+        parentBuff.parentNode.insertAdjacentElement("afterend",div)
+        parentBuff.parentNode.remove()
+
+        var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
+        hide(tab)
+    }
+    else
+        alert("Vous ne pouvez pas mettre un tips a l'interieur d'un autre")
 }
