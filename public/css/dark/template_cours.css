@@ -41,7 +41,7 @@ section
     transform:scaleY(0);
     height:0;
     transition-duration:1s;
-    float:left;
+    width: 100%;
 }
 .info
 {
@@ -97,10 +97,8 @@ section
 article
 {
     background: #111;
-    margin-left: 10%;
-    margin-right:10%;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-left: 5%;
+    margin-right:5%;
 }
 li::before 
 { 

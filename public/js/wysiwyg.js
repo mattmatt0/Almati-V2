@@ -108,7 +108,7 @@ function hide(element)
 //editor functions
 
 var content = document.getElementById("content")
-var typeText = document.getElementById("typeText")
+var textType = document.getElementById("textType")
 /*list of format commands if you want to add command you may add a new button and add command in this list
 of course you must modify css*/
 var listCommand = ["bold","italic","underline"]
@@ -137,6 +137,20 @@ textFormat = (format) =>{
     buttonUpdate()
 }
 
+getParent = () =>{
+    var parent, selection
+    if (window.getSelection)
+    {
+        selection = window.getSelection()
+        if (selection.rangeCount)
+        {
+            parent = selection.getRangeAt(0).commonAncestorContainer
+            parent = parent.parentNode
+            return parent
+        }
+    }
+}
+
 buttonUpdate = () =>{
     //console.log("update")
     //update the format button's background
@@ -148,31 +162,23 @@ buttonUpdate = () =>{
             document.getElementById(buff).style.backgroundColor = "black"
     }
     //update the select
-    var parent, selection
-    if (window.getSelection)
-    {
-        selection = window.getSelection()
-        if (selection.rangeCount)
-        {
-            _parent = selection.getRangeAt(0).commonAncestorContainer
-            _parent = _parent.parentNode
-            //get the parent's type ignoring the balises in listBalise
-            while (listBalise.indexOf(parent.nodeName)>-1)
-                _parent = _parent.parentNode
-            //console.log(parent)
-            if (_parent.nodeName != "ARTICLE")
-                typeText.value = parent.nodeName.toLocaleLowerCase()
-            else
-                typeText.value = "div"
-        }
-    }
+    parent = getParent()
+    //get the parent's type ignoring the balises in listBalise
+    while (listBalise.indexOf(parent.nodeName)>-1)
+        parent = parent.parentNode
+    //console.log(parent)
+    if (parent.nodeName != "ARTICLE")
+        textType.value = parent.nodeName.toLocaleLowerCase()
+    else
+        textType.value = "div"
+    
 }
 content.onclick = buttonUpdate
 content.onkeyup = buttonUpdate
 
-typeText.onchange = () =>{
+textType.onchange = () =>{
     //get the command
-    var buf = typeText.selectedOptions[0].value
+    var buf = textType.selectedOptions[0].value
 
     //execute the command
     document.execCommand("formatBlock",false,buf)
