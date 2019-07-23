@@ -7,7 +7,12 @@ var textBuff = ""
 toogleSmiley()
 function insertSmiley(button)
 {
-    document.getElementById("content").innerHTML += button.innerHTML;
+    //function to insert smiley
+    document.execCommand("insertHTML",false,button.innerHTML)
+
+    //set focus on editor
+    content.focus()
+
 }
 function toogleSmiley()
 {
@@ -126,19 +131,25 @@ var listBalise = ["I","U","B","SPAN"]
 
 
 textFormat = (format) =>{
+    var parent = getParent().nodeName
     if (format != undefined && format != "" && format != null)
     {
-        if (listCommand.indexOf(format) > -1)
+        if (parent != "H3" && parent !="H5")
         {
-            //execute the button's command
-            document.execCommand(format,false,"")
-            //set focus on editor
-            content.focus()
+            if (listCommand.indexOf(format) > -1)
+            {
+                //execute the button's command
+                document.execCommand(format,false,"")
+                //set focus on editor
+                content.focus()
+            }
+            else
+            {
+                console.error("commande "+format+" inconue")
+            }
         }
         else
-        {
-            console.error("commande "+format+" inconue")
-        }
+            console.warn("titres non modifiables !")
     }
     else
     {
@@ -182,16 +193,15 @@ buttonUpdate = () =>{
         parent = parent.parentNode
     //console.log(parent)
     console.log(parent.nodeName)
-    if (parent.nodeName == "BODY")
+    if (parent.nodeName == "P")
+        textType.value = "tips"
+    else if (parent.nodeName == "ARTICLE")
     {
-        /*console.log("undo")*/
-        document.execCommand("undo")
-    }
-    else if (parent.nodeName != "ARTICLE")
-        textType.value = parent.nodeName.toLocaleLowerCase()
-    else
+        document.execCommand("insertHTML",false,"<div>&nbsp;</div>")
         textType.value = "div"
-    
+    }
+    else
+        textType.value = parent.nodeName.toLocaleLowerCase()
 }
 content.onclick = buttonUpdate
 content.onkeyup = buttonUpdate
@@ -199,13 +209,24 @@ content.onkeyup = buttonUpdate
 textType.onchange = () =>{
     //get the command
     var buf = textType.selectedOptions[0].value
+    var parent = getParent().nodeName
 
-    //execute the command
-    document.execCommand("formatBlock",false,buf)
-
+    if (buf == "tips")
+        note()
+    else if (parent != "P")
+    {
+        //execute the command
+        document.execCommand("formatBlock",false,buf)
+    }
+    if (parent == "P")
+    {
+        textType.value = "tips"
+        alert("Vous ne pouvez pas metre de titres dans un tips")
+    }
     //set focus on editor
     content.focus()
 }
+
 
 //list of forbiden parent
 var forbiden = ["ARTICLE","H3","H5"]
