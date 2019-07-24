@@ -14,11 +14,11 @@ function insertSmiley(button)
     content.focus()
 
 }
-function toogleSmiley()
+function toogleSmiley(hide=false)
 {
     var smileyBoard = document.getElementById("smileyBoard");
     var smileyButton = document.getElementById("smiley");
-    if(smileyButton.style.backgroundColor === "black")
+    if(smileyButton.style.backgroundColor === "black" && hide==false)
     {
         smileyBoard.style.transform = "translateY(-100%)";
         smileyButton.style.backgroundColor = "#0AF";
@@ -33,6 +33,7 @@ function toogleSmiley()
 
 function note()
 {
+    toogleSmiley(true)
     parentBuff = getParent()
     textBuff = getTextSelection()
     var noteDialog = document.getElementById("noteDialog");
@@ -55,6 +56,7 @@ function note()
 
 function code()
 {
+    toogleSmiley(true)
     var codeDialog = document.getElementById("codeDialog");
     var codeButton = document.getElementById("code");
     if(codeButton.style.backgroundColor === "black")
@@ -116,6 +118,8 @@ function hide(element)
         noteDialog.style.transform = "translateY(100vh) translateX(-50%)";
         enableEverything();
     }
+    //set focus on editor
+    content.focus()
 }
 
 //editor functions
@@ -136,7 +140,7 @@ textFormat = (format) =>{
     {
         if (parent != "H3" && parent !="H5")
         {
-            if (listCommand.indexOf(format) > -1)
+            if (~ listCommand.indexOf(format))
             {
                 //execute the button's command
                 document.execCommand(format,false,"")
@@ -189,7 +193,7 @@ buttonUpdate = () =>{
     //update the select
     parent = getParent()
     //get the parent's type ignoring the balises in listBalise
-    while (listBalise.indexOf(parent.nodeName)>-1)
+    while (~ listBalise.indexOf(parent.nodeName))
         parent = parent.parentNode
     //console.log(parent)
     console.log(parent.nodeName)
@@ -229,8 +233,12 @@ textType.onchange = () =>{
 
 
 //list of forbiden parent
-var forbiden = ["ARTICLE","H3","H5"]
+var forbiden = ["ARTICLE","H3","H5","BUTTON","NAV","SELECT","BODY","OPTION"]
+
+var tipsType = ["warning tips","error tips","good tips","info tips"]
 validate = (obj) =>{
+    var name = obj.className
+    console.log(name)
 
     //if the parent isn't a other tips
     if (parentBuff.nodeName != "P")
@@ -273,7 +281,7 @@ validate = (obj) =>{
         }
         //content.appendChild(copy)
     }
-    else if (obj.className == "reset")
+    else if (name == "reset")
     {
         var div = document.createElement("div")
         div.textContent = parentBuff.textContent
@@ -283,6 +291,26 @@ validate = (obj) =>{
         var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
         hide(tab)
     }
+    else if (~ tipsType.indexOf(name))
+    {
+        var copy = obj.cloneNode(true);
+        copy.removeAttribute("onclick")
+        copy.removeAttribute("id")
+
+        copy.children[1].textContent = parentBuff.textContent
+
+        parentBuff = parentBuff.parentNode
+
+        parentBuff.insertAdjacentElement("afterend",copy)
+        parentBuff.remove()
+
+        var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
+        hide(tab)
+    }
     else
-        alert("Vous ne pouvez pas mettre un tips a l'interieur d'un autre")
+    {
+        console.warn("Can't place tips in forbiden place")
+        var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
+        hide(tab)
+    }
 }
