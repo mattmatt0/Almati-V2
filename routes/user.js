@@ -6,7 +6,7 @@ route.get("",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{url:req.urlForLink})
 })
 route.get("/signUp",(req,res)=>{
-	res.render("signIn",{url:req.urlForLink})
+	res.render("common/signIn",{url:req.urlForLink})
 })
 route.get("/motDePasseOublie",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{url:req.urlForLink})
