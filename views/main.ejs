@@ -3,12 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title> Accueil - Almati </title>
-		<link rel="stylesheet" href="<%=url%>css/dark/common/main.css">
+		<link rel="stylesheet" href="<%=url%>css/dark/main.css">
 
 		
 	</head>
 	<body>
-		<% include header.ejs %>
+		<% include common/header.ejs %>
 		<p class = "news"> Texte aléatoire pour la barre des nouvelles / évènements <a href = "<%=url%>communaute/news">En savoir plus</a> <button onclick = "hideNews()">Fermer</button></p>
 		<section class = "slogan presentation">
 			<h3><mark> Bienvenue sur Almati </mark></h3>
@@ -28,6 +28,6 @@
 				, vous avez les tutoriels. Plus courts, il  nécessiteront parfois des connaissances préalables.
 			</p>
 		</section>
-	<% include footer.ejs %>
+	<% include common/footer.ejs %>
 	</body>
 </html>

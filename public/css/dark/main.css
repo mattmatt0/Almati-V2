@@ -17,14 +17,14 @@ body
 /* La première image, avec le slogan */
 .slogan
 {
-	background: url(../../../images/backgrounds/parallax0.png) no-repeat center fixed; 
+	background: url(../../images/backgrounds/parallax0.png) no-repeat center fixed; 
 	background-size:cover;
 	
 }
 .community
 {
 	
-	background: url(../../../images/backgrounds/parallax2.png) no-repeat center fixed; 
+	background: url(../../images/backgrounds/parallax2.png) no-repeat center fixed; 
 	background-size:cover;
 	
 	
@@ -49,12 +49,12 @@ mark
 }
 .apprendre
 {
-	background: url(../../../images/backgrounds/parallax1.png) no-repeat center fixed; 
+	background: url(../../images/backgrounds/parallax1.png) no-repeat center fixed; 
 	background-size:cover;
 }
 .signIn
 {
-	background: url("../../../images/backgrounds/parallax3.png") no-repeat center fixed;
+	background: url("../../images/backgrounds/parallax3.png") no-repeat center fixed;
 	background-size: cover;
 }
 p
