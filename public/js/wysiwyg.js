@@ -4,7 +4,7 @@ var parentBuff = 0
 //save the selected text into this before click on button
 var textBuff = ""
 //dialog box
-toogleSmiley()
+//toogleSmiley()
 function insertSmiley(button)
 {
     //function to insert smiley
@@ -18,15 +18,15 @@ function toogleSmiley(hide=false)
 {
     var smileyBoard = document.getElementById("smileyBoard");
     var smileyButton = document.getElementById("smiley");
-    if(smileyButton.style.backgroundColor === "black" && hide==false)
+    if(smileyButton.className === "default" && hide==false)
     {
-        smileyBoard.style.transform = "translateY(-100%)";
-        smileyButton.style.backgroundColor = "#0AF";
+        smileyBoard.className = "show"
+        smileyButton.className = "active"
     }
     else
     {
-        smileyBoard.style.transform = "translateY(0%)";
-        smileyButton.style.backgroundColor = "black";
+        smileyBoard.className = "hide"
+        smileyButton.className = "default"
     }
 
 }
@@ -38,16 +38,16 @@ function note()
     textBuff = getTextSelection()
     var noteDialog = document.getElementById("noteDialog");
     var noteButton = document.getElementById("note");
-    if(noteButton.style.backgroundColor === "black")
+    if(noteButton.className === "default")
     {
-        noteButton.style.backgroundColor = "#0AF";
+        noteButton.className = "active"
         noteDialog.style.transform = "translateY(-50%) translateX(-50%)";
         disableEverything();
         noteButton.disabled = false;
     }
     else
     {
-        noteButton.style.backgroundColor = "black";
+        noteButton.className = "default"
         noteDialog.style.transform = "translateY(100vh) translateX(-50%)";
         enableEverything();
     }
@@ -59,16 +59,16 @@ function code()
     toogleSmiley(true)
     var codeDialog = document.getElementById("codeDialog");
     var codeButton = document.getElementById("code");
-    if(codeButton.style.backgroundColor === "black")
+    if(codeButton.className === "default")
     {
-        codeButton.style.backgroundColor = "#0AF";
+        codeButton.className = "active"
         codeDialog.style.transform = "translateY(-50%) translateX(-50%)";
         disableEverything();
         codeButton.disabled = false;
     }
     else
     {
-        codeButton.style.backgroundColor = "black";
+        codeButton.className = "default"
         codeDialog.style.transform = "translateY(100vh) translateX(-50%)";
         enableEverything();
     }
@@ -186,9 +186,9 @@ buttonUpdate = () =>{
     for (var i = 0; i < listCommand.length; i++) {
         var buff = listCommand[i]
         if (document.queryCommandState(buff))
-            document.getElementById(buff).style.backgroundColor = "#0AF"
+            document.getElementById(buff).className = "active"
         else
-            document.getElementById(buff).style.backgroundColor = "black"
+            document.getElementById(buff).className = "default"
     }
     //update the select
     parent = getParent()
@@ -199,7 +199,7 @@ buttonUpdate = () =>{
     console.log(parent.nodeName)
     if (parent.nodeName == "P")
         textType.value = "tips"
-    else if (parent.nodeName == "ARTICLE")
+    else if ((parent.nodeName == "ARTICLE" || parent.nodeName == "BODY") && getTextSelection() == "")
     {
         document.execCommand("insertHTML",false,"<div>&nbsp;</div>")
         textType.value = "div"
@@ -246,27 +246,30 @@ validate = (obj) =>{
         //if the parent isn't in forbiden list
         if (forbiden.indexOf(parentBuff.nodeName) == -1)
         {
-            //copy the tips and remove atribute id and onclick
-            var copy = obj.cloneNode(true);
-            copy.removeAttribute("onclick")
-            copy.removeAttribute("id")
-
-            console.log(parentBuff.textContent)
-            if (parentBuff.textContent.length > 1)
+            if (name != "reset")
             {
-                copy.children[1].textContent = parentBuff.textContent
+                //copy the tips and remove atribute id and onclick
+                var copy = obj.cloneNode(true);
+                copy.removeAttribute("onclick")
+                copy.removeAttribute("id")
+
+                console.log(parentBuff.textContent)
+                if (parentBuff.textContent.length > 1)
+                {
+                    copy.children[1].textContent = parentBuff.textContent
+                }
+
+
+                //create div and add it
+                var div = document.createElement("div")
+                div.innerHTML = "&nbsp;"
+                parentBuff.insertAdjacentElement("afterend",div)
+
+                //add copyed typs before div
+                parentBuff.insertAdjacentElement("afterend",copy)
+
+                parentBuff.innerHTML = "&nbsp;"
             }
-
-
-            //create div and add it
-            var div = document.createElement("div")
-            div.innerHTML = "&nbsp;"
-            parentBuff.insertAdjacentElement("afterend",div)
-
-            //add copyed typs before div
-            parentBuff.insertAdjacentElement("afterend",copy)
-
-            parentBuff.innerHTML = "&nbsp;"
             //hide the tips' tab
             var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
             hide(tab)
@@ -277,7 +280,7 @@ validate = (obj) =>{
         }
         else
         {
-            alert("ous ne pensez tout de même pas quue l'on peut metre un tips dans un titre, non mais!")
+            alert("vous ne pensez tout de même pas quue l'on peut metre un tips dans un titre, non mais!")
         }
         //content.appendChild(copy)
     }

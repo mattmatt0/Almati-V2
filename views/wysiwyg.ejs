@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=2.0" />
 <nav id = "menuBar">
     <nav id="leftBar">
-    <button id="bold" onclick = "textFormat('bold')">B</button>
-    <button id="italic" onclick = "textFormat('italic')">I</button>
-    <button id="underline"onclick = "textFormat('underline')">U</button>
+    <button id="bold" class="default" onclick = "textFormat('bold')">B</button>
+    <button id="italic" class="default" onclick = "textFormat('italic')">I</button>
+    <button id="underline" class="default" onclick = "textFormat('underline')">U</button>
     
     <select id="textType">
         <option value="div">Paragraphe</option>
@@ -17,10 +17,10 @@
     </select>
     </nav>
     <nav id="rightBar">
-        <button onclick = "code()" id = "code" >&nbsp;
+        <button class="default" onclick = "code()" id = "code" >&nbsp;
         </button>
-        <button onclick = "note()" id = "note">&nbsp;</button>
-        <button onclick = "toogleSmiley()" id = "smiley">🤔</button>
+        <button class="default" onclick = "note()" id = "note">&nbsp;</button>
+        <button class="default" onclick = "toogleSmiley()" id = "smiley">🤔</button>
     </nav>
 
 </nav>
