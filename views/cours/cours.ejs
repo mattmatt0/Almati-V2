@@ -3,12 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tutos et cours - Almati</title>
-    <% include include.ejs %>
-    <link rel="stylesheet" href="<%=url%>css/dark/cours.css">
-	<link rel="stylesheet" href="<%=url%>css/dark/login.css">
+    <link rel="stylesheet" href="<%=url%>css/dark/cours/cours.css">
 </head>
 <body>
-	<% include header.ejs%>
+	<% include ../common/header.ejs%>
     <div id = "presentation">
         <h3> Tutoriaux & cours</h3>
         <p> Sur cette page vous pouvez accéder aux tutoriaux et aux cours. Les cours sont constitués de plusieurs pages et vous permettent d'acquérir de nouvelles compétences, tandis que les tutoriaux vous permettent de faire quelque chose, sans se préoccuper de retenir.</p>
@@ -24,6 +22,6 @@
             </section>
         <%}%>
         
-    <% include footer.ejs%>
+    <% include ../common/footer.ejs%>
 </body>
 </html>

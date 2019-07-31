@@ -12,7 +12,7 @@ route.get("/chat",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{url:req.urlForLink})
 })
 route.get("/forum",(req,res)=>{
-	res.end("C'est pas encore fait ;)",{url:req.urlForLink})
+	res.render('forum/forum.ejs',{url:req.urlForLink})
 })
 route.get("/QuiSommesNous",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{url:req.urlForLink})

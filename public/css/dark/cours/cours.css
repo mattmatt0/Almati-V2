@@ -12,7 +12,7 @@ p
 }
 body
 {
-    background:url("../../images/backgrounds/courseList.jpg") no-repeat center fixed;
+    background:url("../../../images/backgrounds/courseList.jpg") no-repeat center fixed;
     background-size:cover;
     overflow-x:hidden
 }
