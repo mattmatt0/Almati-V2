@@ -52,7 +52,7 @@ app.use("/communaute",communaute)
 app.use("/resources", resources)
 // If 404:
 app.use(function(req, res, next){
-    res.render('404.ejs',{url:req.urlForLink})
+    res.render('common/404.ejs',{url:req.urlForLink})
 });
 
 

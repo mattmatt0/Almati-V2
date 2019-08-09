@@ -94,11 +94,11 @@ section
     margin-right:50%;
     transform:translateX(-50%);
 }
-article
+article.coursContener
 {
     background: #111;
     margin-left: 5%;
-    margin-right:5%;
+    margin-right: 5%;
 }
 li::before 
 { 

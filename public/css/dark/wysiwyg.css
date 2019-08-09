@@ -3,7 +3,6 @@ body,html
     margin:0;
     overflow:hidden
 }
-
 #menuBar
 {
     background-color:#333;
@@ -22,17 +21,27 @@ body,html
 }
 #menuBar button, select
 {
-    
     color:white;
-    background-color:black;
     border:1px solid #111;
     border-radius:5px;
     transition-duration:1s;
     height: 50px;
 }
+#menuBar select
+{
+    background: black;
+}
 #menuBar button
 {
     min-width:50px;
+}
+button.active
+{
+    background-color: #0AF;
+}
+button.default
+{
+    background-color:black;
 }
 #bold
 {
@@ -68,14 +77,47 @@ button[onclick = "note()"]
     color:white;
     transition-duration:1s;
 }
+@keyframes showSmiley
+{
+    from{
+        transform:translateY(0%);
+    }
+    1%{
+        display: block;
+    }
+    to{
+        transform:translateY(-100%);
+    }
+}
+@keyframes hideSmiley
+{
+    from{
+        transform:translateY(-100%);
+    }
+    99%{
+        display: none;
+    }
+    to{
+        transform:translateY(0%);
+    }
+}
 #smileyBoard
 {
-    transition-duration:1s;
-    transform:translateY(-100%);
-    /*display: none;*/
+    animation-duration:1s;
+    transform:translateY(0%);
+    /* display: none; */
     background-color:#222;
     max-height:25vh;
     overflow-y:scroll;
+    animation-fill-mode: forwards;
+}
+div#smileyBoard.hide
+{
+    animation-name: hideSmiley;
+}
+div#smileyBoard.show
+{
+    animation-name: showSmiley;
 }
 #smileyBoard button
 {
