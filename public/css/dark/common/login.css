@@ -32,16 +32,13 @@
 }
 .loginForm
 {
-	background-color:#222;
 	position:fixed;
 	top:50%;
-  	transform: translate(0px, -50%);
-	left:30%;
-	width:40%;
+  	transform: translate(-50%, -50%);
+	left:50%;
 	padding:10px;
 	display:flex;
 	flex-direction:column;
-	box-shadow: 0px 0px 5px 5px #111;
 	align-items: center;
 }
 .signinForm
@@ -70,8 +67,8 @@
 .form input
 {
 	z-index: 0;
-	background-color:black;
-	border:1px solid #0AF;
+	background-color:rgba(96,96,96,.5);
+	border:none;
 	height:40px;
 	margin:5px;
 	border-radius: 10px;
@@ -91,8 +88,8 @@
 }
 .form input[type="submit"]:hover
 {
-	background: white;
-	color: #0AF;
+    box-shadow:0px 0px 10px 10px #0AF;
+    background:#0AF;
 }
 #blurred
 {
@@ -114,7 +111,6 @@
 	margin-right: 5px;
 	width:45px;
 	height:45px;
-	background-color:#222;
 	border:none;
 	cursor: pointer;
 }
@@ -125,6 +121,7 @@
 	text-align:center;
 	margin-top:10px;
 	margin-right:10px;
+    background:none;
 }
 
 
