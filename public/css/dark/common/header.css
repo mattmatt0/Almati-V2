@@ -17,7 +17,6 @@ header>.options
 header>.options>*
 {
 	height:100%;
-	color:#00EDFF;
 	background:#002a2d;
 	border-bottom:2px solid #00EDFF;
 	transition-duration: 1s;
@@ -25,6 +24,10 @@ header>.options>*
 	text-decoration: none;
 	width:200px;
 	text-align:center;
+}
+header>.options>*>h2
+{
+	color:#00EDFF;
 }
 #connectA
 {

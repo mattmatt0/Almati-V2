@@ -10,10 +10,6 @@
 	display:none;
 	z-index: 9999999999999999999;
 }
-.loginForm h1
-{
-    color:white;
-}
 #blurred:target
 {
 	filter: blur(5px);
@@ -32,7 +28,6 @@
 }
 .loginForm
 {
-	background-color:#222;
 	position:fixed;
 	top:50%;
   	transform: translate(0px, -50%);
@@ -41,7 +36,6 @@
 	padding:10px;
 	display:flex;
 	flex-direction:column;
-	box-shadow: 0px 0px 5px 5px #111;
 	align-items: center;
 }
 .signinForm
@@ -67,27 +61,13 @@
 	margin:5px;
 	color: white;
 }
-.form input
-{
-	z-index: 0;
-	background-color:black;
-	border:1px solid #0AF;
-	height:40px;
-	margin:5px;
-	border-radius: 10px;
-	color:white;
-	padding:10px;
-	font-size:30px;
-	font-family: 'Dosis';
-	display: block;
-}
 .form input[type="submit"]
 {
-	padding-top: 0;
 	margin-right: auto;
 	margin-left:auto;
 	cursor: pointer;
 	transition-duration: 0.5s;
+    font-size:20px;
 }
 .form input[type="submit"]:hover
 {
@@ -98,6 +78,7 @@
 {
 	filter:none;
 }
+/* loginForm options, not header */
 .options
 {
 	text-align:center;
@@ -114,7 +95,6 @@
 	margin-right: 5px;
 	width:45px;
 	height:45px;
-	background-color:#222;
 	border:none;
 	cursor: pointer;
 }
