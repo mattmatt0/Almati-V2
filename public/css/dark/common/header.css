@@ -28,6 +28,7 @@ header>.options>*
 header>.options>*>h2
 {
 	color:#00EDFF;
+    transition-duration:1s;
 }
 #connectA
 {
@@ -55,7 +56,10 @@ header>.options>*>h2
 header>.options>a:hover
 {
 	background: #00EDFF;
-	color:#FFF;
+}
+header>.options>a:hover h2
+{
+    color:#FFF;
 }
 
 header>h2
