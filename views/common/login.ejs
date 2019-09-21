@@ -7,8 +7,21 @@
 		<a href="#" id = "logout"><img src="<%=url%>images/dialog/close.png"/></a>
 		<h1> Se connecter</h1>
 		<form>
-		<input id="username" type="text" name="username" placeholder="Nom d'utilisateur"><br/>
-		<input id="password" type="password" name="password" placeholder="Mot de passe"><br/>
+		<label for="pseudo">Pseudo</label>
+		<div class="tooltip">
+			<input type="text" name="pseudo" value="" placeholder="Pseudo" id = "userConnect">
+			<div class="bottom" id="pseudoTooltip">
+				<p>Le pseudo n'existe pas vous pouvez créer un compte <a href="#userAdd">ici</a></p>
+				<i></i>
+			</div>
+		</div>
+		<div class="tooltip">
+			<input id="password" type="password" name="password" placeholder="Mot de passe">
+			<div class="bottom" id="pseudoTooltip">
+				<p>Le mot de passe est invalide <a href="#userAdd">ici</a></p>
+				<i></i>
+			</div>
+		</div>
         <input type="submit" name="submit" value="Se connecter"><br/>
 		</form>
 		<div class = "options">
