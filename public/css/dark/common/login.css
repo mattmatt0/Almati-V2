@@ -10,10 +10,6 @@
 	display:none;
 	z-index: 9999999999999999999;
 }
-.loginForm h1
-{
-    color:white;
-}
 #blurred:target
 {
 	filter: blur(5px);
@@ -32,7 +28,6 @@
 }
 .loginForm
 {
-	background-color:#222;
 	position:fixed;
 	top:50%;
   	transform: translate(0px, -50%);
@@ -41,7 +36,6 @@
 	padding:10px;
 	display:flex;
 	flex-direction:column;
-	box-shadow: 0px 0px 5px 5px #111;
 	align-items: center;
 }
 .signinForm
@@ -62,42 +56,11 @@
 {
 	margin-bottom: auto;
 }
-.form p, label
-{
-	margin:5px;
-	color: white;
-}
-.form input
-{
-	z-index: 0;
-	background-color:black;
-	border:1px solid #0AF;
-	height:40px;
-	margin:5px;
-	border-radius: 10px;
-	color:white;
-	padding:10px;
-	font-size:30px;
-	font-family: 'Dosis';
-	display: block;
-}
-.form input[type="submit"]
-{
-	padding-top: 0;
-	margin-right: auto;
-	margin-left:auto;
-	cursor: pointer;
-	transition-duration: 0.5s;
-}
-.form input[type="submit"]:hover
-{
-	background: white;
-	color: #0AF;
-}
 #blurred
 {
 	filter:none;
 }
+/* loginForm options, not header */
 .options
 {
 	text-align:center;
@@ -109,7 +72,6 @@
 	margin-right: 5px;
 	width:45px;
 	height:45px;
-	background-color:#222;
 	border:none;
 	cursor: pointer;
 }
@@ -143,7 +105,8 @@
     position:absolute;
     z-index:999999999;
     box-sizing:border-box;
-    border:1px solid #222;box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    border:1px solid #222;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
     display:none;
 }
 
@@ -165,12 +128,17 @@
     left:50%;
     transform:translate(-50%,50%) rotate(45deg);
     background-color:#0FF;
-    border:1px solid #222;box-shadow:0 1px 8px rgba(0,0,0,0.5);
+    border:1px solid #222;
+    box-shadow:0 1px 8px rgba(0,0,0,0.5);
 }
 #javascript
 {
 	color: red;
 	font-weight: bold;
+}
+.loginForm input[type='submit']
+{
+    width:100%;
 }
 .linkMenuButton
 {
@@ -180,10 +148,14 @@
 
 @media screen and (max-width: 700px)
 {
-  .form
+  .loginForm
   {
     width:96%;
     left:5px;
     padding: 0;
+  }
+  .loginForm input,.loginForm input[type='submit']
+  {
+      font-size:150%;
   }
 }

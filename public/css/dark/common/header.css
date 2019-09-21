@@ -17,7 +17,6 @@ header>.options
 header>.options>*
 {
 	height:100%;
-	color:#00EDFF;
 	background:#002a2d;
 	border-bottom:2px solid #00EDFF;
 	transition-duration: 1s;
@@ -25,6 +24,11 @@ header>.options>*
 	text-decoration: none;
 	width:200px;
 	text-align:center;
+}
+header>.options>*>h2
+{
+	color:#00EDFF;
+    transition-duration:1s;
 }
 #connectA
 {
@@ -52,7 +56,10 @@ header>.options>*
 header>.options>a:hover
 {
 	background: #00EDFF;
-	color:#FFF;
+}
+header>.options>a:hover h2
+{
+    color:#FFF;
 }
 
 header>h2
@@ -60,12 +67,7 @@ header>h2
 	margin-left:10px;
 	margin-right:10px;
 }
-body
-{
-	margin:0px;
-	background-color: #111;
-	font-family: 'Dosis';
-}
+
 header h1
 {
 	margin-left:10px;
