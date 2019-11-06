@@ -49,11 +49,13 @@ app.get('', function(req, res) {
 app.use("/user",user)
 app.use("/cours",cours)
 app.use("/communaute",communaute)
-app.use("/resources", resources)
+app.use("/ressources", resources)
 // If 404:
 app.use(function(req, res, next){
     res.render('common/404.ejs',{url:req.urlForLink})
 });
 
 
-app.listen(8080)
+app.listen(port,()=>{
+	console.log("Le serveur écoute sur",port)
+})
