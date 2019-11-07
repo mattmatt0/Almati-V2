@@ -163,12 +163,6 @@ hr
 	border:2px solid #0AF;
 	border-radius:5px;
 }
-#codeDialog table
-{
-	width:100%;
-	color:white;
-	font-family:'Dosis';
-}
 #noteDialog>.title
 {
 	top: 1px;
@@ -178,7 +172,7 @@ hr
 {
 	float:left;
 }
-#codeDialog table input , #codeDialog table textarea
+#codeDialog input
 {
 	width:100%;
 	color:white;
@@ -186,12 +180,14 @@ hr
 	border-radius:5px;
 	background-color:black;
 	color:white;
+	font-size: 12px;
 }
-textarea
+#codeDialog #ace-editor
 {
-   height:100%;
-   resize:vertical;
+	width: 100%;
+	min-height: 200px;
 }
+
 button[onclick = "hide(this)"]
 {
 	border: none;

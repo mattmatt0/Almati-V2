@@ -272,7 +272,7 @@ validate = (obj) =>{
 	}
 	else
 	{
-		if (parentBuff.nodeName != "ARTICLE")
+		if (parentBuff.nodeName != "ARTICLE" && parentBuff.nodeName != "BODY")
 			parentBuff.remove()
 		if (textBuff == "")
 			textBuff = parentBuff.innerText

@@ -6,62 +6,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=2.0" />
 
 <noscript>
-    <h1>Activez javascript ou mourez !</h1>
+	<h1>Activez javascript ou mourez !</h1>
 </noscript>
 <nav id = "menuBar">
-    <nav id="leftBar">
-    <button id="bold" class="default" onclick = "textFormat('bold')">B</button>
-    <button id="italic" class="default" onclick = "textFormat('italic')">I</button>
-    <button id="underline" class="default" onclick = "textFormat('underline')">U</button>
-    
-    <select id="textType">
-        <option value="div">Paragraphe</option>
-        <option value="tips">Tips</option>
-        <option value="h3">Titre de section</option>
-        <option value="h5">Titre de sous-section</option>
-    </select>
-    </nav>
-    <nav id="rightBar">
-        <button class="default" onclick = "code()" id = "code" >&nbsp;
-        </button>
-        <button class="default" onclick = "note()" id = "note">&nbsp;</button>
-        <button class="default" onclick = "toogleSmiley()" id = "smiley">🤔</button>
-    </nav>
+	<nav id="leftBar">
+	<button id="bold" class="default" onclick = "textFormat('bold')">B</button>
+	<button id="italic" class="default" onclick = "textFormat('italic')">I</button>
+	<button id="underline" class="default" onclick = "textFormat('underline')">U</button>
+	
+	<select id="textType">
+		<option value="div">Paragraphe</option>
+		<option value="tips">Tips</option>
+		<option value="h3">Titre de section</option>
+		<option value="h5">Titre de sous-section</option>
+	</select>
+	</nav>
+	<nav id="rightBar">
+		<button class="default" onclick = "code()" id = "code" >&nbsp;
+		</button>
+		<button class="default" onclick = "note()" id = "note">&nbsp;</button>
+		<button class="default" onclick = "toogleSmiley()" id = "smiley">🤔</button>
+	</nav>
 
 </nav>
 <article id = "content" class="coursContener" contentEditable = true>
-    <div>&nbsp;</div>
+	<div>&nbsp;</div>
 </article>
 <div id = "smileyBoard">
-    <%for(i=0;i<79;++i){%><button onclick = "insertSmiley(this)"><%=String.fromCharCode(55357) + String.fromCharCode(56832 + i)%></button><%}%></div>
+	<%for(i=0;i<79;++i){%><button onclick = "insertSmiley(this)"><%=String.fromCharCode(55357) + String.fromCharCode(56832 + i)%></button><%}%></div>
 <div id = "codeDialog" class = "window">
-    <div class = "title">
-        <p>Insérer du code</p>
-        <button class = "windowsOptions" onclick = "hide(this)"></button>
-        <button class = "windowsOptions" onclick = "validate(this)"></button>
-    </div>
-    <table>
-        <tr>
-            <td>Langage</td>
-            <td><input type = "text"></input></td>
-        </tr>
-        <tr><td>Suggestion:</td>
-            <td>[LANGAGE]</td></tr>
-        <tr>
-            <td>Code</td>
-            <td><textarea resizable = "no"></textarea></td>
-        </tr>
-    </table>
+	<div class = "title">
+		<p>Insérer du code</p>
+		<button class = "windowsOptions" onclick = "hide(this)"></button>
+		<button class = "windowsOptions" onclick = "validate(this)"></button>
+	</div>
+	<div>
+		<nav>
+			<label For="languageChoice">Langage</label>
+			<input type = "text" name="languageChoice" id="languageChoice"></input>
+			<select name="languages" multiple>
+				<option value=""></option>
+			</select>
+		</nav>
+		<div id="ace-editor">type your code here...</div>
+	</div>
 </div>
 <div id = "noteDialog">
-    <div class = "title">
-        <button class = "windowsOptions" onclick = "hide(this)"></button>
-        <p style = "float:left">Définir ce paragraphe en tant que:</p>
-    </div><br/>
-    <div style = "clear:both" class = "info tips" onclick="validate(this)">Information</div>
-    <div class = "good tips" onclick="validate(this)">Bonne idée / amélioration possible</div>
-    <div class = "warning tips" onclick="validate(this)">Avertissement</div>
-    <div class = "error tips" onclick="validate(this)">Erreur / à ne surtout pas faire</div>
-    <div class = "reset tips" onclick="validate(this)">Restaurer un paragraphe normal</div>
+	<div class = "title">
+		<button class = "windowsOptions" onclick = "hide(this)"></button>
+		<p style = "float:left">Définir ce paragraphe en tant que:</p>
+	</div><br/>
+	<div style = "clear:both" class = "info tips" onclick="validate(this)">Information</div>
+	<div class = "good tips" onclick="validate(this)">Bonne idée / amélioration possible</div>
+	<div class = "warning tips" onclick="validate(this)">Avertissement</div>
+	<div class = "error tips" onclick="validate(this)">Erreur / à ne surtout pas faire</div>
+	<div class = "reset tips" onclick="validate(this)">Restaurer un paragraphe normal</div>
 </div>
 <script src = "<%=url%>js/wysiwyg.js"></script>
+<script src="<%=url%>js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var editor = ace.edit("ace-editor")
+    editor.setTheme("ace/theme/monokai")
+    editor.session.setMode("ace/mode/javascript")
+</script>
