@@ -158,19 +158,21 @@ hr
 	color:white;
 	font-family:'Dosis';
 	transform:translateX(-50%) translateY(100vh);
-	width:50%;
-	height:50%;
+	width:max-content;
+	max-width: 83%;
+	height:auto;
+	max-height: 83%;
 	border:2px solid #0AF;
 	border-radius:5px;
+	overflow: auto;
 }
-#noteDialog>.title
-{
-	top: 1px;
-	background: black;
+#codeDialog .tips, #noteDialog .tips{
+	margin-left: 0;
+	margin-right: 0;
 }
-.title p
-{
-	float:left;
+#codeDialog .title, #noteDialog .title{
+	display: flex;
+	justify-content: space-between;
 }
 #codeDialog input
 {
@@ -181,32 +183,43 @@ hr
 	background-color:black;
 	color:white;
 	font-size: 12px;
+	padding: 3px;
+}
+#codeDialog select{
+	display: none;
+}
+#codeDialog nav
+{
+	display: flex;
 }
 #codeDialog #ace-editor
 {
-	width: 100%;
-	min-height: 200px;
+	margin-top: 5px;
+	width: 500px;
+	height: 250px;
 }
 
 button[onclick = "hide(this)"]
 {
 	border: none;
+	margin: 1px;
 	width:20px;
 	height:20px;
 	background:url("../../images/dialog/close.png");
 	background-size:cover;
-	float:right;
 }
 button[onclick = "validate(this)"]
 {
 	border: none;
+	margin: 1px;
 	width:20px;
 	height:20px;
 	background:url("../../images/dialog/confirm.png");
 	background-size:cover;
-	float:right;
 }
-
+.buttonToolTips{
+	position: absolute;
+}
 button:disabled,
 button[disabled=""]
 {
@@ -221,10 +234,6 @@ select:disabled,select[disabled=""]
 #content[contentEditable="false"]
 {
 	background-color:#333 !important;
-}
-#noteDialog
-{
-	overflow-y:scroll;
 }
 
 /* The smiley button will disappear for phones.*/

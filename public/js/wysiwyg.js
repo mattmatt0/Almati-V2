@@ -134,7 +134,7 @@ function enableEverything()
 function hide(element)
 {
 	if (typeof(element) != "string"){
-		element = element.parentElement.parentElement;
+		element = element.parentElement.parentElement.parentElement
 	}
 
 	if(element.id === "codeDialog" || element === "codeDialog")

@@ -32,13 +32,16 @@
 <article id = "content" class="coursContener" contentEditable = true>
 	<div>&nbsp;</div>
 </article>
+
 <div id = "smileyBoard">
 	<%for(i=0;i<79;++i){%><button onclick = "insertSmiley(this)"><%=String.fromCharCode(55357) + String.fromCharCode(56832 + i)%></button><%}%></div>
 <div id = "codeDialog" class = "window">
 	<div class = "title">
 		<p>Insérer du code</p>
-		<button class = "windowsOptions" onclick = "hide(this)"></button>
-		<button class = "windowsOptions" onclick = "validate(this)"></button>
+		<nav>
+			<button class = "windowsOptions" onclick = "hide(this)"></button>
+			<button class = "windowsOptions" onclick = "validate(this)"></button>
+		</nav>
 	</div>
 	<div>
 		<nav>
@@ -53,8 +56,10 @@
 </div>
 <div id = "noteDialog">
 	<div class = "title">
-		<button class = "windowsOptions" onclick = "hide(this)"></button>
 		<p style = "float:left">Définir ce paragraphe en tant que:</p>
+		<nav>
+			<button class = "windowsOptions" onclick = "hide(this)"></button>
+		</nav>
 	</div><br/>
 	<div style = "clear:both" class = "info tips" onclick="validate(this)">Information</div>
 	<div class = "good tips" onclick="validate(this)">Bonne idée / amélioration possible</div>
@@ -67,5 +72,5 @@
 <script type="text/javascript">
 	var editor = ace.edit("ace-editor")
     editor.setTheme("ace/theme/monokai")
-    editor.session.setMode("ace/mode/javascript")
+    editor.session.setMode("ace/mode/html")
 </script>
