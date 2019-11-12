@@ -159,9 +159,9 @@ hr
 	font-family:'Dosis';
 	transform:translateX(-50%) translateY(100vh);
 	width:max-content;
-	max-width: 83%;
+	max-width: 85%;
 	height:auto;
-	max-height: 83%;
+	max-height: 85%;
 	border:2px solid #0AF;
 	border-radius:5px;
 	overflow: auto;
@@ -185,12 +185,26 @@ hr
 	font-size: 12px;
 	padding: 3px;
 }
-#codeDialog select{
-	display: none;
-}
 #codeDialog nav
 {
 	display: flex;
+}
+#languageContener{
+	margin-left: 5px;
+}
+#languageProposition
+{
+	display: none;
+	position: fixed;
+	z-index: 100;
+	background:black;
+}
+#languageProposition>div{
+	display: none;
+	cursor: pointer;
+}
+#languageProposition>div:hover{
+	background: #5D5F53CD;
 }
 #codeDialog #ace-editor
 {

@@ -45,11 +45,53 @@
 	</div>
 	<div>
 		<nav>
-			<label For="languageChoice">Langage</label>
-			<input type = "text" name="languageChoice" id="languageChoice"></input>
-			<select name="languages" multiple>
-				<option value=""></option>
-			</select>
+			<label For="languageChoice">Langage:</label>
+			<div id="languageContener">
+			<input type="text" name="languageChoice" id="languageChoice" placeholder="Selectionnez un language">
+				<div name="languageProposition" id="languageProposition">
+					<div contenteditable="true"></div>
+					<div id="language-item-arduino" value="arduino">arduino</div>
+					<div id="language-item-bash" value="bash">bash</div>
+					<div id="language-item-basic" value="basic">basic</div>
+					<div id="language-item-batch" value="batch">batch</div>
+					<div id="language-item-c" value="c">c</div>
+					<div id="language-item-clike" value="clike">clike</div>
+					<div id="language-item-coffeescript" value="coffeescript">coffeescript</div>
+					<div id="language-item-cpp" value="cpp">cpp</div>
+					<div id="language-item-csharp" value="csharp">csharp</div>
+					<div id="language-item-css" value="css">css</div>
+					<div id="language-item-d" value="d">d</div>
+					<div id="language-item-ejs" value="ejs">ejs</div>
+					<div id="language-item-git" value="git">git</div>
+					<div id="language-item-haml" value="haml">haml</div>
+					<div id="language-item-java" value="java">java</div>
+					<div id="language-item-javascript" value="javascript">javascript</div>
+					<div id="language-item-json" value="json">json</div>
+					<div id="language-item-json5" value="json5">json5</div>
+					<div id="language-item-jsonp" value="jsonp">jsonp</div>
+					<div id="language-item-kotlin" value="kotlin">kotlin</div>
+					<div id="language-item-lisp" value="lisp">lisp</div>
+					<div id="language-item-lua" value="lua">lua</div>
+					<div id="language-item-markdown" value="markdown">markdown</div>
+					<div id="language-item-markup" value="markup">markup</div>
+					<div id="language-item-markup-templating" value="markup-templating">markup-templating</div>
+					<div id="language-item-monkey" value="monkey">monkey</div>
+					<div id="language-item-objectivec" value="objectivec">objectivec</div>
+					<div id="language-item-perl" value="perl">perl</div>
+					<div id="language-item-php" value="php">php</div>
+					<div id="language-item-plsql" value="plsql">plsql</div>
+					<div id="language-item-powershell" value="powershell">powershell</div>
+					<div id="language-item-processing" value="processing">processing</div>
+					<div id="language-item-python" value="python">python</div>
+					<div id="language-item-regex" value="regex">regex</div>
+					<div id="language-item-ruby" value="ruby">ruby</div>
+					<div id="language-item-sass" value="sass">sass</div>
+					<div id="language-item-scss" value="scss">scss</div>
+					<div id="language-item-shell-session" value="shell-session">shell-session</div>
+					<div id="language-item-sql" value="sql">sql</div>
+					<div id="language-item-yaml" value="yaml">yaml</div>
+				</div>
+			</div>
 		</nav>
 		<div id="ace-editor">type your code here...</div>
 	</div>
@@ -71,6 +113,6 @@
 <script src="<%=url%>js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	var editor = ace.edit("ace-editor")
-    editor.setTheme("ace/theme/monokai")
-    editor.session.setMode("ace/mode/html")
+	editor.setTheme("ace/theme/monokai")
+	editor.session.setMode("ace/mode/html")
 </script>

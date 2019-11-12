@@ -281,3 +281,42 @@ validate = (obj) =>{
 	buttonUpdate()
 	content.focus()
 }
+
+//add event for code
+var languageSelector = document.getElementById("languageChoice")
+var languageProposition = document.getElementById("languageProposition")
+var divSelectLanguage = document.querySelectorAll("div[id^=language-item-]")
+
+languageSelector.onkeydown = (evt) =>{
+	//display the languages wich can correspond to the text wich already tiped by the user
+	let text = languageSelector.value
+	//console.log(text)
+	if (text.length>0)//if lenght < 0 the user has never tip anithing
+	{
+		languageProposition.style.display = "block"
+		var result = Array.from(document.querySelectorAll("div[id^=language-item-"+text+"]"))
+
+		divSelectLanguage.forEach((element)=>{
+			if (result.indexOf(element) == -1)
+			{
+				element.style.display = "none"
+			}
+			else
+			{
+				element.style.display = "block"
+			}
+		})
+	}
+	else
+	{//hide the propositions
+		languageProposition.style.display = "none"
+		divSelectLanguage.forEach((element)=>{
+			element.style.display = "none"
+		})
+	}
+}
+divSelectLanguage.forEach((element)=>{//set the text for input that select the language
+	element.onclick = (evt) =>{
+		languageSelector.value = evt.target.innerText
+	}
+})
