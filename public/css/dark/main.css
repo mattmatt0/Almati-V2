@@ -61,7 +61,16 @@ p
 	color:white;
 	text-shadow:0px 0px 5px black;
 }
-
+a
+{
+	text-decoration:none;
+	color:#0FF;
+}
+a:hover
+{
+	text-decoration:none;
+	color:#9FF;
+}
 
 @media screen and (max-width: 500px)
 {

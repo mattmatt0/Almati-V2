@@ -1,7 +1,6 @@
 body,html
 {
     margin:0;
-    overflow:hidden
 }
 #menuBar
 {
@@ -13,6 +12,9 @@ body,html
     justify-content: space-between;
     align-content: center;
     padding: 2px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
 }
 #menuBar > div
 {
@@ -69,10 +71,8 @@ button[onclick = "note()"]
 #content
 {
     background-color:#111;
-    height:100%;
-    height:calc(100vh - 50px);
-    height:-moz-calc(100vh - 50px);
-    overflow-y:scroll;
+    min-height:calc(100% - 50px);
+    min-height:-moz-calc(100% - 50px);
     font-family:'Dosis';
     color:white;
     transition-duration:1s;
@@ -110,6 +110,8 @@ button[onclick = "note()"]
     max-height:25vh;
     overflow-y:scroll;
     animation-fill-mode: forwards;
+    position: fixed;
+    top: 100%;
 }
 div#smileyBoard.hide
 {
@@ -142,42 +144,6 @@ section{
 hr
 {
     border-style: dashed;
-}
-/* The smiley button will disappear for phones.*/
-@media screen and (max-width: 510px) 
-{
-    #smiley
-    {
-        display:none;
-    }
-}
-@media screen and (max-width: 370px) 
-{
-    #menuBar
-    {
-        /* min-height:30px; */
-        flex-direction: column;
-        justify-content: 
-    }
-    #menuBar button, select
-    {
-        font-size:18px;
-    }
-    #menuBar button
-    {
-        width:30px;
-    }
-}
-@media screen and (max-width: 320px) 
-{
-    #menuBar button, select
-    {
-        font-size:14px;
-    }
-    #menuBar button
-    {
-        width:20px;
-    }
 }
 #codeDialog, #noteDialog
 {
@@ -230,7 +196,7 @@ button[onclick = "hide(this)"]
     border: none;
     width:20px;
     height:20px;
-    background:url("../../images/close.png");
+    background:url("../../images/dialog/close.png");
     background-size:cover;
     float:right;
 }
@@ -239,7 +205,7 @@ button[onclick = "validate(this)"]
     border: none;
     width:20px;
     height:20px;
-    background:url("../../images/confirm.png");
+    background:url("../../images/dialog/confirm.png");
     background-size:cover;
     float:right;
 }
@@ -262,4 +228,41 @@ select:disabled,select[disabled=""]
 #noteDialog
 {
     overflow-y:scroll;
+}
+
+/* The smiley button will disappear for phones.*/
+@media screen and (max-width: 510px) 
+{
+    #smiley
+    {
+        display:none;
+    }
+}
+@media screen and (max-width: 370px) 
+{
+    #menuBar
+    {
+        /* min-height:30px; */
+        flex-direction: column;
+        justify-content: 
+    }
+    #menuBar button, select
+    {
+        font-size:18px;
+    }
+    #menuBar button
+    {
+        width:30px;
+    }
+}
+@media screen and (max-width: 320px) 
+{
+    #menuBar button, select
+    {
+        font-size:14px;
+    }
+    #menuBar button
+    {
+        width:20px;
+    }
 }

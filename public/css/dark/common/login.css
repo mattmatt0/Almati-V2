@@ -40,11 +40,6 @@
 {
 	text-align:center;
 }
-.options a
-{
-	text-decoration:none;
-	color:#0FF;
-}
 #logout
 {
 	display: block;
@@ -63,6 +58,7 @@
 	margin-top:10px;
 	margin-right:10px;
 }
+<<<<<<< HEAD
 #signUp:target
 {
     display:block;
@@ -71,6 +67,21 @@
 {
     display:block;
 }
+=======
+
+.invalid
+{
+    -webkit-box-shadow: 0px 0px 17px -3px rgba(245,12,12,1);
+    -moz-box-shadow: 0px 0px 17px -3px rgba(245,12,12,1);
+    box-shadow: 0px 0px 17px -3px rgba(245,12,12,1);
+    border: solid red 1px;
+}
+
+.invalid:focus ~ .bottom
+{
+    display: block;
+}
+
 .tooltip {
     display:inline-block;
     position:relative;
@@ -93,6 +104,10 @@
     top:0;
     left:0;
 }
+.bottom>p
+{
+	font-size: 20px;
+}
 .tooltip .bottom {
     min-width:200px; 
     top:40px;
@@ -100,7 +115,7 @@
     transform:translate(-50%, 20%);
     padding:10px 20px;
     color:#FFFFFF;
-    background-color:#0FF;
+    background-color:#0AF;
     font-weight:normal;
     font-size:13px;
     border-radius:8px;

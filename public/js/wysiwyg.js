@@ -196,14 +196,10 @@ buttonUpdate = () =>{
     while (~ listBalise.indexOf(parent.nodeName))
         parent = parent.parentNode
     //console.log(parent)
-    console.log(parent.nodeName)
+    //console.log(parent.nodeName)
+    
     if (parent.nodeName == "P")
         textType.value = "tips"
-    else if ((parent.nodeName == "ARTICLE" || parent.nodeName == "BODY") && getTextSelection() == "")
-    {
-        document.execCommand("insertHTML",false,"<div>&nbsp;</div>")
-        textType.value = "div"
-    }
     else
         textType.value = parent.nodeName.toLocaleLowerCase()
 }
@@ -240,80 +236,4 @@ validate = (obj) =>{
     var name = obj.className
     console.log(name)
 
-    //if the parent isn't a other tips
-    if (parentBuff.nodeName != "P")
-    {
-        //if the parent isn't in forbiden list
-        if (forbiden.indexOf(parentBuff.nodeName) == -1)
-        {
-            if (name != "reset")
-            {
-                //copy the tips and remove atribute id and onclick
-                var copy = obj.cloneNode(true);
-                copy.removeAttribute("onclick")
-                copy.removeAttribute("id")
-
-                console.log(parentBuff.textContent)
-                if (parentBuff.textContent.length > 1)
-                {
-                    copy.children[1].textContent = parentBuff.textContent
-                }
-
-
-                //create div and add it
-                var div = document.createElement("div")
-                div.innerHTML = "&nbsp;"
-                parentBuff.insertAdjacentElement("afterend",div)
-
-                //add copyed typs before div
-                parentBuff.insertAdjacentElement("afterend",copy)
-
-                parentBuff.innerHTML = "&nbsp;"
-            }
-            //hide the tips' tab
-            var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
-            hide(tab)
-        }
-        else if (parentBuff.nodeName == "ARTICLE")
-        {
-            alert("Hey tapez du texte avant d'insérer un tips dessuite !")
-        }
-        else
-        {
-            alert("vous ne pensez tout de même pas quue l'on peut metre un tips dans un titre, non mais!")
-        }
-        //content.appendChild(copy)
-    }
-    else if (name == "reset")
-    {
-        var div = document.createElement("div")
-        div.textContent = parentBuff.textContent
-        parentBuff.parentNode.insertAdjacentElement("afterend",div)
-        parentBuff.parentNode.remove()
-
-        var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
-        hide(tab)
-    }
-    else if (~ tipsType.indexOf(name))
-    {
-        var copy = obj.cloneNode(true);
-        copy.removeAttribute("onclick")
-        copy.removeAttribute("id")
-
-        copy.children[1].textContent = parentBuff.textContent
-
-        parentBuff = parentBuff.parentNode
-
-        parentBuff.insertAdjacentElement("afterend",copy)
-        parentBuff.remove()
-
-        var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
-        hide(tab)
-    }
-    else
-    {
-        console.warn("Can't place tips in forbiden place")
-        var tab = {parentElement:{parentElement:{id:"noteDialog"}}}
-        hide(tab)
-    }
 }
