@@ -30,7 +30,7 @@ body
     scrollbar-color: white rgba(0,0,0,0) ;
     scrollbar-width: thin;
 }
-section
+section[id!signin]
 {
     background-color:rgba(0,0,0,.5)
 }
