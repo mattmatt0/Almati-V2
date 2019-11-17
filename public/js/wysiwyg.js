@@ -287,10 +287,11 @@ var languageSelector = document.getElementById("languageChoice")
 var languageProposition = document.getElementById("languageProposition")
 var divSelectLanguage = document.querySelectorAll("div[id^=language-item-]")
 
-languageSelector.onkeydown = (evt) =>{
+languageChoiceEvent =  (evt) =>{
+
 	//display the languages wich can correspond to the text wich already tiped by the user
 	let text = languageSelector.value
-	//console.log(text)
+	console.log(text)
 	if (text.length>0)//if lenght < 0 the user has never tip anithing
 	{
 		languageProposition.style.display = "block"
@@ -315,8 +316,14 @@ languageSelector.onkeydown = (evt) =>{
 		})
 	}
 }
+
 divSelectLanguage.forEach((element)=>{//set the text for input that select the language
 	element.onclick = (evt) =>{
 		languageSelector.value = evt.target.innerText
 	}
 })
+
+
+//languageSelector.onkeydown = inputEvent
+languageSelector.addEventListener("keyup",languageChoiceEvent)
+languageSelector.addEventListener("keydown",languageChoiceEvent)
