@@ -17,4 +17,10 @@ input
     padding:10px;
     font-size:30px;
     display:block;
+    width:100%;
+    margin:none;
+}
+form, form *
+{
+    box-sizing:content-box;
 }

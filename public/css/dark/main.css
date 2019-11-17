@@ -53,11 +53,6 @@ mark
 	background: url(../../images/backgrounds/parallax1.png) no-repeat center fixed; 
 	background-size:cover;
 }
-.signIn
-{
-	background: url("../../images/backgrounds/parallax3.png") no-repeat center fixed;
-	background-size: cover;
-}
 p
 {
 	margin:50px;

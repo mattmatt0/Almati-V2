@@ -1,32 +1,19 @@
 <link rel="stylesheet" href="<%=url%>css/dark/common/login.css">
-
-
-<div id = "loginMask">
-	<!-- Le masque -->
-	<div class ="loginForm form">
-		<a href="#" id = "logout"><img src="<%=url%>images/dialog/close.png"/></a>
-		<h1> Se connecter</h1>
-		<form>
-		<label for="pseudo">Pseudo</label>
-		<div class="tooltip">
-			<input type="text" name="pseudo" value="" placeholder="Pseudo" id = "userConnect">
-			<div class="bottom" id="pseudoTooltip">
-				<p>Le pseudo n'existe pas vous pouvez créer un compte <a href="#userAdd">ici</a></p>
-				<i></i>
-			</div>
-		</div>
-		<div class="tooltip">
-			<input id="password" type="password" name="password" placeholder="Mot de passe">
-			<div class="bottom" id="pseudoTooltip">
-				<p>Le mot de passe est invalide <a href="#userAdd">ici</a></p>
-				<i></i>
-			</div>
-		</div>
-        <input type="submit" name="submit" value="Se connecter"><br/>
-		</form>
-		<div class = "options">
-			<a href = "<%=url%>user/signUp"> Créer un compte </a> | <a href = "<%=url%>user/motDePasseOublie"> Mot de passe oublié?</a>
-		</div>
-	
-	</div>
+<script src='<%=url%>js/signIn.js'></script>
+<div id='loginMask'>
+    <div class ="loginForm form">
+        <div class = "formMenu">
+                <h1> Se connecter</h1>
+                <a href="#" id = "logout"><img src="<%=url%>images/dialog/close.png"/></a>
+        </div>
+        <form>
+            <input id="username" type="text" name="username" placeholder="Nom d'utilisateur"><br/>
+            <input id="password" type="password" name="password" placeholder="Mot de passe"><br/>
+            <input type="submit" name="submit" value="Se connecter"><br/>
+        </form>
+        <div class = "options">
+            <a href = "#signUp"> Créer un compte </a> | <a href = "<%=url%>user/motDePasseOublie"> Mot de passe oublié?</a>
+        </div>
+    </div>
 </div>
+
