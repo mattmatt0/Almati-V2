@@ -255,7 +255,7 @@ textType.onchange = () =>{
 var forbiden = ["ARTICLE","H3","H5","BUTTON","NAV","SELECT","BODY","OPTION"]
 
 var tipsType = ["warning tips","error tips","good tips","info tips","reset tips"]
-validate = (obj) =>{
+validateNote = (obj) =>{
 	var name = obj.className//get the class name
 	console.log(name)
 	hide("noteDialog")
@@ -282,10 +282,23 @@ validate = (obj) =>{
 	content.focus()
 }
 
-//add event for code
 var languageSelector = document.getElementById("languageChoice")
+
+validateCode = () =>{
+	hide("codeDialog")
+	document.execCommand("insertHTML",false,"<pre><code class=\"language-"+languageSelector.value+"\">"+editor.getValue()+"</code></pre>")
+}
+
+//add event for code
 var languageProposition = document.getElementById("languageProposition")
 var divSelectLanguage = document.querySelectorAll("div[id^=language-item-]")
+
+hideProposition = () =>{
+	languageProposition.style.display = "none"
+	divSelectLanguage.forEach((element)=>{
+		element.style.display = "none"
+	})
+}
 
 languageChoiceEvent =  (evt) =>{
 
@@ -310,16 +323,55 @@ languageChoiceEvent =  (evt) =>{
 	}
 	else
 	{//hide the propositions
-		languageProposition.style.display = "none"
-		divSelectLanguage.forEach((element)=>{
-			element.style.display = "none"
-		})
+		hideProposition()
 	}
 }
+var prismToAce = new Map()
+prismToAce.set("markup","xml")
+prismToAce.set("css","css")
+prismToAce.set("javascript","javascript")
+prismToAce.set("c","c_cpp")
+prismToAce.set("csharp","csharp")
+prismToAce.set("bash","sh")
+prismToAce.set("basic","plain_text")
+prismToAce.set("batch","batchfile")
+prismToAce.set("cpp","c_cpp")
+prismToAce.set("arduino","c_cpp")
+prismToAce.set("coffeescript","cofee")
+prismToAce.set("ruby","ruby")
+prismToAce.set("d","c_cpp")
+prismToAce.set("markup-templating","")
+prismToAce.set("ejs","ejs")
+prismToAce.set("git","plain_text")
+prismToAce.set("java","java")
+prismToAce.set("php","php")
+prismToAce.set("json","json")
+prismToAce.set("jsonp","jsp")
+prismToAce.set("json5","json")
+prismToAce.set("kotlin","kotlin")
+prismToAce.set("markdown","markdown")
+prismToAce.set("lisp","lisp")
+prismToAce.set("lua","lua")
+prismToAce.set("monkey","plain_text")
+prismToAce.set("objectivec","objectivec")
+prismToAce.set("perl","perl")
+prismToAce.set("sql","sql")
+prismToAce.set("powershell","powershell")
+prismToAce.set("processing","java")
+prismToAce.set("scss","scss")
+prismToAce.set("python","python")
+prismToAce.set("sass","sass")
+prismToAce.set("shell-session","sh")
+prismToAce.set("plsql","sql")
+prismToAce.set("yaml","yaml")
+prismToAce.set("haml","haml")
+prismToAce.set("regex","plain_text")
 
 divSelectLanguage.forEach((element)=>{//set the text for input that select the language
 	element.onclick = (evt) =>{
 		languageSelector.value = evt.target.innerText
+		editor.session.setMode("ace/mode/"+prismToAce.get(languageSelector.value))
+		hideProposition()
 	}
 })
 

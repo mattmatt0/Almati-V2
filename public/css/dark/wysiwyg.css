@@ -222,7 +222,8 @@ button[onclick = "hide(this)"]
 	background:url("../../images/dialog/close.png");
 	background-size:cover;
 }
-button[onclick = "validate(this)"]
+button[onclick = "validateCode(this)"],
+button[onclick = "validateNote(this)"]
 {
 	border: none;
 	margin: 1px;
