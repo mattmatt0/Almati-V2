@@ -6,6 +6,54 @@ var textBuff = ""
 var parentBuff = ""
 var formatBuff = ""
 
+var languageSelector = document.getElementById("languageChoice")
+var languageProposition = document.getElementById("languageProposition")
+var divSelectLanguage = document.querySelectorAll("div[id^=language-item-]")
+
+var prismToAce = new Map()
+prismToAce.set("markup","xml")//convert prism's language names to ace's language name
+prismToAce.set("css","css")
+prismToAce.set("javascript","javascript")
+prismToAce.set("c","c_cpp")
+prismToAce.set("csharp","csharp")
+prismToAce.set("bash","sh")
+prismToAce.set("basic","plain_text")
+prismToAce.set("batch","batchfile")
+prismToAce.set("cpp","c_cpp")
+prismToAce.set("arduino","c_cpp")
+prismToAce.set("coffeescript","cofee")
+prismToAce.set("ruby","ruby")
+prismToAce.set("d","c_cpp")
+prismToAce.set("markup-templating","")
+prismToAce.set("ejs","ejs")
+prismToAce.set("git","plain_text")
+prismToAce.set("java","java")
+prismToAce.set("php","php")
+prismToAce.set("json","json")
+prismToAce.set("jsonp","jsp")
+prismToAce.set("json5","json")
+prismToAce.set("kotlin","kotlin")
+prismToAce.set("markdown","markdown")
+prismToAce.set("lisp","lisp")
+prismToAce.set("lua","lua")
+prismToAce.set("monkey","plain_text")
+prismToAce.set("objectivec","objectivec")
+prismToAce.set("perl","perl")
+prismToAce.set("sql","sql")
+prismToAce.set("powershell","powershell")
+prismToAce.set("processing","java")
+prismToAce.set("scss","scss")
+prismToAce.set("python","python")
+prismToAce.set("sass","sass")
+prismToAce.set("shell-session","sh")
+prismToAce.set("plsql","sql")
+prismToAce.set("yaml","yaml")
+prismToAce.set("haml","haml")
+prismToAce.set("regex","plain_text")
+
+//list of format's balise
+var listBalise = ["I","U","B","SPAN"]
+
 getParent = () =>{//get the parent of the cursor
 	var parent, selection
 	if (window.getSelection)
@@ -14,7 +62,8 @@ getParent = () =>{//get the parent of the cursor
 		if (selection.rangeCount)
 		{
 			parent = selection.getRangeAt(0).commonAncestorContainer
-			parent = parent.parentNode
+			if (!~listBalise.indexOf(parent.nodeName.toLocaleUpperCase()))
+				parent = parent.parentNode
 			return parent
 		}
 	}
@@ -82,8 +131,16 @@ function note()
 
 }
 
-function code()
+function code(element)
 {
+	console.log(element)
+	if (element)//if we give a html node
+	{
+		editor.setValue(element.innerText)//get the text of the node
+		language = element.className.split("-")[1]
+		editor.session.setMode("ace/mode/"+prismToAce.get(language))//change the language
+		codeSelector.value = language
+	}
 	toogleSmiley(true)
 	var codeDialog = document.getElementById("codeDialog");
 	var codeButton = document.getElementById("code");
@@ -163,9 +220,6 @@ var textType = document.getElementById("textType")
 of course you must modify css*/
 var listCommand = ["bold","italic","underline"]
 
-//list of balises
-var listBalise = ["I","U","B","SPAN"]
-
 //execute command
 textFormat = (format) =>{//format the text (underline, strong...)
 	updateBuff()
@@ -213,7 +267,7 @@ buttonUpdate = () =>{
 	//get the parent's type ignoring the balises in listBalise
 	while (~ listBalise.indexOf(parent))
 		parent = parent.parentNode
-	console.log(parent)
+	//console.log(parent)
 	//console.log(parent.nodeName)
 	
 	if (parent == "p")
@@ -267,32 +321,37 @@ validateNote = (obj) =>{
 	else if (name == "reset tips")
 	{
 		console.log("reset")
-		parentBuff.className = ""
+		formatBuff.className = ""
 		document.execCommand("formatBlock",false,"<div>")
 	}
 	else
 	{
 		if (parentBuff.nodeName != "ARTICLE" && parentBuff.nodeName != "BODY")
 			parentBuff.remove()
-		if (textBuff == "")
-			textBuff = parentBuff.innerText
+			if (textBuff == "")
+				textBuff = parentBuff.innerText
 		document.execCommand("insertHTML",false,"<p class=\""+name+"\">"+textBuff+"</p>")
 	}
 	buttonUpdate()
 	content.focus()
 }
 
-var languageSelector = document.getElementById("languageChoice")
-
-validateCode = () =>{
+validateCode = (element) =>{
 	hide("codeDialog")
-	document.execCommand("insertHTML",false,"<pre><code class=\"language-"+languageSelector.value+"\">"+editor.getValue()+"</code></pre>")
+	if (element == undefined)
+		document.execCommand("insertHTML",false,"<pre contentEditable='false'><code class=\"language-"+languageSelector.value+"\">"+editor.getValue()+"</code></pre>")
+	else
+	{
+		element.children[0].innerText = editor.getValue()
+		element.className = "language-"+languageSelector.value
+	}
+
+	document.querySelectorAll("article pre[contentEditable='false']").forEach((element)=>{
+		element.onclick = (evt)=>{code(evt.sender)}
+	})
 }
 
 //add event for code
-var languageProposition = document.getElementById("languageProposition")
-var divSelectLanguage = document.querySelectorAll("div[id^=language-item-]")
-
 hideProposition = () =>{
 	languageProposition.style.display = "none"
 	divSelectLanguage.forEach((element)=>{
@@ -326,46 +385,6 @@ languageChoiceEvent =  (evt) =>{
 		hideProposition()
 	}
 }
-var prismToAce = new Map()
-prismToAce.set("markup","xml")
-prismToAce.set("css","css")
-prismToAce.set("javascript","javascript")
-prismToAce.set("c","c_cpp")
-prismToAce.set("csharp","csharp")
-prismToAce.set("bash","sh")
-prismToAce.set("basic","plain_text")
-prismToAce.set("batch","batchfile")
-prismToAce.set("cpp","c_cpp")
-prismToAce.set("arduino","c_cpp")
-prismToAce.set("coffeescript","cofee")
-prismToAce.set("ruby","ruby")
-prismToAce.set("d","c_cpp")
-prismToAce.set("markup-templating","")
-prismToAce.set("ejs","ejs")
-prismToAce.set("git","plain_text")
-prismToAce.set("java","java")
-prismToAce.set("php","php")
-prismToAce.set("json","json")
-prismToAce.set("jsonp","jsp")
-prismToAce.set("json5","json")
-prismToAce.set("kotlin","kotlin")
-prismToAce.set("markdown","markdown")
-prismToAce.set("lisp","lisp")
-prismToAce.set("lua","lua")
-prismToAce.set("monkey","plain_text")
-prismToAce.set("objectivec","objectivec")
-prismToAce.set("perl","perl")
-prismToAce.set("sql","sql")
-prismToAce.set("powershell","powershell")
-prismToAce.set("processing","java")
-prismToAce.set("scss","scss")
-prismToAce.set("python","python")
-prismToAce.set("sass","sass")
-prismToAce.set("shell-session","sh")
-prismToAce.set("plsql","sql")
-prismToAce.set("yaml","yaml")
-prismToAce.set("haml","haml")
-prismToAce.set("regex","plain_text")
 
 divSelectLanguage.forEach((element)=>{//set the text for input that select the language
 	element.onclick = (evt) =>{
