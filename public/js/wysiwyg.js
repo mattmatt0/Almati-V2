@@ -49,6 +49,7 @@ prismToAce.set("shell-session","sh")
 prismToAce.set("plsql","sql")
 prismToAce.set("yaml","yaml")
 prismToAce.set("haml","haml")
+prismToAce.set("html","html")
 prismToAce.set("regex","plain_text")
 
 //list of format's balise
@@ -80,6 +81,16 @@ updateBuff = ()=>{
 	parentBuff = getParent()
 	formatBuff = document.queryCommandValue("formatBlock")
 }
+
+function escapeHTML(unsafe) {
+	return unsafe
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+ }
+
 
 //dialog box
 //toogleSmiley()
@@ -139,7 +150,13 @@ function code(element)
 		editor.setValue(element.innerText)//get the text of the node
 		language = element.className.split("-")[1]
 		editor.session.setMode("ace/mode/"+prismToAce.get(language))//change the language
-		codeSelector.value = language
+		languageSelector.value = language
+	}
+	else
+	{
+		editor.setValue("")
+		editor.session.setMode("ace/mode/plain_text")
+		languageSelector.value = ""
 	}
 	toogleSmiley(true)
 	var codeDialog = document.getElementById("codeDialog");
@@ -339,7 +356,7 @@ validateNote = (obj) =>{
 validateCode = (element) =>{
 	hide("codeDialog")
 	if (element == undefined)
-		document.execCommand("insertHTML",false,"<pre contentEditable='false'><code class=\"language-"+languageSelector.value+"\">"+editor.getValue()+"</code></pre>")
+		document.execCommand("insertHTML",false,"<pre contentEditable='false'><code class=\"language-"+languageSelector.value+"\">"+escapeHTML(editor.getValue())+"</code></pre>")
 	else
 	{
 		element.children[0].innerText = editor.getValue()
@@ -347,7 +364,10 @@ validateCode = (element) =>{
 	}
 
 	document.querySelectorAll("article pre[contentEditable='false']").forEach((element)=>{
-		element.onclick = (evt)=>{code(evt.sender)}
+		element.onclick = (evt)=>{
+			//console.log(evt.target)
+			code(evt.target)
+		}
 	})
 }
 

@@ -4,6 +4,7 @@
 <%include common/include.ejs%>
 
 <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=2.0" />
+<script src="<%=url%>js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 
 <noscript>
 	<h1>Activez javascript ou mourez !</h1>
@@ -110,7 +111,6 @@
 	<div class = "reset tips" onclick="validateNote(this)">Restaurer un paragraphe normal</div>
 </div>
 <script src = "<%=url%>js/wysiwyg.js" type="text/javascript" charset="utf-8"></script>
-<script src="<%=url%>js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	var editor = ace.edit("ace-editor")
 	editor.setTheme("ace/theme/monokai")
