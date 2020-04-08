@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="<%=url%>css/dark/login.css">
+
+
+<div id = "loginMask">
+	<!-- Le masque -->
+	<div class ="loginForm form">
+		<a href="#" id = "logout"><img src="<%=url%>images/close.png"/></a>
+		<h1> Se connecter</h1>
+		<form>
+		<label for="username">Nom d'utilisateur:</label><br/>
+		<input id="username" type="text" name="username"><br/>
+		<label for="password">Mot de passe:</label><br/>
+		<input id="password" type="password" name="password"><br/>
+		<input type="submit" name="submit" style="margin-left: auto; margin-right: auto; display: block;">
+		</form>
+		<div class = "options">
+			<a href = "<%=url%>user/signUp"> Créer un compte </a> | <a href = "<%=url%>user/motDePasseOublie"> Mot de passe oublié?</a>
+		</div>
+	
+	</div>
+</div>

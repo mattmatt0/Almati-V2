@@ -1,0 +1,89 @@
+.partTitle, h4
+{
+    text-align:center;
+    color:black;
+    float:none;
+}
+p
+{
+    color:black;
+    font-size:20px;
+}
+h3
+{
+    color:black;
+    font-size:30px;
+    border-bottom:1px solid black;
+}
+h5
+{
+    color:black;
+    font-size:25px;
+}
+.line
+{
+    border-bottom:10px solid #FFF;
+    height:0;
+}
+section
+{
+    transform-origin:50% 0px;
+    transform:scaleY(0);
+    height:0;
+    transition-duration:1s;
+    float:left;
+}
+.info
+{
+    background-color:#2BF;
+    min-height:64;
+}
+.info p, .error p, .warning p, .good p
+{
+    font-weight:900;
+    text-shadow:0px 0px 1px #012;
+    margin-left:120px;
+}
+.boxIcon
+{
+    width:96;
+    height:64;
+    float:left;
+}
+
+.error
+{
+    background-color:#F00;
+    min-height:64;
+}
+.warning
+{
+    background-color:#FA0;
+    min-height:64;
+}
+.good
+{
+    background-color:#0F0;
+    min-height:64;
+}
+.pub
+{
+    width:50%;
+    text-align:center;
+    background-color:white;
+    height:100px;
+    position:relative;
+    float:none;
+    clear:left;
+    margin-left:50%;
+    margin-right:50%;
+    transform:translateX(-50%);
+}
+article
+{
+    background: #8E8D8D;
+    margin-left: 10%;
+    margin-right:10%;
+    padding-left: 10px;
+    padding-right: 10px;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sign In</title>
+	<% include include.ejs %>
+	<link rel="stylesheet" href="<%=url%>css/dark/main.css">
+	<link rel="stylesheet" href="<%=url%>css/dark/login.css">
+</head>
+<body>
+	<% include header.ejs%>
+	
+	<section class = "signIn">
+		<div id = "signInMask">
+			<div class ="signinForm form">
+				<h1>Créer un compte</h1>
+				<span id="javascript">⚠ Vous devez activer javascript pour bénéficier de toutes les fonctionalitées de ce formulaire !</span>
+				<form>
+					<label for="pseudo">Pseudo:</label><br/>
+					<div class="tooltip">
+						<input type="text" name="pseudo" id="pseudo">
+						<div class="bottom" id="pseudoTooltip">
+							<p>Le pseudo ne doit pas faire plus de <strong>2</strong> caractères ou moins de <strong>15</strong> caratères</p>
+							<i></i>
+						</div>
+					</div><br/>
+					<label for="email">Email:</label><br/>
+					<div class="tooltip">
+						<input type="email" name="email" id = "email">
+						<div class="bottom" id="emailTooltip">
+							<p>Veuillez saisir un email valide</p>
+							<i></i>
+						</div>
+					</div><br/>
+					<label for="passwordLog">Mot de passe:</label><br/>
+					<div class="tooltip">
+						<input type="password" name="password" id="passwordLog">
+						<div class="bottom" id="passwordTooltip">
+							<p></p>
+							<i></i>
+						</div>
+					</div><br/>
+					<label for="passwordConf">Confirmer le mot de passe:</label><br/>
+					<div class="tooltip">
+						<input type="password" name="passwordConf" id="passwordConf">
+						<div class="bottom" id="passwordConfTolltip">
+							<p>Les mots de passes ne correspondent pas</p>
+							<i></i>
+						</div>
+					</div><br/>
+					<input type="submit" name="submit">
+				</form>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript" src="<%=url%>js/signIn.js"></script>
+	<% include footer.ejs%>
+</body>
+</html>
