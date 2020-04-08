@@ -171,12 +171,16 @@
 {
   .loginForm
   {
-    width:96%;
-    left:5px;
+    width:96vw;
     padding: 0;
   }
   .loginForm input,.loginForm input[type='submit']
   {
       font-size:150%;
+      width:100%;
+  }
+  form, form *
+  {
+      box-sizing:border-box;
   }
 }
