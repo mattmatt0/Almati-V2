@@ -80,7 +80,7 @@ passwordChange = () =>{
 passwordInput.addEventListener("keyup", passwordChange)
 passwordInput.addEventListener("change", passwordChange)
 
-//verify the 	
+//verify the
 passwordVerifChange = () =>{
 	var passwordConfirm = passwordConf.value
 	var password = passwordInput.value
