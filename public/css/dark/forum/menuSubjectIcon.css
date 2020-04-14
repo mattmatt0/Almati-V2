@@ -1,0 +1,125 @@
+.subSectionContainer>*
+{
+    display:flex;
+    flex-direction:row;
+    flex-basis:150px;
+    flex-grow:1;
+    text-decoration:none;
+    transition-duration:1s
+}
+#python
+{
+    background-color:#640000;
+}
+#C
+{
+    background-color:#643200
+}
+#cpp
+{
+    background-color:#646400
+}
+#csharp
+{
+    background-color:#326400
+}
+#js
+{
+    background-color:#006400
+}
+#html
+{
+    background-color:#006432
+}
+#css
+{
+    background-color:#006464
+}
+#java
+{
+    background-color:#003264
+}
+#shell
+{
+    background-color:#000064
+}
+#php
+{
+    background-color:#320064
+}
+#delphi
+{
+    background-color:#640064
+}
+#perl
+{
+    background-color:#640032
+}
+#swift
+{
+    background-color:#640100
+}
+#python:hover
+{
+    background-color:#ff0000;
+}
+#C:hover
+{
+    background-color:#ff8000
+}
+#cpp:hover
+{
+    background-color:#ffff00
+}
+#csharp:hover
+{
+    background-color:#80ff00
+}
+#js:hover
+{
+    background-color:#00ff00
+}
+#html:hover
+{
+    background-color:#00ff80
+}
+#css:hover
+{
+    background-color:#00ffff
+}
+#java:hover
+{
+    background-color:#0080ff
+}
+#shell:hover
+{
+    background-color:#0000ff
+}
+#php:hover
+{
+    background-color:#8000ff
+}
+#delphi:hover
+{
+    background-color:#ff00ff
+}
+#perl:hover
+{
+    background-color:#ff0080
+}
+#swift:hover
+{
+    background-color:#ff0000
+}
+
+.subSectionContainer img
+{
+    width:50px;
+    height:50px;
+    margin:10px
+}
+.subSectionContainer
+{
+    display:flex;
+    flex-wrap: wrap
+}
