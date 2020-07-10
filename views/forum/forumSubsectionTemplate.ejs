@@ -1,6 +1,9 @@
 <%include ../common/header.ejs%>
 <title>[TEMPLATE] - Forum - Almati</title>
+<link rel="stylesheet" href="<%url%>../../../css/dark/forum/forum.css">
 <h1>[TEMPLATE] //replace with actual category name</h1>
-<p>[subsection description]</p><a href = "#createSubject">Créer un nouveau sujet</a>
+<p>[subsection description]</p>
+
+<p style = "text-align:center"><button onclick='newSubject()'">Créer un nouveau sujet</button></p>
 <h3>Derniers posts</h3>
 <%include ../common/footer.ejs%>
