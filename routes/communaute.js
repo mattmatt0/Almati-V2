@@ -14,6 +14,9 @@ route.get("/chat",(req,res)=>{
 route.get("/forum",(req,res)=>{
 	res.render('forum/forum.ejs',{url:req.urlForLink})
 })
+route.use("/forum",(req,res)=>{
+	res.render('forum/forumSubsectionTemplate.ejs',{url:req.urlForLink})
+})
 route.get("/QuiSommesNous",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{url:req.urlForLink})
 })
