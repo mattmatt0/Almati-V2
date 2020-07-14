@@ -1,12 +1,18 @@
 <%include ../common/header.ejs%>
 <title>[TEMPLATE] - Forum - Almati</title>
 <link rel="stylesheet" href="<%url%>../../../css/dark/forum/forum.css">
+<link rel="stylesheet" href="<%url%>../../../css/dark/forum/subSection.css">
 <h1>[TEMPLATE] //replace with actual category name</h1>
 <p>[subsection description]</p>
 
 <p style = "text-align:center"><button onclick='newSubject()'">Créer un nouveau sujet</button></p>
 <h3>Derniers posts</h3>
-<%for(var i=0;i<20;++i){%>
-<p>Sujet</p>
-<%}%>
+	<%for(var i=0;i<20;++i){%>
+		<div class = "postHeaderContainer">
+			<div class = "postInfo">
+				<h4>Titre du post</h4><br/>
+				<p>Par <strong>Nom d'utilisateur</strong></p>
+			</div>
+		</div>
+	<%}%>
 <%include ../common/footer.ejs%>
