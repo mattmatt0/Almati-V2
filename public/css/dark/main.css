@@ -1,30 +1,35 @@
+/* CSS pour la page d'accueil du site */
 /* Sections entre les images*/
 
-section
+body
 {
+	height:100%;
+}
+.presentation
+{
+	margin:0px;
+	padding-top:40vh;
+	padding-bottom:40vh;
+	text-align:center;
 	width:100%;
 	margin:0px;
-}
-
-section
-{
-	margin:0px;
-	padding-top:100px;
-	padding-bottom:100px;
-	
-	height:100%;
-	text-align:center;
 }
 
 /* La première image, avec le slogan */
 .slogan
 {
-	
-	background: url(../../images/parallax0.png) no-repeat center fixed; 
+	background: url(../../images/backgrounds/parallax0.png) no-repeat center fixed; 
 	background-size:cover;
 	
 }
-
+.community
+{
+	
+	background: url(../../images/backgrounds/parallax2.png) no-repeat center fixed; 
+	background-size:cover;
+	
+	
+}
 h4
 {
 	color:white;
@@ -45,7 +50,7 @@ mark
 }
 .apprendre
 {
-	background: url(../../images/parallax1.png) no-repeat center fixed; 
+	background: url(../../images/backgrounds/parallax1.png) no-repeat center fixed; 
 	background-size:cover;
 }
 p
@@ -55,6 +60,16 @@ p
 	font-size:20px;
 	color:white;
 	text-shadow:0px 0px 5px black;
+}
+a
+{
+	text-decoration:none;
+	color:#0FF;
+}
+a:hover
+{
+	text-decoration:none;
+	color:#9FF;
 }
 
 @media screen and (max-width: 500px)

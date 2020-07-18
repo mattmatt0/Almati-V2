@@ -1,0 +1,42 @@
+<!-- Sign up page -->
+    <div id = "signInMask">
+        <div class ="signinForm form">
+            <div class = "formMenu">
+                <h1>Créer un compte</h1>
+                <a href="#" id = "logout"><img src="<%=url%>images/dialog/close.png"/></a>
+            </div>
+            <span id="javascript">⚠ Vous devez activer javascript pour bénéficier de toutes les fonctionalitées de ce formulaire !</span>
+            <form>
+                <div class="tooltip">
+                    <input type="text" name="pseudo" id="pseudo" placeholder="Nom d'utilisateur"><br/>
+                    <div class="bottom" id="pseudoTooltip">
+                        <p>Le pseudo ne doit pas faire plus de <strong>2</strong> caractères ou moins de <strong>15</strong> caratères</p>
+                        <i></i>
+                    </div>
+                </div><br/>
+                <div class="tooltip">
+                    <input type="email" name="email" id = "email" placeholder="Adresse e-mail"><br/>
+                    <div class="bottom" id="emailTooltip">
+                        <p>Veuillez saisir un email valide</p>
+                        <i></i>
+                    </div>
+                </div><br/>
+                <div class="tooltip">
+                    <input type="password" name="password" id="passwordLog" placeholder="Mot de passe"><br/>
+                    <div class="bottom" id="passwordTooltip">
+                        <p></p>
+                        <i></i>
+                    </div>
+                </div><br/>
+                <div class="tooltip">
+                    <input type="password" name="passwordConf" id="passwordConf" placeholder="Répétez le mot de passe"><br/>
+                    <div class="bottom" id="passwordConfTolltip">
+                        <p>Les mots de passes ne correspondent pas</p>
+                        <i></i>
+                    </div>
+                </div><br/>
+                <input type="submit" name="submit">
+            </form>
+        </div>
+    </div>
+<script type="text/javascript" src="<%=url%>js/signIn.js"></script>
