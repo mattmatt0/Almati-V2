@@ -1,14 +1,12 @@
-var pseudoInput = document.getElementById("pseudo")
-var emailTooltip = document.getElementById("emailTooltip")
-var emailInput = document.getElementById("email")
-var passwordTooltip = document.getElementById("passwordTooltip")
-var passwordTooltipP = document.querySelector("#passwordTooltip>p")
-var passwordInput = document.getElementById("passwordLog")
+var pseudoInput         = document.getElementById("pseudo")
+var emailTooltip        = document.getElementById("emailTooltip")
+var emailInput          = document.getElementById("email")
+var passwordTooltip     = document.getElementById("passwordTooltip")
+var passwordTooltipP    = document.querySelector("#passwordTooltip>p")
+var passwordInput       = document.getElementById("passwordLog")
 var passwordConfTooltip = document.getElementById("passwordConfTolltip")
-var passwordConf = document.getElementById("passwordConf")
+var passwordConf        = document.getElementById("passwordConf")
 
-var js = document.getElementById("javascript") //display if the client disable javascript
-js.style.display = 'none'
 
 //verify the pseudo's length because it must do more than 2 carater and less than 15 caracter
 pseudoChange = () =>{
@@ -80,7 +78,7 @@ passwordChange = () =>{
 passwordInput.addEventListener("keyup", passwordChange)
 passwordInput.addEventListener("change", passwordChange)
 
-//verify the 	
+//verify the
 passwordVerifChange = () =>{
 	var passwordConfirm = passwordConf.value
 	var password = passwordInput.value
