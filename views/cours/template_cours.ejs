@@ -1,5 +1,5 @@
-<% include ../common/header.ejs %>
-<script src="<%=url%>/js/cours.js"></script>
+<%- include("./../parts/header.ejs") %>
+<script src="//js/cours.js"></script>
 <article class="coursContener">
     <h4>Nom du cours (cours UNIQUEMENT) : Linux: entrez dans la matrice!</h4>
     <h1 class = "partTitle">Nom du chapitre / Titre du tutoriel: Utiliser la ligne de commande (partie 1/5) </h1><br/>
@@ -38,6 +38,6 @@
             <h1>Ceci est une pub :D argent... ARGENT... ARGENT!!!!</h1>
     </div>
 
-        <link rel = "stylesheet" href = "<%=url%>css/dark/cours/template_cours.css">
+        <link rel = "stylesheet" href = "/css/dark/cours/template_cours.css">
 </article>
-<% include ../common/footer.ejs %>
+<%- include("./../parts/footer.ejs") %>
