@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="<%=url%>css/dark/common/login.css">
+<script src='<%=url%>js/signIn.js'></script>
+<div id='loginMask'>
+    <div class ="loginForm form">
+        <div class = "formMenu">
+                <h1> Se connecter</h1>
+                <a href="#" id = "logout"><img src="<%=url%>images/dialog/close.png"/></a>
+        </div>
+        <form>
+            <input id="username" type="text" name="username" placeholder="Nom d'utilisateur"><br/>
+            <input id="password" type="password" name="password" placeholder="Mot de passe"><br/>
+            <input type="submit" name="submit" value="Se connecter"><br/>
+        </form>
+        <div class = "options">
+            <a href = "#signUp"> Créer un compte </a> | <a href = "<%=url%>user/motDePasseOublie"> Mot de passe oublié?</a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,173 @@
+
+
+header
+{
+	background-color: #000;
+	padding-left: 1%;
+	padding-right: 0%;
+	height:80px;
+}
+header>.options
+{
+	float:right;
+	height:78px;
+	display:flex;	
+	margin:0px;
+}
+header>.options>*
+{
+	height:100%;
+	background:#002a2d;
+	border-bottom:2px solid #00EDFF;
+	transition-duration: 1s;
+	cursor: pointer;
+	text-decoration: none;
+	width:200px;
+	text-align:center;
+}
+header>.options>*>h2
+{
+	color:#00EDFF;
+    transition-duration:1s;
+}
+#connectA
+{
+	filter: hue-rotate(0deg);
+}
+#tutoA
+{
+	filter: hue-rotate(-60deg);
+}
+#forumA
+{
+	filter: hue-rotate(-120deg);
+}
+.news
+{
+	margin:0px;
+	color:black;
+	text-shadow:none;
+	padding:10px;
+}
+.news a
+{
+	float:right;
+}
+header>.options>a:hover
+{
+	background: #00EDFF;
+}
+header>.options>a:hover h2
+{
+    color:#FFF;
+}
+
+header>h2
+{
+	margin-left:10px;
+	margin-right:10px;
+}
+
+header h1
+{
+	margin-left:10px;
+	color: #0AF;
+	float:left;
+}
+.news
+{
+	background-color:#FF0;
+}
+.menuButton
+{
+	width:50px;
+	height:50px;
+	margin:15px;
+	float:right;
+	display: none;
+}
+.linkMenuButton
+{
+  	display: block;
+  	margin-left: auto;
+    margin-right: none;
+}
+#menuContainer
+{
+	display:none;
+}
+#menu
+{
+	display:none;
+	padding:0px;
+	margin:0px;
+}
+#menu a
+{
+	height:100%;
+	text-decoration:none;
+	margin:0px;
+	padding:0px;
+}
+#menu h2
+{
+	padding:10px;
+	color:white;
+}
+#showMenu
+{
+	display: none;
+}
+
+#title
+{
+	height: 100%;
+}
+#title>h1
+{
+	height:100%;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	margin-left: 5px;
+	margin-right: 5px;
+	line-height:80px;
+	vertical-align: center;
+	transition-duration: 0.5s;
+}
+#title>h1:hover
+{
+	color:orange;
+}
+
+@media screen and (max-width: 700px)
+{
+  header .responsive{
+    display:none;
+  }
+  .menuButton
+  {
+  	display:inline-block;
+  }
+  #showMenu:checked ~ #menuContainer
+  {
+  	display: block;
+  }
+  #menuContainer
+  {
+  	position: relative;
+  	width: 101%;
+  	background: #111111FF;
+  	top:100%;
+  	left:-1%;
+  	padding-top: 5px;
+  	z-index: 999999;
+  }
+  #menu
+  {
+  	display: block;
+  }
+  #menu>a>h2
+  {
+	text-align: center;
+  }
+}

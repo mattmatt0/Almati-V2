@@ -1,0 +1,26 @@
+p,h1,h2,h3,h4,h5,h6,td,a,input
+{
+    color:white;
+    font-family:'Dosis';
+}
+body
+{
+	margin:0px;
+	background-color: #111;
+	font-family: 'Dosis';
+}
+input
+{
+    background-color:rgba(255,255,255,.5);
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    font-size:30px;
+    display:block;
+    width:100%;
+    margin:none;
+}
+form, form *
+{
+    box-sizing:content-box;
+}

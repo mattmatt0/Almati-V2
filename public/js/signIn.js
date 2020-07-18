@@ -1,4 +1,3 @@
-var pseudoTooltip = document.getElementById("pseudoTooltip")
 var pseudoInput = document.getElementById("pseudo")
 var emailTooltip = document.getElementById("emailTooltip")
 var emailInput = document.getElementById("email")
@@ -16,11 +15,11 @@ pseudoChange = () =>{
 	var pseudo = pseudoInput.value.length
 	if (pseudo != 0)
 		if (pseudo<=2 || pseudo > 15)
-			pseudoTooltip.style.display = "block"
+			pseudoInput.className = "invalid"
 		else
-			pseudoTooltip.style.display = "none"
+			pseudoInput.className = ""
 	else
-		pseudoTooltip.style.display = "none"
+		pseudoInput.className = ""
 }
 pseudoInput.addEventListener("keyup", pseudoChange)
 pseudoInput.addEventListener("change", pseudoChange)
@@ -32,11 +31,11 @@ emailChange = () =>{
 	var email = emailInput.value
 	if (email != 0)
 		if (emailRegex.test(email))
-			emailTooltip.style.display = "none"
+			emailInput.className = ""
 		else
-			emailTooltip.style.display = "block"
+			emailInput.className = "invalid"
 	else
-		emailTooltip.style.display = "none";
+		emailInput.className = ""
 }
 emailInput.addEventListener("keyup", emailChange)
 emailInput.addEventListener("change", emailChange)
@@ -49,34 +48,34 @@ passwordChange = () =>{
 		if(!regexPassword[0].test(password))
 		{
 			passwordTooltipP.innerText = "Le mot de passe doit contenir au mois un caratère minuscule"
-			passwordTooltip.style.display = "block";
+			passwordInput.className = "invalid"
 		}
 		else if(!regexPassword[1].test(password))
 		{
 			passwordTooltipP.innerText = "Le mot de passe doit contenir au mois un nombre"
-			passwordTooltip.style.display = "block";
+			passwordInput.className = "invalid"
 		}
 		else if(!regexPassword[2].test(password))
 		{
 			passwordTooltipP.innerText = "Le mot de passe doit contenir au mois un caratère majuscule"
-			passwordTooltip.style.display = "block";
+			passwordInput.className = "invalid"
 		}
 		else if (!regexPassword[3].test(password))
 		{
 			passwordTooltipP.innerText = "Le mot de passe doit contenir au mois un caratère spécial (!@#$%^&*_-)"
-			passwordTooltip.style.display = "block";
+			passwordInput.className = "invalid"
 		}
 		else if (password.length < 8)
 		{
 			passwordTooltipP.innerText = "Le mot de passe doit faire plus de 8 caratères"
-			passwordTooltip.style.display = "block";
+			passwordInput.className = "invalid"
 		}
 		else
 		{
-			passwordTooltip.style.display = "none";
+			passwordInput.className = ""
 		}
 	else
-		passwordTooltip.style.display = "none";
+		passwordInput.className = ""
 }
 passwordInput.addEventListener("keyup", passwordChange)
 passwordInput.addEventListener("change", passwordChange)
@@ -87,11 +86,11 @@ passwordVerifChange = () =>{
 	var password = passwordInput.value
 	if (passwordConf.length != 0)
 		if (passwordConfirm == password)
-			passwordConfTooltip.style.display = "none"
+			passwordConf.className = ""
 		else
-			passwordConfTooltip.style.display = "block"
+			passwordConf.className = "invalid"
 	else
-		passwordConfTooltip.style.display = "none";
+		passwordConf.className = ""
 }
 passwordConf.addEventListener("keyup", passwordVerifChange)
 passwordConf.addEventListener("change", passwordVerifChange)

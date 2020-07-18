@@ -1,8 +1,8 @@
 const express = require('express')
 const cours = require("./routes/cours")
 const user = require("./routes/user")
-const testBox = require("./routes/testBox")
 const communaute = require("./routes/communaute")
+const resources = require("./routes/resources")
 const ejs = require("ejs")
 
 const app = express()
@@ -49,11 +49,13 @@ app.get('', function(req, res) {
 app.use("/user",user)
 app.use("/cours",cours)
 app.use("/communaute",communaute)
-app.use("/test", testBox)
+app.use("/ressources", resources)
 // If 404:
 app.use(function(req, res, next){
-    res.render('404.ejs',{url:req.urlForLink})
+    res.render('common/404.ejs',{url:req.urlForLink})
 });
 
 
-app.listen(8080)
+app.listen(port,()=>{
+	console.log("Le serveur écoute sur",port)
+})
