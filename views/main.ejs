@@ -3,12 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title> Accueil - Almati </title>
-		<link rel="stylesheet" href="<%=url%>css/dark/main.css">
+		<link rel="stylesheet" href="/css/dark/main.css">
 
 		
 	</head>
 	<body>
-		<% include common/header.ejs %>
+		<%- include("./parts/header.ejs") %>
 		<p class = "news"> Texte aléatoire pour la barre des nouvelles / évènements  <button onclick = "hideNews()">Fermer</button></p>
 		<section class = "slogan presentation">
             <h3><mark> Bienvenue sur Almati </mark></h3>
@@ -24,10 +24,10 @@
 		<section class = "apprendre presentation">
 			<h4> Découvrir, avec différents formats</h4>
 			<p>
-				Pour les nostalgiques de les bancs de l'école, nous avons les cours. Composés de plusieurs sections, ils contiennent tout ce qui vous est nécessaire pour débuter. Pour un sujet plus précis
+				Pour les nostalgiques de les bancs sde l'école, nous avons les cours. Composés de plusieurs sections, ils contiennent tout ce qui vous est nécessaire pour débuter. Pour un sujet plus précis
 				, vous avez les tutoriels. Plus courts, il  nécessiteront parfois des connaissances préalables.
 			</p>
 		</section>
-	<% include common/footer.ejs %>
+	<%- include("./parts/footer.ejs") %>
 	</body>
 </html>

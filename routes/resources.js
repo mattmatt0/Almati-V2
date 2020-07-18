@@ -3,7 +3,7 @@ const route = express.Router();
 
 // Resources, such as wysiwyg editor, etc...
 route.get("/wysiwyg",(req,res)=>{
-	res.render('wysiwyg.ejs',{url:req.urlForLink})
+	res.render('wysiwyg.ejs',{})
 })
 
 module.exports = route;

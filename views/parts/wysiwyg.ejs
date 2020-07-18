@@ -1,7 +1,7 @@
-<link rel="stylesheet" href="<%=url%>css/dark/cours/template_cours.css">
-<link rel="stylesheet" href="<%=url%>css/dark/wysiwyg.css">
+<link rel="stylesheet" href="/css/dark/cours/template_cours.css">
+<link rel="stylesheet" href="/css/dark/wysiwyg.css">
 
-<%include common/include.ejs%>
+<%- include("./parts/include.ejs")%>
 
 <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=2.0" />
 
@@ -110,8 +110,8 @@
 	<div class = "error tips" onclick="validate(this)">Erreur / à ne surtout pas faire</div>
 	<div class = "reset tips" onclick="validate(this)">Restaurer un paragraphe normal</div>
 </div>
-<script src = "<%=url%>js/wysiwyg.js"></script>
-<script src="<%=url%>js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src = "/js/wysiwyg.js"></script>
+<script src="/js/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 	var editor = ace.edit("ace-editor")
 	editor.setTheme("ace/theme/monokai")
