@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tutos et cours - Almati</title>
+    <%- include("./include.ejs")%>
     <link rel="stylesheet" href="/css/dark/cours/cours.css">
 </head>
 <body>
@@ -16,7 +17,7 @@
             <section>
                         <h3 style = "text-align:left;font-size:50px;background:linear-gradient(#0AF,#07F);margin:0px;padding:1%">Nom de catégorie</h3>
                     <div class="courseList">
-                        <%- include("./liste")_cours.ejs %>
+                        <%- include("./liste_cours.ejs") %>
                 </div>
             </section>
         <%}%>
