@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="phone.svg"
+   id="svg8"
+   preserveAspectRatio="xMidYMid meet"
+   viewBox="0 0 294.04852 598.90015"
+   height="598.90015pt"
+   width="294.04852pt"
+   version="1.0">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     inkscape:current-layer="svg8"
+     inkscape:window-maximized="0"
+     inkscape:window-y="37"
+     inkscape:window-x="10"
+     inkscape:cy="405.2"
+     inkscape:cx="-94.173066"
+     inkscape:zoom="0.61145833"
+     fit-margin-bottom="0"
+     fit-margin-right="0"
+     fit-margin-left="0"
+     fit-margin-top="0"
+     showgrid="false"
+     id="namedview10"
+     inkscape:window-height="719"
+     inkscape:window-width="1344"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff" />
+  <metadata
+     id="metadata2">
+Created by potrace 1.15, written by Peter Selinger 2001-2017
+<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title></dc:title>
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <g
+     style="fill:#ffffff;fill-opacity:1"
+     id="g6"
+     stroke="none"
+     fill="#000000"
+     transform="matrix(0.1,0,0,-0.1,-494.13917,663.9)">
+    <path
+       style="fill:#ffffff;fill-opacity:1"
+       id="path4"
+       d="m 5268,6630 c -79,-10 -169,-48 -217,-93 -44,-42 -87,-133 -101,-215 -7,-48 -10,-820 -8,-2722 l 3,-2655 26,-67 c 14,-36 40,-84 57,-105 37,-47 126,-96 200,-112 37,-8 392,-11 1174,-11 1204,0 1178,-1 1279,50 51,27 114,101 141,169 l 23,56 3,1193 c 2,1043 4,1192 17,1192 23,0 22,735 0,744 -12,4 -15,27 -15,121 0,96 3,115 15,115 13,0 15,27 15,180 0,152 -2,180 -15,180 -12,0 -15,111 -17,853 -3,802 -4,855 -22,903 -47,131 -148,205 -306,224 -100,12 -2149,12 -2252,0 z M 7750,3600 V 1200 H 6395 5040 v 2400 2400 h 1355 1355 z" />
+  </g>
+</svg>

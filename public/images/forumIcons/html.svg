@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 377.95311 377.95313"
+   version="1.1"
+   id="svg12"
+   sodipodi:docname="html.svg"
+   width="100.00009mm"
+   height="100.0001mm"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>HTML5 Logo Badge</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs16" />
+  <sodipodi:namedview
+     inkscape:pagecheckerboard="true"
+     units="mm"
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="445"
+     id="namedview14"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.97690502"
+     inkscape:cx="158.96618"
+     inkscape:cy="219.05047"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg12" />
+  <title
+     id="title2">HTML5 Logo Badge</title>
+  <path
+     d="M 188.97656 0 C 84.607649 -9.9999911e-05 -9.9999907e-05 84.60765 0 188.97656 C -9.9999907e-05 293.34547 84.607649 377.95322 188.97656 377.95312 C 293.34547 377.95323 377.95322 293.34547 377.95312 188.97656 C 377.95323 84.607649 293.34547 -9.9999911e-05 188.97656 0 z M 48.292969 143.14258 L 60.728516 143.14258 L 60.728516 181.94531 L 110.33789 181.94531 L 110.33789 143.14258 L 122.77148 143.14258 L 197.0293 143.14258 L 212.36914 143.14258 L 236.7832 206.75 C 237.65126 209.31075 238.47461 212.0662 239.25586 215.01758 C 240.08051 217.92556 240.62435 220.0319 240.88477 221.33398 C 241.23199 219.59788 241.94814 216.97069 243.0332 213.45508 C 244.16168 209.89606 244.91993 207.66145 245.31055 206.75 L 269.26953 143.14258 L 285.2207 143.14258 L 285.2207 234.875 L 274.02148 234.875 L 274.02148 173.67773 C 274.02148 166.90692 274.2168 160.39647 274.60742 154.14648 C 272.4807 161.91556 270.57161 167.99133 268.87891 172.375 L 245.18164 234.875 L 236.45703 234.875 L 212.43359 172.375 L 208.78711 161.30664 L 206.63867 154.14648 L 206.83398 161.37305 L 207.0957 173.67773 L 207.0957 234.875 L 196.02734 234.875 L 196.02734 153.29883 L 165.51953 153.29883 L 165.51953 234.875 L 153.15039 234.875 L 153.15039 153.29883 L 122.77148 153.29883 L 122.77148 234.875 L 110.33789 234.875 L 110.33789 192.36133 L 60.728516 192.36133 L 60.728516 234.875 L 48.292969 234.875 L 48.292969 143.14258 z M 292.09375 143.14258 L 304.5293 143.14258 L 304.5293 224.71875 L 350.88281 224.71875 L 350.88281 234.875 L 292.09375 234.875 L 292.09375 143.14258 z "
+     style="fill:#ffffff;fill-opacity:1;stroke-width:3.41049;stroke-miterlimit:4;stroke-dasharray:none"
+     id="path1389" />
+</svg>
