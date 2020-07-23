@@ -5,17 +5,14 @@
 <h1>[TEMPLATE] //replace with actual category name</h1>
 <p>[subsection description]</p>
 
-<p style = "text-align:center"><button onclick='newSubject()'">Créer un nouveau sujet</button></p>
+
 <h3>Derniers posts</h3>
+	<div id="subjects">
 	<%for(var i=0;i<20;++i){%>
 		<div class = "postHeaderContainer">
-			<div class = "postInfo">
-				<h4>Titre du post</h4><br/>
-				<p>Par 
-					<img class="profile" src="<%url%>../../../images/forumIcons/python.svg">
-					<strong>Nom d'utilisateur</strong>
-				</p>
-			</div>
+			<p>Data lol</p>
 		</div>
 	<%}%>
+	</div>
+	<div style="float:clear"></div>
 <%include ../common/footer.ejs%>
