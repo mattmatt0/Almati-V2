@@ -18,30 +18,10 @@ app.set('view engine', 'ejs');
 //add files in public folder (pictures, javascript, css...)
 app.use(express.static(__dirname + '/public'))
 
-// middle ware for get host name and use it in link
-app.use((req,res,next)=>{
-	url = req.url
-	nb = 0
-	urlForLink = "/"
-	if (url != "/favicon.ico" && url != "/")
-	{
-
-		nb = url.split("/").length-1 //get nuber of slashes
-
-		for (var i = 0; i < nb; i++) {
-			urlForLink += "../"
-
-        }
-
-    }
-	req.urlForLink = urlForLink
-	next()
-
-})
 
 //main route
 app.get('', function(req, res) {
-    res.render('main.ejs',{url:req.urlForLink})
+    res.render('main.ejs',{})
 
 });
 
@@ -49,11 +29,13 @@ app.get('', function(req, res) {
 app.use("/user",user)
 app.use("/cours",cours)
 app.use("/communaute",communaute)
-app.use("/resources", resources)
+app.use("/ressources", resources)
 // If 404:
 app.use(function(req, res, next){
-    res.render('common/404.ejs',{url:req.urlForLink})
+    res.render('common/404.ejs',{})
 });
 
 
-app.listen(8080)
+app.listen(port,()=>{
+	console.log("Le serveur écoute sur",port)
+})

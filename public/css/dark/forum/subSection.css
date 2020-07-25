@@ -1,0 +1,47 @@
+#subjects
+{
+	display:flex;
+	flex-direction:column;
+}
+h4
+{
+	text-align:center;
+}
+.postInfo
+{
+	float:left;
+	margin-right:-100%;
+}
+.lastMessage
+{
+	margin-right:10px;
+	float:right;
+	text-align:right;
+	margin-left:-100%;
+}
+.postHeaderContainer
+{
+	background-color:#002a2d;
+	border:1px solid black;
+	border-left:5px solid #0E9;
+	transition-duration:1s;
+	cursor:pointer;
+}
+.postHeaderContainer:hover
+{
+	transform:translateY(-1px);
+	background-color:#09E;
+	box-shadow:5px 5px 5px 5px #111;
+}
+.solved
+{
+	background-color:#031;
+}
+.solved:hover
+{
+	background-color:#0C3;
+}
+.seen
+{
+	border-left: 5px solid #555;
+}
