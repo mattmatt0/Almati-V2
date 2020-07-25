@@ -15,7 +15,7 @@ route.get("/forum",(req,res)=>{
 	res.render('forum/forum.ejs',{})
 })
 route.use("/forum",(req,res)=>{
-	res.render('forum/forumSubsectionTemplate.ejs',{url:req.urlForLink})
+	res.render('forum/forumSubsectionTemplate.ejs',{url:req.urlForLink,category:"CATEGORY NAME",categoryDescription:"CATEGORY DESCRIPTION"})
 })
 route.get("/QuiSommesNous",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
