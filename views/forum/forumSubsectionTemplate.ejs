@@ -2,19 +2,34 @@
 <title>[TEMPLATE] - Forum - Almati</title>
 <link rel="stylesheet" href="<%url%>../../../css/dark/forum/forum.css">
 <link rel="stylesheet" href="<%url%>../../../css/dark/forum/subSection.css">
-<h1>[TEMPLATE] //replace with actual category name</h1>
-<p>[subsection description]</p>
+<h1>Langage C++</h1>
+<p>Toutes vos questions concernant le C++, que ce soit des conseils de libs, des erreurs que vous ne comprenez pas, ou toute question sur le langage</p>
 
 
 <h3>Sujets récemment actifs</h3>
 	<div id="subjects">
 	<%for(var i=0;i<20;++i){%>
-		<div class = "postHeaderContainer">
+		<div onclick = "preview" class = "postHeaderContainer">
 			<p class = "postInfo">Par <strong>USERNAME</strong></p>
 			<p class = "lastMessage">Dernier message par <strong>USERNAME</strong></p>
 			<h4>POST TITLE</h4>
 		</div>
 	<%}%>
+		<div class = "postHeaderContainer solved">
+			<p class = "postInfo">Par <strong>USERNAME</strong></p>
+			<p class = "lastMessage">Dernier message par <strong>USERNAME</strong></p>
+			<h4>SOLVED POST</h4>
+		</div>
+		<div class = "postHeaderContainer seen">
+			<p class = "postInfo">Par <strong>USERNAME</strong></p>
+			<p class = "lastMessage">Dernier message par <strong>USERNAME</strong></p>
+			<h4>SEEN POST</h4>
+		</div>
+		<div class = "postHeaderContainer solved seen">
+			<p class = "postInfo">Par <strong>USERNAME</strong></p>
+			<p class = "lastMessage">Dernier message par <strong>USERNAME</strong></p>
+			<h4>SOLVED SEEN POST</h4>
+		</div>
 	</div>
 	<div style="float:clear"></div>
 <%include ../common/footer.ejs%>
