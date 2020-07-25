@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Tutos et cours - Almati</title>
+    <%- include("../parts/include.ejs")%>
+</head>
 <%- include("../parts/header.ejs") %>
 <link rel="stylesheet" href="<%url%>../../../css/dark/forum/forum.css">
 <link rel="stylesheet" href="<%url%>../../../css/dark/forum/subSection.css">
@@ -5,7 +12,6 @@
 <title><%=category%> - Forum - Almati</title>
 <h1><%=category%> //replace with actual category name</h1>
 <p><%=categoryDescription%></p><a href = "#createSubject">Créer un nouveau sujet</a>
-<h3>Derniers posts</h3>
 
 <h3>Sujets récemment actifs</h3>
 	<div id="subjects">
