@@ -46,7 +46,7 @@ section[id!signin]
 #courseSearch
 {
     background-color:rgba(0,0,0,.5);
-    transition-duration:1s;
+    transition-duration:.5s;
     border:none;
     color:#FFF;
     margin-left:50%;
