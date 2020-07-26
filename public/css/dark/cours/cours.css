@@ -4,6 +4,15 @@ h3
     font-size:5em;
     text-align:center;
 }
+.categoryName
+{
+	
+	text-align:center;
+	font-size:20px;
+	background:linear-gradient(#0AF,#07F);
+	margin:0px;
+	padding:10px;
+}
 p
 {
     text-align:center;
