@@ -1,4 +1,4 @@
-.subSectionContainer>*
+.sectionLabel
 {
 	display:flex;
 	justify-content: space-between;
@@ -23,19 +23,18 @@
 {
 	margin-top:25px;
 }
-.subSectionContainer>div
+.sectionLabel, .sectionDescription
 {
 	box-shadow: inset 0 0 100vh 100vh rgba(0, 0, 0, 0.5); 
 	/* ↑↑↑↑↑↑↑ A workaround to do this "enlightment" effect on hover" */
 }
-.subSectionContainer>div:hover
+.sectionLabel:hover
 {
 	text-shadow:1px 1px 3px black, 
 		1px -1px 3px black, 
 		-1px 1px 3px black, 
 		-1px -1px 3px black;
 	box-shadow: none;
-	transform:
 	/* ↑↑↑↑↑↑↑ A workaround to do this "enlightment" effect on hover" */
 }
 .subSectionContainer a
@@ -51,4 +50,9 @@
 	padding-top:10px;
 	padding-right:10px;
 	cursor:pointer;
+}
+.sectionDescription
+{
+	display:none;
+	transform:scaleX(0);
 }
