@@ -45,3 +45,11 @@ h4
 {
 	border-left: 5px solid #555;
 }
+.closed
+{
+	background-color:#333;
+}
+.closed:hover
+{
+	background-color:#666;
+}
