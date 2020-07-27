@@ -23,17 +23,21 @@
 			<img class = "subjectIcon" src="/images/forumIcons/other.svg">
 			<h4>SUBSECTION NAME</h4>
 			</a>
-			<img class = "info" src="/images/dialog/info.png" onclick = showInfo()">
-		</div>
-		<div class = "sectionDescription" style = "background-color:hsl(<%=((i+s)/(subSectionAmount))*360%>,100%,50%)">
-			<p>SUBSECTION DESCRIPTION</p>
+			<img class = "info" src="/images/dialog/info.png" onclick = "showInfo(this)">
 		</div>
 		<%}%>
 	</div>
 	<%}%>
 
 	<script>
-		
+		function showInfo(element)
+		{
+			element.parentElement.style.flexBasis="100%";
+			element.parentElement.nextElementSibling.style.width = "100%";
+			element.parentElement.nextElementSibling.style.height = "100%";
+			element.parentElement.nextElementSibling.style.transform = "none";
+			
+		}
 	</script>
 	<!-- some icons are from onlinewebfonts: http://www.onlinewebfonts.com -->
 	<!-- wikimedia commons also -->
