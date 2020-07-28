@@ -34,12 +34,22 @@
 	<script>
 		function toogleInfo(element)
 		{
-			element.src = "/images/dialog/close_white.png"
-			element.parentElement.style.transitionDuration = ".2s";
-			element.parentElement.classList.add("descriptionHeader");
-			element.parentElement.nextElementSibling.style.transform = "scale(1)";
-			element.parentElement.nextElementSibling.style.zIndex = "99";
-			element.parentElement.style.transitionDuration = "1s";
+			if(element.src.search("info") > -1)
+			{
+				element.src = "/images/dialog/close_white.png";
+				element.parentElement.style.transitionDuration = ".2s";
+				element.parentElement.classList.add("descriptionHeader");
+				element.parentElement.nextElementSibling.style.transform = "scale(1)";
+				element.parentElement.nextElementSibling.style.zIndex = "99";
+				element.parentElement.style.transitionDuration = "1s";
+			}
+			else
+			{
+				element.src = "/images/dialog/info.png";
+				element.parentElement.classList.remove("descriptionHeader");
+				element.parentElement.nextElementSibling.style.transform = "scale(0)";
+				element.parentElement.nextElementSibling.style.zIndex = "0";
+			}
 
 			
 		}
