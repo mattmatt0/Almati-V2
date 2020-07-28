@@ -23,7 +23,7 @@
 			<img class = "subjectIcon" src="/images/forumIcons/other.svg">
 			<h4>SUBSECTION NAME</h4>
 			</a>
-			<img class = "info" src="/images/dialog/info.png" onclick = "showInfo(this)">
+			<img class = "info" src="/images/dialog/info.png" onclick = "toogleInfo(this)">
 		</div>
 		<div class = "sectionDescription" style="background-color:hsl(<%=((i+s)/(subSectionAmount))*360%>,100%,50%)"><p>SUBSECTION DESCRIPTION</p></div>
 
@@ -32,8 +32,9 @@
 	<%}%>
 
 	<script>
-		function showInfo(element)
+		function toogleInfo(element)
 		{
+			element.src = "/images/dialog/close_white.png"
 			element.parentElement.style.transitionDuration = ".2s";
 			element.parentElement.classList.add("descriptionHeader");
 			element.parentElement.nextElementSibling.style.transform = "scale(1)";
