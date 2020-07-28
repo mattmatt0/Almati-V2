@@ -64,4 +64,7 @@ h3
 	background:linear-gradient(#0AF,#07F);
 	margin:0px;
 	padding:10px;
+	border-radius:10px;
+	margin-left:10px;
+	margin-right:10px;
 }

@@ -16,15 +16,17 @@
        for(s=0;s<sectionAmount;++s){ %>
 	<h3>CATEGORY NAME</h3>
 	<div class = "subSectionContainer">
-		<% var subSectionAmount = 24;
+		<% var subSectionAmount = 10;
 		for(i=0;i < subSectionAmount;++i){ %>
 		<div id = "SECTION_ID" style = "background-color:hsl(<%=((i+s)/(subSectionAmount))*360%>,100%,50%)" class = "sectionLabel">
-			<a href="SECTION_PATH">
+			<a href="forum/SECTION_PATH">
 			<img class = "subjectIcon" src="/images/forumIcons/other.svg">
 			<h4>SUBSECTION NAME</h4>
 			</a>
 			<img class = "info" src="/images/dialog/info.png" onclick = "showInfo(this)">
 		</div>
+		<div class = "sectionDescription" style="background-color:hsl(<%=((i+s)/(subSectionAmount))*360%>,100%,50%)"><p>SUBSECTION DESCRIPTION</p></div>
+
 		<%}%>
 	</div>
 	<%}%>
@@ -32,10 +34,12 @@
 	<script>
 		function showInfo(element)
 		{
-			element.parentElement.style.flexBasis="100%";
-			element.parentElement.nextElementSibling.style.width = "100%";
-			element.parentElement.nextElementSibling.style.height = "100%";
-			element.parentElement.nextElementSibling.style.transform = "none";
+			element.parentElement.style.transitionDuration = ".2s";
+			element.parentElement.classList.add("descriptionHeader");
+			element.parentElement.nextElementSibling.style.transform = "scale(1)";
+			element.parentElement.nextElementSibling.style.zIndex = "99";
+			element.parentElement.style.transitionDuration = "1s";
+
 			
 		}
 	</script>
