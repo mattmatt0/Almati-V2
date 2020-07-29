@@ -12,6 +12,7 @@
 	<h1>Forum</h1>
 	<p>L'espace d'échange entre membres. <br/>
 	Soyez respectueux, évitez le déterrage, et évitez les trolls. Une équipe de modération pourra appliquer des sanctions et supprimera votre message s'il est innaproprié</p>
+	<div id = "descriptionMask"></div> <!-- Makes the rest of the UI unclickable when the description is shown -->
 	<% var sectionAmount = 10;
        for(s=0;s<sectionAmount;++s){ %>
 	<h3>CATEGORY NAME</h3>
@@ -20,8 +21,8 @@
 		for(i=0;i < subSectionAmount;++i){ %>
 		<div id = "SECTION_ID" style = "background-color:hsl(<%=((i+s)/(subSectionAmount))*360%>,100%,50%)" class = "sectionLabel">
 			<a href="forum/SECTION_PATH">
-			<img class = "subjectIcon" src="/images/forumIcons/other.svg">
-			<h4>SUBSECTION NAME</h4>
+				<img class = "subjectIcon" src="/images/forumIcons/other.svg">
+				<h4>SUBSECTION NAME</h4>
 			</a>
 			<img class = "info" src="/images/dialog/info.png" onclick = "toogleInfo(this)">
 		</div>
@@ -31,29 +32,7 @@
 	</div>
 	<%}%>
 
-	<script>
-		function toogleInfo(element)
-		{
-			if(element.src.search("info") > -1)
-			{
-				element.src = "/images/dialog/close_white.png";
-				element.parentElement.style.transitionDuration = ".2s";
-				element.parentElement.classList.add("descriptionHeader");
-				element.parentElement.nextElementSibling.style.transform = "scale(1)";
-				element.parentElement.nextElementSibling.style.zIndex = "99";
-				element.parentElement.style.transitionDuration = "1s";
-			}
-			else
-			{
-				element.src = "/images/dialog/info.png";
-				element.parentElement.classList.remove("descriptionHeader");
-				element.parentElement.nextElementSibling.style.transform = "scale(0)";
-				element.parentElement.nextElementSibling.style.zIndex = "0";
-			}
-
-			
-		}
-	</script>
+	<script type="text/javascript" src="/js/subSection.js"></script>
 	<!-- some icons are from onlinewebfonts: http://www.onlinewebfonts.com -->
 	<!-- wikimedia commons also -->
 	<!-- svgrepo -->

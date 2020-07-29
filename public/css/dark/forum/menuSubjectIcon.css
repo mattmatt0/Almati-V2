@@ -20,7 +20,7 @@
 .sectionLabel, .sectionDescription
 {
 	box-shadow: inset 0 0 100vh 100vh rgba(0, 0, 0, 0.5); 
-	transition-duration:1s;
+	transition-duration:.2s;
 	/* ↑↑↑↑↑↑↑ A workaround to do this "enlightment" effect on hover" */
 }
 .sectionLabel:hover
@@ -96,4 +96,15 @@
 		border-radius:0;
 	}
 	
+}
+#descriptionMask
+{
+	display:none;
+	z-index:98;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100vw;
+	height:100vh;
+	background-color:rgba(0,0,0,.5)
 }
