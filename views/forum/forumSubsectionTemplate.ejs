@@ -30,7 +30,7 @@
 			<p class = "lastMessage">Dernier message par <strong>USERNAME</strong>
 				<br/>Le <strong>DD/MM/YYYY à HH:MM</strong>
 			</p>
-			<img src = "/images/symbols/arrow_down.png" class = "displayMoreButton" onclick = "showPreview(this)">
+			<img src = "/images/symbols/arrow_down.png" class = "displayMoreButton" onclick = "tooglePreview(this)">
 			<h4><%=placeHolders[i] %></h4>
 			<div class = "contentPreview">
 				<p>POST CONTENT</p>
@@ -42,12 +42,29 @@
 		<%}%>
 	</div>
 	<script>
-		function showPreview(element)
+		function tooglePreview(element)
 		{
 			var contentPreview = element.nextElementSibling.nextElementSibling;
+			if(contentPreview.style.maxHeight === "100vh")
+			{
+				hidePreview(contentPreview);
+				element.src = "/images/symbols/arrow_down.png";
+			}
+			else
+			{
+				showPreview(contentPreview);
+				element.src = "/images/symbols/arrow_up.png";
+			}
+		}
+		function showPreview(contentPreview)
+		{
 			contentPreview.style.maxHeight = "100vh";
 			contentPreview.style.border = "3px solid black";
-			
+		}
+		function hidePreview(contentPreview)
+		{
+			contentPreview.style.maxHeight = "0vh";
+			contentPreview.style.border = "none";
 		}
 	</script>
 <%- include("../parts/footer.ejs") %>
