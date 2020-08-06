@@ -30,7 +30,7 @@
 			<p class = "lastMessage">Dernier message par <strong>USERNAME</strong>
 				<br/>Le <strong>DD/MM/YYYY à HH:MM</strong>
 			</p>
-			<img src = "/images/symbols/arrow_down.png" class = "displayMoreButton" onclick = "tooglePreview(this)">
+			<img src = "/images/symbols/arrow_down.svg" class = "displayMoreButton" onclick = "tooglePreview(this)">
 			<h4><%=placeHolders[i] %></h4>
 			<div class = "contentPreview">
 				<p>POST CONTENT</p>
@@ -48,12 +48,12 @@
 			if(contentPreview.style.maxHeight === "100vh")
 			{
 				hidePreview(contentPreview);
-				element.src = "/images/symbols/arrow_down.png";
+				element.src = "/images/symbols/arrow_down.svg";
 			}
 			else
 			{
 				showPreview(contentPreview);
-				element.src = "/images/symbols/arrow_up.png";
+				element.src = "/images/symbols/arrow_up.svg";
 			}
 		}
 		function showPreview(contentPreview)
