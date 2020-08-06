@@ -71,8 +71,9 @@ h4
 	background-color:#222;
 	margin:10px;
 	border-radius:10px;
-	transition-duration:1s;
 	transition:border 0s, max-height 1s;
+	animation-delay:0s;
+	transition-delay:0s;
 	max-height:0px;
 	overflow:hidden;
 	border:none;
@@ -89,3 +90,42 @@ h4
 {
 	float:right;
 }
+@media screen and (max-width: 800px)
+{
+	h4
+	{
+		text-align:left;
+		padding-left:10px;
+		padding-top:5px;
+		padding-bottom:5px;
+		margin-top:0px;
+		background-color:rgba(0,0,0,.2)
+	}
+	.displayMoreButton
+	{
+		margin:7.5px;
+	}
+	.postInfo, .lastMessage
+	{
+		padding-top:20px;
+	}
+	.postInfo
+	{
+		margin-left:5px;
+	}
+	.lastMessage
+	{
+		margin-right:5px;
+	}
+	.contentPreview
+	{
+		margin-top:50px;
+	}
+	.postHeaderContainer
+	{
+		margin:0;
+		border-radius:0;
+		margin-top:5px;
+	}
+}
+
