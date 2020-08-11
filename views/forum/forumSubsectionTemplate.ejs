@@ -12,10 +12,36 @@
 <title><%=category%> - Forum - Almati</title>
 <h1><%=category%></h1>
 <p><%=categoryDescription%></p>
-
 <p style="text-align:center"><button onclick = "createSubject()">Créer un nouveau sujet</button></p>
+<h3>Sujets épinglés</h3>
+	<div class="subjects">
+			<% 
+			var classNames = ["", "solved", "seen", "solved seen", "closed", "closed seen"];
+			var placeHolders = ["POST TITLE", "SOLVED POST", "SEEN POST", "SOLVED SEED POST", "CLOSED POST", "CLOSED SEEN POST"];
+			var postInfos = ["Sujet non résolu - aucune réponse", "Sujet résolu - 2 réponses", "Sujet non résolu - 2 réponses", "Sujet résolu - une réponse", "Sujet fermé", "Sujet fermé"];
+			for(var i=0; i <6; ++i) 
+			{
+			%>
+			<div class = "postHeaderContainer <%=classNames[i]%>">
+				<p class = "postInfo">Sujet créé par <strong>USERNAME</strong>
+					<br/>Le <strong>DD/MM/YYYY à HH:MM</strong>
+				</p>
+				<p class = "lastMessage">Dernier message par <strong>USERNAME</strong>
+					<br/>Le <strong>DD/MM/YYYY à HH:MM</strong>
+				</p>
+				<img src = "/images/symbols/arrow_down.svg" class = "displayMoreButton" onclick = "tooglePreview(this)">
+				<a href = "SUBJECT_ID"><h4><%=placeHolders[i] %></h4></a>
+				<div class = "contentPreview">
+					<p>POST CONTENT</p>
+					<div class = "additionalInfo">
+						<%=postInfos[i]%>	
+						<a href = "SUBJECT_ID">Voir le sujet</a></div>
+				</div>
+			</div>
+			<%}%>
+		</div>
 <h3>Sujets récemment actifs</h3>
-	<div id="subjects">
+	<div class="subjects">
 		<% 
 	     	var classNames = ["", "solved", "seen", "solved seen", "closed", "closed seen"];
 	     	var placeHolders = ["POST TITLE", "SOLVED POST", "SEEN POST", "SOLVED SEED POST", "CLOSED POST", "CLOSED SEEN POST"];
