@@ -12,6 +12,10 @@ route.get("/chat",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
 route.get("/forum",(req,res)=>{
+	if(!req.url.endsWith('/'))
+	{
+		res.redirect('/communaute' + req.url + '/')
+	}
 	res.render('forum/forum.ejs',{})
 })
 route.use("/forum",(req,res)=>{
