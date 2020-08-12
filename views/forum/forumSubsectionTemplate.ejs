@@ -2,14 +2,13 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>Tutos et cours - Almati</title>
+	<title><%=category%> - Forum - Almati</title>
     <%- include("../parts/include.ejs")%>
 </head>
 <%- include("../parts/header.ejs") %>
 <link rel="stylesheet" href="/css/dark/forum/forum.css">
 <link rel="stylesheet" href="/css/dark/forum/subSection.css">
 
-<title><%=category%> - Forum - Almati</title>
 <h1><%=category%></h1>
 <p><%=categoryDescription%></p>
 <p style="text-align:center"><button onclick = "createSubject()">Créer un nouveau sujet</button></p>
