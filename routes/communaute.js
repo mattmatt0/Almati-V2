@@ -18,8 +18,16 @@ route.get("/forum",(req,res)=>{
 	}
 	res.render('forum/forum.ejs',{})
 })
-route.use("/forum",(req,res)=>{
-	res.render('forum/forumSubsectionTemplate.ejs',{url:req.urlForLink,category:"CATEGORY NAME",categoryDescription:"CATEGORY DESCRIPTION"})
+route.get("/forum/:subsection/",(req,res)=>{
+	res.render('forum/forumSubsectionTemplate.ejs',{
+		category:req.params.subsection,
+		categoryDescription:"CATEGORY DESCRIPTION"}
+	)
+})
+route.get("/forum/:subsection/:postId",(req,res)=>{
+	res.render("forum/postTemplate.ejs",{
+		postTitle:"POST TITLE (id:" + req.params.postId + ")"}
+	)
 })
 route.get("/QuiSommesNous",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
