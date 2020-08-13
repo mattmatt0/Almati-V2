@@ -1,0 +1,47 @@
+.postContainer
+{
+	display:flex;
+	min-height:100px;
+	background-color:#002a2d;
+	margin:10px;
+	border-radius:10px;
+}
+.userInfo
+{
+	background-color:#003a3d;
+	text-align:center;
+	padding:5px;
+	border-radius:10px;
+	display:flex;
+	flex-direction:column;
+	border-top-right-radius:0px;
+	border-bottom-right-radius:0px;
+}
+.user
+{
+	padding-top:15px;
+	height:150px;
+	transition-duration:1s;
+	border-radius:10px;
+	background-color:#156670;
+
+}
+.user:hover
+{
+	box-shadow:5px 5px 5px black,-1px -1px 1px #0a3a3d;
+	background-color:#00b2bb;
+}
+.userInfo img
+{
+	width:100px;
+	height:100px;
+}
+.postContent
+{
+	color:#CCC;
+	margin:15px;
+}
+.postContent strong
+{
+	color:#FFF
+}

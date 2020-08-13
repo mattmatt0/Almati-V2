@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title><%=postTitle%> - Forum - Almati</title>
+    <%- include("../parts/include.ejs")%>
+</head>
+<%- include("../parts/header.ejs") %>
+<link rel="stylesheet" href="/css/dark/forum/post.css">
+<h1><%=postTitle%></h1>
+<% for(var post=0;post<10;++post){%>
+<div class = "postContainer">
+	<div class = "userInfo"> 
+		<a class = "user" href = "/user/USER_ID">
+			<img src="/images/forumIcons/user.svg"/>
+			<p>USERNAME</p>
+		</a>
+		<p>Le DD/MM/YYYY à HH:MM</p>
+	</div>
+	<div class = "postContent">POST CONTENT INCLUDING <strong>BOLD TEXT</strong>, AND SOME LOREM IPSUM TO MAKE IT BETTER <br/> Lorem ipsum dolor sit amet i use arch btw it's the best distro ever you should try it instead of using micro$$oft windows or crapple macos. Even if you use noobuntu. Or manjaro. Because arch is the best distro ever. If you don't use  arch then ur noob and so you shouldn't exist. I use arch btw. Arch Linux masterrace<br/><br/>I'd just like to interject for a moment.  What you're referring to as Linux,
+is in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux.
+Linux is not an operating system unto itself, but rather another free component
+of a fully functioning GNU system made useful by the GNU corelibs, shell
+utilities and vital system components comprising a full OS as defined by POSIX.
+<br/>
+Many computer users run a modified version of the GNU system every day,
+without realizing it.  Through a peculiar turn of events, the version of GNU
+which is widely used today is often called "Linux", and many of its users are
+not aware that it is basically the GNU system, developed by the GNU Project.
+<br/>
+There really is a Linux, and these people are using it, but it is just a
+part of the system they use.  Linux is the kernel: the program in the system
+that allocates the machine's resources to the other programs that you run.
+The kernel is an essential part of an operating system, but useless by itself;
+it can only function in the context of a complete operating system.  Linux is
+normally used in combination with the GNU operating system: the whole system
+is basically GNU with Linux added, or GNU/Linux.  All the so-called "Linux"
+distributions are really distributions of GNU/Linux.
+	</div>
+</div>
+<%}%>
+<%- include("../parts/footer.ejs") %>
