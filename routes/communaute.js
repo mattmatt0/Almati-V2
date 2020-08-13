@@ -24,9 +24,10 @@ route.get("/forum/:subsection/",(req,res)=>{
 		categoryDescription:"CATEGORY DESCRIPTION"}
 	)
 })
-route.get("/forum/:subsection/:postId",(req,res)=>{
+route.get("/forum/:subsection/:postId/:page",(req,res)=>{
 	res.render("forum/postTemplate.ejs",{
-		postTitle:"POST TITLE (id:" + req.params.postId + ")"}
+		postTitle:"POST TITLE (id:" + req.params.postId + ")",
+		page:req.params.page}
 	)
 })
 route.get("/QuiSommesNous",(req,res)=>{

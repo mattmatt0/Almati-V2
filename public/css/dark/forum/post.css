@@ -45,3 +45,30 @@
 {
 	color:#FFF
 }
+.pageSelector
+{
+	text-align:center;
+	display:inline-flex;
+	background-color:#3A1;
+	margin-left:50%;
+	transform:translateX(-50%);
+	margin-bottom:10px;
+	border-radius:5px;
+}
+.pageSelector a
+{
+	width:30px;
+	height:30px;
+	font-size:24px;
+	color:white;
+	border-radius:5px;
+}
+.pageSelector a:hover
+{
+	background-color:#4B2;
+}
+#currentPage
+{
+	background-color:#BC0;
+	border-radius:5px;
+}

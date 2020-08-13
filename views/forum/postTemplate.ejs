@@ -7,7 +7,7 @@
 </head>
 <%- include("../parts/header.ejs") %>
 <link rel="stylesheet" href="/css/dark/forum/post.css">
-<h1><%=postTitle%></h1>
+<h1><%=postTitle%> (page <%=page%>)</h1>
 <% for(var post=0;post<10;++post){%>
 <div class = "postContainer">
 	<div class = "userInfo"> 
@@ -39,4 +39,12 @@ distributions are really distributions of GNU/Linux.
 	</div>
 </div>
 <%}%>
+<div class = "pageSelector">
+	<%var pageAmount= 5;
+     for(var pageCount=0;pageCount<pageAmount;++pageCount){%>
+	<a href="<%=pageCount+1%>" 
+	     <%if(pageCount+1==page){%>id = "currentPage"<%}%>
+	><%=pageCount+1%></a>
+	<%}%>
+</div>
 <%- include("../parts/footer.ejs") %>
