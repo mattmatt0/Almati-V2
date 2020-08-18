@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Nouveau cours - Almati</title>
+    	<%- include("../parts/include.ejs")%>
+	<link rel="stylesheet" href = "/css/dark/user/courseView.css">
+</head>
+<body>
+	<%- include("../parts/header.ejs")%>
+	<h1>Créer un cours</h1>
+	<label for="courseTitle">Titre du cours</label><input id = "courseTitle" type = "text" value = "COURSE TITLE" autocomplete="off">
+	<label for="courseDescription">Description</label><br/><textarea id = "courseDescription"></textarea>
+    	<%- include("../parts/footer.ejs")%>
+</body>
+</html>

@@ -12,4 +12,8 @@ route.get("/motDePasseOublie",(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
 
+route.get("/courses/new",(req,res)=>{
+	res.render("user/courseView.ejs",{})
+})
+
 module.exports = route;

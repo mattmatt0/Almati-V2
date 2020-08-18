@@ -1,0 +1,9 @@
+input[type="text"],textarea
+{
+	margin:5px;
+	width:calc(100% - 10px);
+}
+textarea
+{
+	max-width:calc(100% - 10px);
+}

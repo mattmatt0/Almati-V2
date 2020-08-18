@@ -13,7 +13,7 @@ body
 	background-color: #111;
 	font-family: 'Dosis';
 }
-input
+input, textarea
 {
     background-color:rgba(255,255,255,.5);
     border:none;
@@ -42,7 +42,6 @@ button
 button:hover
 {
 	background-color:#0AF;
-	transform:scale(1.01);
 	box-shadow:0px 3px 5px 5px rgba(16,16,16,.5);
 	border-color:#111;
 	cursor:pointer;
@@ -67,4 +66,12 @@ h3
 	border-radius:10px;
 	margin-left:10px;
 	margin-right:10px;
+}
+label
+{
+	color:white;
+}
+input[type="text"],textarea
+{
+	box-sizing:border-box;
 }
