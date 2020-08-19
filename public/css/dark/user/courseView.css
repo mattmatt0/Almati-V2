@@ -6,4 +6,7 @@ input[type="text"],textarea
 textarea
 {
 	max-width:calc(100% - 10px);
+	color:white;
+	font-family:'Dosis';
+	font-size:17px;
 }
