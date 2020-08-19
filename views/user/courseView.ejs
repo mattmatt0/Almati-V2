@@ -11,6 +11,19 @@
 	<h1>Créer un cours</h1>
 	<label for="courseTitle">Titre du cours</label><input id = "courseTitle" type = "text" value = "COURSE TITLE" autocomplete="off">
 	<label for="courseDescription">Description</label><br/><textarea id = "courseDescription"></textarea>
+	<br/>
+	<br/>
+	<h3>Parties du cours</h3>
+	<div id = "partsContainer">
+		<div class = "part">
+			<div class="partTitle">
+				<p>Partie 1:</p><p contentEditable = "true">PART TITLE</p>
+			</div>
+			<div class = "chapter">
+				<p>Chapitre 1:</p><p contentEditable = "true">CHAPTER TITLE</p><img src="/images/icons/pencil.svg">
+			</div>
+		</div>
+	</div>
     	<%- include("../parts/footer.ejs")%>
 </body>
 </html>

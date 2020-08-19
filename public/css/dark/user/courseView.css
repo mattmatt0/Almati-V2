@@ -10,3 +10,44 @@ textarea
 	font-family:'Dosis';
 	font-size:17px;
 }
+
+#partsContainer
+{
+	display:flex;
+}
+.part
+{
+	width:100%;
+}
+.partTitle,.chapter
+{
+	display:flex;
+	flex-direction:row;
+	font-size:20px;
+}
+.partTitle p, .chapter p
+{
+	margin-left:20px;
+}
+.part
+{
+	background-color:#002a2d;
+	margin:0px 20px 0px 20px;
+}
+.chapter
+{
+	background-color:#151515;
+	margin:2px;
+}
+p[contentEditable="true"]
+{
+	border-bottom:1px solid #333;
+	flex-grow:1;
+	margin-right:20px;
+}
+.chapter img
+{
+	width:40px;
+	height:40px;
+	margin:10px;
+}
