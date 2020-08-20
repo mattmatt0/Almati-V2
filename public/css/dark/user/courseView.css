@@ -45,9 +45,18 @@ p[contentEditable="true"]
 	flex-grow:1;
 	margin-right:20px;
 }
-.chapter img
+.chapter img,.partTitle img
+{
+	width:0px;
+	height:40px;
+	margin:0px;
+	opacity:0;
+	transition-duration:.5s;
+
+}
+.chapter:hover img, .partTitle:hover img
 {
 	width:40px;
-	height:40px;
 	margin:10px;
+	opacity:1;
 }
