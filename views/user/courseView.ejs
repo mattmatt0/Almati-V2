@@ -16,8 +16,8 @@
 	<br/>
 	<h3>Parties du cours</h3>
 	<div id = "partsContainer">
+		<%for(var partID=1;partID<4;++partID){%>
 		<div class = "part">
-			<%for(var partID=1;partID<4;++partID){%>
 			<div class="partTitle">
 				<p>Partie <%=partID%>:</p><p contentEditable = "true">PART TITLE</p>
 				<img src="/images/icons/trash.svg">
@@ -29,11 +29,15 @@
 				<img src="/images/icons/trash.svg">
 			</div>
 			<%}%>
-			<div class = "chapter">
+			<div class = "newChapter">
 				<img src="/images/symbols/plus.svg" onclick="document.location = 'edit/<%=partID%>/<%=chapterID%>'">
 				<p>Ajouter un nouveau chapitre</p>
 			</div>
-			<%}%>
+		</div>
+		<%}%>
+		<div class = "newPart">
+			<img src="/images/symbols/plus.svg" onclick="document.location = 'edit/<%=partID%>/<%=chapterID%>'">
+			<p>Ajouter une nouvelle partie</p>
 		</div>
 	</div>
     	<%- include("../parts/footer.ejs")%>
