@@ -72,10 +72,24 @@ p[contentEditable="true"]
 .newChapter
 {
 	background-color:#000;
+	transition-duration:1s;
 }
 .newPart
 {
 	background-color:#078;
+	transition-duration:1s;
 	border-bottom-left-radius:20px;
 	border-bottom-right-radius:20px;
+}
+.newChapter,.newPart,.chapter img, .part img
+{
+	cursor:pointer;
+}
+.newChapter:hover
+{
+	background-color:#444;
+}
+.newPart:hover
+{
+	background-color:#0AB;
 }
