@@ -20,22 +20,22 @@
 		<div class = "part">
 			<div class="partTitle">
 				<p>Partie <%=partID%>:</p><p contentEditable = "true">PART TITLE</p>
-				<img src="/images/icons/trash.svg">
+				<img src="/images/icons/trash.svg" onclick="deletePart(<%=partID%>)">
 			</div>
 			<%for(var chapterID=1;chapterID<7;++chapterID){%>
 			<div class = "chapter">
 				<p>Chapitre <%=chapterID%>:</p><p contentEditable = "true">CHAPTER TITLE</p>
 				<img src="/images/icons/pencil.svg" onclick="document.location = 'edit/<%=partID%>/<%=chapterID%>'">
-				<img src="/images/icons/trash.svg">
+				<img src="/images/icons/trash.svg" onclick="deleteChapter(<%=partID%>,<%=chapterID%>)">
 			</div>
 			<%}%>
-			<div class = "newChapter">
+			<div class = "newChapter" onclick ="newChapter()">
 				<img src="/images/symbols/plus.svg" onclick="document.location = 'edit/<%=partID%>/<%=chapterID%>'">
 				<p>Ajouter un nouveau chapitre</p>
 			</div>
 		</div>
 		<%}%>
-		<div class = "newPart">
+		<div class = "newPart" onclick = "newPart()">
 			<img src="/images/symbols/plus.svg" onclick="document.location = 'edit/<%=partID%>/<%=chapterID%>'">
 			<p>Ajouter une nouvelle partie</p>
 		</div>
