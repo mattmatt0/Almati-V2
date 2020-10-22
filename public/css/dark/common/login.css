@@ -66,25 +66,12 @@
     display:block;
 }
 
-.invalid
-{
-    -webkit-box-shadow: 0px 0px 17px -3px rgba(245,12,12,1);
-    -moz-box-shadow: 0px 0px 17px -3px rgba(245,12,12,1);
-    box-shadow: 0px 0px 17px -3px rgba(245,12,12,1);
-    border: solid red 1px;
-}
 
 .invalid:focus ~ .bottom
 {
     display: block;
 }
 
-.tooltip {
-    display:inline-block;
-    position:relative;
-    text-align:left;
-    width:100%;
-}
 .signinForm
 {
     position:fixed;
@@ -102,59 +89,12 @@
     top:0;
     left:0;
 }
-.bottom>p
-{
-	font-size: 20px;
-}
-.tooltip .bottom {
-    min-width:200px; 
-    top:40px;
-    left:50%;
-    transform:translate(-50%, 20%);
-    padding:10px 20px;
-    color:#FFFFFF;
-    background-color:#0AF;
-    font-weight:normal;
-    font-size:13px;
-    border-radius:8px;
-    position:absolute;
-    z-index:999999999;
-    box-sizing:border-box;
-    border:1px solid #222;
-    box-shadow:0 1px 8px rgba(0,0,0,0.5);
-    display:none;
-}
-
-.tooltip .bottom i {
-    position:absolute;
-    bottom:100%;
-    left:50%;
-    margin-left:-12px;
-    width:24px;
-    height:12px;
-    overflow:hidden;
-}
-
-.tooltip .bottom i::after {
-    content:'';
-    position:absolute;
-    width:12px;
-    height:12px;
-    left:50%;
-    transform:translate(-50%,50%) rotate(45deg);
-    background-color:#0FF;
-    border:1px solid #222;
-    box-shadow:0 1px 8px rgba(0,0,0,0.5);
-}
 .javascript
 {
 	color: red;
 	font-weight: bold;
 }
-.loginForm input[type='submit']
-{
-    width:100%;
-}
+
 .linkMenuButton
 {
 	margin:0;
@@ -188,9 +128,6 @@ form.wait .waitImg {
     margin:auto;
 }
 
-form input {
-    margin:10px;
-}
 
 form .error {
     margin:2px;
@@ -208,9 +145,8 @@ form .error {
   form input,form input[type='submit'], .sigin
   {
       font-size:150%;
-      width:100%;
   }
-  form, form *
+  form *
   {
       box-sizing:border-box;
   }
