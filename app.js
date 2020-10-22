@@ -1,9 +1,9 @@
-const express = require('express')
-const cours = require("./routes/cours")
-const user = require("./routes/user")
+const express    = require('express')
+const cours      = require("./routes/cours")
+const user       = require("./routes/user")
 const communaute = require("./routes/communaute")
-const resources = require("./routes/resources")
-const ejs = require("ejs")
+const resources  = require("./routes/resources")
+const ejs        = require("ejs")
 
 const app = express()
 const port = 8080
@@ -11,6 +11,16 @@ const port = 8080
 // For cookies
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
+
+//setup db
+const db = require("./lib/setupDb")
+
+
+
+//setup body parser
+const bodyparser = require("body-parser")
+app.use(bodyparser.urlencoded({extended:false}))
+ 
 
 //the view engine
 app.set('view engine', 'ejs');
@@ -26,7 +36,7 @@ app.get('', function(req, res) {
 });
 
 //external routes
-app.use("/user",user)
+app.use("/user",user(db))
 app.use("/cours",cours)
 app.use("/communaute",communaute)
 app.use("/ressources", resources)
