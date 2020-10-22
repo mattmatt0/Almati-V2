@@ -11,6 +11,13 @@ module.exports = dbPool => {
 		res.end("C'est pas encore fait ;)",{})
 	})
 
+	route.get("/disconnect",(req,res)=>{
+		if (req.session.pseudo){
+			req.session = {}
+		}
+		res.redirect("/")
+	})
+
 	route.post("/login",(req,res)=>{
 		var body = req.body
 		if (body.pseudo && body.password){ //verify if fields are provided
@@ -27,6 +34,13 @@ module.exports = dbPool => {
 								})
 							} else {
 								if (result){
+									req.session.pseudo = rows.pseudo
+									/* only to avoid database verification on every request, 
+									 * if user have necessary permission we check db else we do nothing
+									 */
+									req.session.permissions = rows.permissions
+									req.session.image = rows.image
+									req.session.mail = rows.mail
 									res.json({
 										connected:true
 									})
@@ -60,7 +74,7 @@ module.exports = dbPool => {
 			})
 		} else {
 			res.json({
-				error:"please provide a password and a pseudo",
+				error:"null field",
 				connected:false
 			})
 		}

@@ -56,7 +56,7 @@
 	margin-top:10px;
 	margin-right:10px;
 }
-<<<<<<< HEAD
+
 #signUp:target
 {
     display:block;
@@ -146,7 +146,7 @@
     border:1px solid #222;
     box-shadow:0 1px 8px rgba(0,0,0,0.5);
 }
-#javascript
+.javascript
 {
 	color: red;
 	font-weight: bold;
@@ -168,6 +168,36 @@
 {
     float:right
 }
+
+input[type="submit"]{
+    cursor: pointer;
+}
+
+form.wait *{
+    display: none;
+}
+
+form .waitImg{
+    display: none;
+}
+
+form.wait .waitImg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin:auto;
+}
+
+form input {
+    margin:10px;
+}
+
+form .error {
+    margin:2px;
+    color:red;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 700px)
 {
   form
