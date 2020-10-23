@@ -3,7 +3,8 @@ var regexValidators = {
 	upper:/[A-Z]+/,
 	number:/[0-9]+/,
 	spetial:/[*.!@$%^&(){}\[\]:;<>,.\?\/\~_\+\-=\|]+/,
-	mail:/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+	mail:/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+	forbidden:/^[a-zA-Z0-9\-_@#*+$£€éàè]+$/
 }
 
 const maxUpdateLevel = 5

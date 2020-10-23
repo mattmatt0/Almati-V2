@@ -16,7 +16,11 @@ module.exports = dbPool => {
 	})
 
 	route.post("/signup",(req,res)=>{
+		//verify all fields
+		var body = req.body
 
+		//verify pseudo
+		
 	})
 
 	route.get("/disconnect",(req,res)=>{
@@ -121,6 +125,7 @@ module.exports = dbPool => {
 						error:"internal error"
 					})
 				})
+				conn.release()
 			}).catch((err)=>{
 				console.log('sql error:',err)
 				res.json({
