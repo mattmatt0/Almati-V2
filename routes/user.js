@@ -2,6 +2,8 @@ const express = require("express")
 const bcrypt = require("bcrypt")
 const saltRound = 10
 
+const regex = require("../lib/regex.js")
+
 
 module.exports = dbPool => {
 	const route = express.Router();
@@ -20,6 +22,17 @@ module.exports = dbPool => {
 		var body = req.body
 
 		//verify pseudo
+		if (!body.pseudo.match(regex.pseudo)){
+			res.redirect("/user/signup?error="+encodeURI("pseudo"))
+			return
+		}
+
+		//verify mail
+		if (!body.pseudo.match(regex.mail)){
+			res.redirect("/user/signup?error="+encodeURI("mail"))
+			return
+		}
+
 		
 	})
 

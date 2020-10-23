@@ -8,9 +8,26 @@ const ejs        = require("ejs")
 const app = express()
 const port = 8080
 
+const helmet = require("helmet")
+app.use(helmet());
+app.disable("x-powered-by")
+
 // For cookies
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
+
+const expressSession = require("express-session")
+app.use(expressSession({
+	secret:process.env.SESSION_SECRET || "default secret 123548962@/*-+ ;)",
+	name:"sessionID",
+	resave:false,
+	saveUninitialized:false,
+	cookie:{
+		httpOnly:true,
+		maxAge:7 * 24 * 60 * 60 * 1000, //1 week
+		secure: process.env.SECURE || false,
+	}
+}))
 
 //setup db
 const db = require("./lib/setupDb")
@@ -28,6 +45,10 @@ app.set('view engine', 'ejs');
 //add files in public folder (pictures, javascript, css...)
 app.use(express.static(__dirname + '/public'))
 
+app.use((req,res,next) => { //generate token to avoid csrf
+	req.session.token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+	next()
+})
 
 //main route
 app.get('', function(req, res) {
