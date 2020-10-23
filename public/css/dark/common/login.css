@@ -28,11 +28,7 @@
 	display:flex;
 	flex-direction:column;
 }
-#signIn
-{
-	margin-bottom: auto;
-    display:none;
-}
+
 /* loginForm options, not header */
 .options
 {
@@ -57,38 +53,6 @@
 	margin-right:10px;
 }
 
-#signUp:target
-{
-    display:block;
-}
-#signUp:target ~ #signInMask
-{
-    display:block;
-}
-
-
-.invalid:focus ~ .bottom
-{
-    display: block;
-}
-
-.signinForm
-{
-    position:fixed;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%)
-}
-#signInMask
-{
-    background-color:rgba(0,0,0,.5);
-    display:none;
-    position:fixed;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-}
 .javascript
 {
 	color: red;

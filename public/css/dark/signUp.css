@@ -1,0 +1,64 @@
+.signUp {
+	padding: 10px;
+}
+
+.signUpTitle{
+	width:100%;
+	text-align: center;
+}
+
+.signupForm form{
+	max-width: 50%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.validator p{
+	margin:0;
+}
+
+.validator .hideShow {
+	display: none;
+	color:red;
+}
+
+.validator .hideShow.error {
+	display: block;
+}
+
+.validator .requestValidator {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: left;
+}
+
+.validator .requestValidator.valide{
+	color:#26F53C;
+}
+
+.validator .requestValidator.valide::before{
+	content:"✔";
+	color:#26F53C;
+}
+
+.validator .requestValidator.error{
+	color:red;
+}
+
+.validator .requestValidator.error::before{
+	margin-right: 3px;
+	content:"❌";
+	color:red;
+}
+
+.validator .requestValidator.wait:before{
+	background: url("/images/wait.svg");
+	background-size: cover;
+	content: "";
+	width:30px;
+	height:30px;
+	align-self: center;
+	display: inline-block;
+
+}

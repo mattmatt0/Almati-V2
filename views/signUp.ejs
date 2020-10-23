@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sign In</title>
+	<%- include("./parts/include.ejs")%>
+	<link rel="stylesheet" href="/css/dark/main.css">
+	<link rel="stylesheet" href="/css/dark/signUp.css">
+	<link rel="stylesheet" href="/css/dark/common/login.css">
+</head>
+<body>
+	<%- include("./parts/header.ejs")%>
+	
+	<section class = "signUp">
+		<div id = "signUpMask">
+			<div class ="signupForm form">
+				<h1 class="signUpTitle">Créer un compte</h1>
+				<noscript class="javascript">⚠ Vous devez activer javascript pour bénéficier de toutes les fonctionalitées de ce formulaire !</noscript>
+				<form method="POST" action="#" id="signUpForm">
+					<p id="signUpError" class="error">
+						
+					</p>
+					<div class="inputGroup">
+						<input type="text" name="pseudo" id="pseudo" placeholder="Nom d'utilisateur">
+						<div id="pseudoValidator" class="validator" for="pseudo">
+							<p 	class="hideShow"
+								id="pseudoSize"
+								type="size" 
+								min="3" 
+								max="15">
+									Le pseudo doit faire entre 3 et 15 caractères
+							</p>
+							<p 	class="hideShow"
+								id="pseudoForbidden"
+								type="validator"
+								validator="forbidden">
+									Le pseudo ne doit pas contenir de caractères interdits
+							</p>
+							<p 	class="requestValidator"
+								id="pseudoAvailable"
+								type="request"
+								url="/user/userExist"
+								error="error"
+								valide="result"
+								inverted>
+									Le pseudo est disponible
+							</p>
+						</div>
+					</div>
+					<div class="inputGroup">
+						<input type="text" name="mail" id="mail" placeholder="Email">
+						<div id="emailValidator" class="validator" for="mail">
+							<p 	class="hideShow"
+								id="mailValid"
+								type="validator"
+								validator="mail">
+									Le mail doit être un mail valide
+							</p>
+							<p 	class="requestValidator" 
+								id="mailAvailable" 
+								type="request"
+								url="/user/userExist"
+								error="error"
+								valide="result"
+								inverted>
+									Le mail est disponible
+							</p>
+						</div>
+					</div>
+					<div class="inputGroup">
+						<input type="password" name="password" id="password" placeholder="Mot de passe">
+						<div id="passwordValidator" class="validator" for="password">
+							<p 	class="hideShow" 
+								id="passwordLowerCase" 
+								type="validator"
+								validator="lower">
+									Le mot de passe doit contenir une lettre minuscule
+							</p>
+							<p 	class="hideShow" 
+								id="passwordUpperCase" 
+								type="validator"
+								validator="upper">
+									Le mot de passe doit contenir une lettre majuscule
+							</p>
+							<p 	class="hideShow" 
+								id="passwordUpperCase" 
+								type="validator"
+								validator="number">
+									Le mot de passe doit contenir un nombre
+							</p>
+							<p 	class="hideShow"
+								id="passwordSpetial"
+								type="validator"
+								validator="spetial">
+									Le mot de passe doit contenir un caractère spécial
+							</p>
+							<p 	class="hideShow"
+								id="passwordSize" 
+								type="sizemi"
+								min="8">
+									Le mot de passe doit faire plus de 8 caractères
+							</p>
+							<p type="update" update="passwordRepeat"></p>
+						</div>
+					</div>
+					<div class="inputGroup">
+						<input type="password" name="passwordRepeat" id="passwordRepeat" placeholder="Répéttion du mot de passe">
+						<div id="passwordRepeatValidator" class="validator" for="passwordRepeat">
+							<p 	class="hideShow" 
+								id="passwordRepeatOk" 
+								type="match" 
+								with="password">
+									Les mots de passes ne correspondent pas
+							</p>
+						</div>
+					</div>
+					<input type="submit" name="submit" value="Valider">
+				</form>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript" src="/js/signup.js"></script>
+	<%- include("./parts/footer.ejs")%>
+</body>
+</html>

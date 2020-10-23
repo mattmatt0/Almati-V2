@@ -11,6 +11,14 @@ module.exports = dbPool => {
 		res.end("C'est pas encore fait ;)",{})
 	})
 
+	route.get("/signup",(req,res)=>{
+		res.render("signUp.ejs")
+	})
+
+	route.post("/signup",(req,res)=>{
+
+	})
+
 	route.get("/disconnect",(req,res)=>{
 		if (req.session.pseudo){
 			req.session = {}
@@ -65,6 +73,7 @@ module.exports = dbPool => {
 						connected:false
 					})
 				})
+				conn.release()
 			}).catch(err=>{
 				console.log('sql error',err)
 				res.json({
@@ -80,10 +89,6 @@ module.exports = dbPool => {
 		}
 	})
 
-	route.post("/signin",(req,res)=>{
-
-	})
-
 	route.post("/userExist",(req,res)=>{ //API to verify if pseudo or email exists in real time.
 		var body = req.body
 		var action = ""
@@ -93,7 +98,7 @@ module.exports = dbPool => {
 			action = "mail"
 		} else {
 			res.json({
-				error:"please provide a pseudo or an email"
+				error:"null field"
 			})
 			return
 		}
@@ -107,17 +112,19 @@ module.exports = dbPool => {
 					}
 					res.json({
 						result:result,
-						error:""
+						error:undefined
 					})
 				}).catch(err => {
 					console.log('sql error:',err)
 					res.json({
+						result:false,
 						error:"internal error"
 					})
 				})
 			}).catch((err)=>{
 				console.log('sql error:',err)
 				res.json({
+					result:false,
 					error:"internal error"
 				})
 			})

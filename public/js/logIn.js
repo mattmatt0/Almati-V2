@@ -10,7 +10,7 @@ encode = data =>{
 	return encoded
 }
 
-error = err => {
+logInError = err => {
 	console.log(err)
 	errorDisplay.innerText = err
 }
@@ -26,21 +26,21 @@ postRequest.addEventListener("load",(event)=>{
 			//console.log('Error:',data.error)
 			switch (data.error) {
 				case "pseudo":
-					error("Le pseudo est invalide")
+					logInError("Le pseudo est invalide")
 					break;
 				case "password":
-					error("Le mot de passe est invalide")
+					logInError("Le mot de passe est invalide")
 					break;
 				case "null field":
-					error("Veuillez remplir tous les champs")
+					logInError("Veuillez remplir tous les champs")
 					break;
 				default:
-					error("Une erreur interne est survenue veuillez recommencer plus tard")
+					logInError("Une erreur interne est survenue veuillez recommencer plus tard")
 					break;
 			}
 		}
 	} else {
-		error("Une erreur est survenue veuillez recommencer plus tard.")
+		logInError("Une erreur est survenue veuillez recommencer plus tard.")
 	}
 	form.classList.remove("wait")
 
