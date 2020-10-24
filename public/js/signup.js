@@ -7,8 +7,6 @@ var regexValidators = {
 	forbidden:/^([^<>"_'=;\(\)\/\\])+$/
 }
 
-
-
 const maxUpdateLevel = 5
 
 const signUpForm = document.getElementById("signUpForm")
@@ -98,7 +96,9 @@ formValidators.forEach((element)=>{
 	})
 })
 
-updateValidators = (value,name,updateLavel=0) => {
+updateValidators = (value,name,updateLevel=0,submit=false) => {
+	console.log(value)
+	if (name != "submit")
 	validators[name].forEach((validator)=>{
 		switch (validator.type){
 			case "size":
@@ -133,27 +133,35 @@ updateValidators = (value,name,updateLavel=0) => {
 					validator.validator.classList.add("error")
 				break
 			case "update":
-				if (updateLavel < maxUpdateLevel){
+				if (updateLevel < maxUpdateLevel){
 					var updateName = validator.validator.getAttribute("update")
-					updateValidators(signUpForm[updateName].value,signUpForm[updateName].name,updateLavel+1)
+					updateValidators(signUpForm[updateName].value,signUpForm[updateName].name,updateLevel+1)
 				}
 				break
 			case "request":
-				var url = validator.validator.getAttribute("url")
-				var data = new FormData()
-				data.append(name,signUpForm[name].value)
-				requests[name].open("POST",url)
-				requests[name].setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-				requests[name].send(encode(data))
+				if (value.length > 0 && !submit)
+				{
+					const url = validator.validator.getAttribute("url")
+					var data = new FormData()
+					data.append(name,value)
+					requests[name].open("POST",url)
+					requests[name].setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+					requests[name].send(encode(data))
 
-				validator.validator.classList.add("wait")
-				validator.validator.classList.remove("valide")
-				validator.validator.classList.remove("error")
+					validator.validator.classList.add("wait")
+					validator.validator.classList.remove("valide")
+					validator.validator.classList.remove("error")
+				}
 				break
 		}
 	})
 }
 
+checkAll = (submit=false) => {
+	formInputs.forEach((element)=>{
+		updateValidators(element.value,element.name,0,submit)
+	})
+}
 
 //event listener
 formInputs.forEach((element)=>{
@@ -166,9 +174,48 @@ formInputs.forEach((element)=>{
 })
 
 signUpForm.addEventListener("submit",(event)=>{
+	checkAll(true)
 	var invalid = document.querySelectorAll(".validator .error")
 	if (invalid.length != 0){
 		event.preventDefault()
 		signUpForm[invalid[0].parentNode.getAttribute("for")].focus()
 	}
 })
+
+const urlParams = new URLSearchParams(window.location.search)
+
+for(const param of urlParams.entries()) {
+	try {
+		signUpForm[param[0]].value = param[1]
+	} catch(e) {
+
+	}
+}
+
+const error = urlParams.get("error")
+if (error){
+	switch (error){
+		case "csrfToken":
+			signInError("Votre token a expiré veuillez recomencer.")
+			break
+		case "pseudo":
+			signInError("Le pseudo est invalide")
+			break
+		case "mail":
+			signInError("Le mail est invalide")
+			break
+		case "password":
+			signInError("Le mot de passe est invalide")
+			break
+		case "passwordMatch":
+			signInError("Les mots de passes ne correspondent pas")
+			break
+		case "exist":
+			signInError("Le pseudo ou le mail ne sont pas disponibles")
+			break
+		default:
+			signInError("Une erreur interne est survenue veuillez recommencer plus tard")
+			break
+	}
+}
+checkAll()

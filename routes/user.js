@@ -7,6 +7,43 @@ const {csrfToken,csrfParse} = require("../lib/csrfToken")
 
 
 module.exports = dbPool => {
+	//define gloab functions
+	userExists = (mode,userInfo,callback) =>{
+		dbPool.getConnection().then(conn=>{
+			if (mode == "dual"){
+				var query = `SELECT * FROM users WHERE pseudo=? AND mail=?`
+			} else {
+				var query = `SELECT * FROM users WHERE ${mode}=?`
+			}
+			conn.query(query,[userInfo.pseudo ? userInfo.pseudo : userInfo.mail,userInfo.mail]).then(rows => {
+				var result = undefined
+				console.log(rows)
+				if (rows.length == 0){//if there is no match, the user doesn't exist
+					result = false
+				} else {
+					result = true
+				}
+				callback({
+					result:result,
+					error:undefined
+				})
+			}).catch(err => {
+				console.log('sql error:',err)
+				callback({
+					result:false,
+					error:"internal error"
+				})
+			})
+			conn.release()
+		}).catch((err)=>{
+			console.log('sql error:',err)
+			callback({
+				result:false,
+				error:"internal error"
+			})
+		})
+	}
+
 	const route = express.Router();
 
 	//in this page we put parameters of users, Sign In forgoten password...
@@ -19,56 +56,72 @@ module.exports = dbPool => {
 	})
 
 	route.post("/signup",csrfParse,(req,res)=>{
+		var body = req.body
+		const savedInput = "&pseudo="+encodeURI(body.pseudo)+"&mail="+encodeURI(body.mail)
+
 		//verify token
 		if (!req.validToken){
-			res.redirect("/user/signup?error="+encodeURI("csrfToken"))
+			res.redirect("/user/signup?error="+encodeURI("csrfToken")+savedInput)
 			return
 		}
 		//verify all fields
-		var body = req.body
+		
 
 		//verify pseudo
 		if (!body.pseudo.match(regex.pseudo)){
-			res.redirect("/user/signup?error="+encodeURI("pseudo"))
+			res.redirect("/user/signup?error="+encodeURI("pseudo")+savedInput)
 			return
 		}
 
 		//verify mail
 		if (!body.mail.match(regex.mail)){
-			res.redirect("/user/signup?error="+encodeURI("mail"))
+			res.redirect("/user/signup?error="+encodeURI("mail")+savedInput)
 			return
 		}
 
 		//verify password
 		if (!body.password.match(regex.password)){
-			res.redirect("/user/signup?error="+encodeURI("password"))
+			res.redirect("/user/signup?error="+encodeURI("password")+savedInput)
 		}
 
 		//verify match between password and password repeat
 		if (body.password != body.passwordRepeat){
-			res.redirect("/user/signup?error="+encodeURI("passwordMatch"))
+			res.redirect("/user/signup?error="+encodeURI("passwordMatch")+savedInput)
 		}
 
-		//process password
-		bcrypt.hash(body.password, saltRound, (err, hash) => {
-			if (err){
-				console.log('hash error :',err)
-				res.redirect("/user/signup?error="+encodeURI("internal"))
+		//verify is user exist
+		userExists("dual",body,(result)=>{
+			if (result.error){
+				res.redirect("/user/signup?error="+encodeURI("internal")+savedInput)
 				return
 			}
-		    //everithing is ok, so we can create user in bdd
-			dbPool.getConnection().then(conn=>{
-				conn.query("INSERT INTO users (pseudo, mail, password) VALUES (?,?,?)",[body.pseudo,body.mail,hash]).then((rows)=>{
-						res.redirect("/")
-					}).catch(err=>{
-						console.log('connection insert error:',err)
-						res.redirect("/user/signup?error="+encodeURI("internal"))
-					})
 
-				conn.release()
-			}).catch(err=>{
-				console.log('connection bdd error:',err)
-				res.redirect("/user/signup?error="+encodeURI("internal"))
+			if (result.result) {
+				res.redirect("/user/signup?error="+encodeURI("exist"))
+				return
+			}
+			console.log(result)
+			//process password
+			bcrypt.hash(body.password, saltRound, (err, hash) => {
+				if (err){
+					console.log('hash error :',err)
+					res.redirect("/user/signup?error="+encodeURI("internal")+savedInput)
+					return
+				}
+			    //everithing is ok, so we can create user in bdd
+				dbPool.getConnection().then(conn=>{
+					conn.query("INSERT INTO users (pseudo, mail, password) VALUES (?,?,?)",[body.pseudo,body.mail,hash]).then((rows)=>{
+							res.redirect("/")
+						}).catch(err=>{
+							console.log('connection insert error:',err)
+							res.redirect("/user/signup?error="+encodeURI("internal")+savedInput)
+						})
+
+					conn.release()
+				}).catch(err=>{
+					console.log('connection bdd error:',err)
+					res.redirect("/user/signup?error="+encodeURI("internal")+savedInput)
+				})
 			})
 		})
 	})
@@ -153,45 +206,21 @@ module.exports = dbPool => {
 
 	route.post("/userExist",(req,res)=>{ //API to verify if pseudo or email exists in real time.
 		var body = req.body
-		var action = ""
+		var mode = ""
 		if (body.pseudo){//verify if pseudo is provided
-			action = "pseudo"
+			mode = "pseudo"
 		} else if (body.mail){
-			action = "mail"
+			mode = "mail"
 		} else {
 			res.json({
 				error:"null field"
 			})
 			return
 		}
-		dbPool.getConnection().then(conn=>{
-				conn.query(`SELECT * FROM users WHERE ${action}=?`,[body.pseudo ? body.pseudo : body.mail]).then(rows => {
-					var result = undefined
-					console.log(rows)
-					if (rows.length == 0){//if there is no match, the user doesn't exist
-						result = false
-					} else {
-						result = true
-					}
-					res.json({
-						result:result,
-						error:undefined
-					})
-				}).catch(err => {
-					console.log('sql error:',err)
-					res.json({
-						result:false,
-						error:"internal error"
-					})
-				})
-				conn.release()
-			}).catch((err)=>{
-				console.log('sql error:',err)
-				res.json({
-					result:false,
-					error:"internal error"
-				})
-			})
+
+		userExists(mode,body,(result)=>{
+			res.json(result)
+		})
 	})
 
 	route.get("/motDePasseOublie",(req,res)=>{
