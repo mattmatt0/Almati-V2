@@ -165,8 +165,9 @@ module.exports = dbPool => {
 			return
 		}
 		dbPool.getConnection().then(conn=>{
-				conn.query("SELECT id FROM users WHERE ?=?",[action,body.pseudo ? body.pseudo : body.mail]).then(rows => {
+				conn.query(`SELECT * FROM users WHERE ${action}=?`,[body.pseudo ? body.pseudo : body.mail]).then(rows => {
 					var result = undefined
+					console.log(rows)
 					if (rows.length == 0){//if there is no match, the user doesn't exist
 						result = false
 					} else {
