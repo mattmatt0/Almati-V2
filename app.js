@@ -17,12 +17,19 @@ app.use(helmet({
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 
+//setup db
+const db = require("./lib/setupDb")
+
+//setup session and session store
+const mariadbStore = require("./lib/mariadbSessionStore")
+
 const expressSession = require("express-session")
 app.use(expressSession({
 	secret:process.env.SESSION_SECRET || "default secret 123548962@/*-+ ;)",
 	name:"sessionID",
 	resave:false,
 	saveUninitialized:false,
+	store:new mariadbStore(db,"sessions"),
 	cookie:{
 		SameSite:"Strict",
 		httpOnly:true,
@@ -30,9 +37,6 @@ app.use(expressSession({
 		secure: process.env.SECURE || false,
 	}
 }))
-
-//setup db
-const db = require("./lib/setupDb")
 
 //setup body parser
 const bodyparser = require("body-parser")

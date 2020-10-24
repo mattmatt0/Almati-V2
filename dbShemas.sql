@@ -18,6 +18,15 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 DESCRIBE users;
+
+#session store shema
+CREATE TABLE IF NOT EXISTS sessions (
+	sid VARCHAR(100) NOT NULL UNIQUE PRIMARY KEY,
+	session TEXT DEFAULT "{}"
+);
+
+DESCRIBE sessions;
+
 SELECT "Commade exécuté avec succés";
 
 #SHOW DATABASES; to display databases in server
