@@ -9,8 +9,9 @@ const app = express()
 const port = 8080
 
 const helmet = require("helmet")
-app.use(helmet());
-app.disable("x-powered-by")
+app.use(helmet({
+	contentSecurityPolicy: process.env.SECURE || false
+}))
 
 // For cookies
 const cookieParser = require('cookie-parser')
@@ -33,10 +34,6 @@ app.use(expressSession({
 //setup db
 const db = require("./lib/setupDb")
 
-//setup csrf token for form
-const {csrfToken,csrfParse} = require("./lib/csrfToken")
-app.use(csrfToken)
-
 //setup body parser
 const bodyparser = require("body-parser")
 app.use(bodyparser.urlencoded({extended:false}))
@@ -48,6 +45,10 @@ app.set('view engine', 'ejs');
 //add files in public folder (pictures, javascript, css...)
 app.use(express.static(__dirname + '/public'))
 
+
+//setup csrf token for form
+const {csrfToken,csrfParse} = require("./lib/csrfToken")
+app.use(csrfToken)
 
 //main route
 app.get('', function(req, res) {

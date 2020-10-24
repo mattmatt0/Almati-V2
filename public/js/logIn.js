@@ -27,16 +27,20 @@ postRequest.addEventListener("load",(event)=>{
 			switch (data.error) {
 				case "pseudo":
 					logInError("Le pseudo est invalide")
-					break;
+					break
 				case "password":
 					logInError("Le mot de passe est invalide")
-					break;
+					break
 				case "null field":
 					logInError("Veuillez remplir tous les champs")
-					break;
+					break
+				case "token":
+					console.log('invalid token')
+					//window.location.reload()
+				break
 				default:
 					logInError("Une erreur interne est survenue veuillez recommencer plus tard")
-					break;
+					break
 			}
 		}
 	} else {

@@ -52,44 +52,54 @@ module.exports = dbPool => {
 
 	route.post("/login",csrfParse,(req,res)=>{
 		var body = req.body
-		if (body.pseudo && body.password && req.validToken){ //verify if fields are provided
-			dbPool.getConnection().then(conn=>{
-				conn.query("SELECT * FROM users WHERE pseudo=?",[body.pseudo]).then(rows=>{
-					if (rows.length > 0){ //check if user exist
-						var user = rows[0]
-						bcrypt.compare(body.password,rows.password,(err,result)=>{ //check password
-							if (err){
-								console.log('bcrypt error:',err)
-								res.json({
-									error:"internal error",
-									connected:false
-								})
-							} else {
-								if (result){
-									req.session.pseudo = rows.pseudo
-									/* only to avoid database verification on every request, 
-									 * if user have necessary permission we check db else we do nothing
-									 */
-									req.session.permissions = rows.permissions
-									req.session.image = rows.image
-									req.session.mail = rows.mail
+		console.log(req.validToken)
+		if (req.validToken)
+			if (body.pseudo && body.password){ //verify if fields are provided
+				dbPool.getConnection().then(conn=>{
+					conn.query("SELECT * FROM users WHERE pseudo=?",[body.pseudo]).then(rows=>{
+						if (rows.length > 0){ //check if user exist
+							var user = rows[0]
+							bcrypt.compare(body.password,rows.password,(err,result)=>{ //check password
+								if (err){
+									console.log('bcrypt error:',err)
 									res.json({
-										connected:true
-									})
-								} else {
-									res.json({
-										error:"password",
+										error:"internal error",
 										connected:false
 									})
+								} else {
+									if (result){
+										req.session.pseudo = rows.pseudo
+										/* only to avoid database verification on every request, 
+										 * if user have necessary permission we check db else we do nothing
+										 */
+										req.session.permissions = rows.permissions
+										req.session.image = rows.image
+										req.session.mail = rows.mail
+										res.json({
+											connected:true
+										})
+									} else {
+										res.json({
+											error:"password",
+											connected:false
+										})
+									}
 								}
-							}
-						})
-					} else {
+							})
+						} else {
+							res.json({
+								error:"pseudo",
+								connected:false
+							})
+						}
+					}).catch(err=>{
+						console.log('sql error',err)
 						res.json({
-							error:"pseudo",
+							error:"internal error",
 							connected:false
 						})
-					}
+					})
+					conn.release()
 				}).catch(err=>{
 					console.log('sql error',err)
 					res.json({
@@ -97,17 +107,15 @@ module.exports = dbPool => {
 						connected:false
 					})
 				})
-				conn.release()
-			}).catch(err=>{
-				console.log('sql error',err)
+			} else {
 				res.json({
-					error:"internal error",
+					error:"null field",
 					connected:false
 				})
-			})
-		} else {
+			}
+		else {
 			res.json({
-				error:"null field",
+				error:"token",
 				connected:false
 			})
 		}
