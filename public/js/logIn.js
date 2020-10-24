@@ -21,7 +21,8 @@ postRequest.addEventListener("load",(event)=>{
 	if (postRequest.status == 200){
 		var data = JSON.parse(postRequest.responseText)
 		if (data.connected){
-			window.reload()
+			document.location = "#"
+			window.location.reload()
 		} else {
 			//console.log('Error:',data.error)
 			switch (data.error) {
@@ -36,11 +37,11 @@ postRequest.addEventListener("load",(event)=>{
 					break
 				case "token":
 					console.log('invalid token')
-					//window.location.reload()
+					window.location.reload()
 				break
 				default:
 					logInError("Une erreur interne est survenue veuillez recommencer plus tard")
-					break
+				break
 			}
 		}
 	} else {

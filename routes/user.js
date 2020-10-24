@@ -24,7 +24,6 @@ module.exports = dbPool => {
 			res.redirect("/user/signup?error="+encodeURI("csrfToken"))
 			return
 		}
-
 		//verify all fields
 		var body = req.body
 
@@ -35,12 +34,43 @@ module.exports = dbPool => {
 		}
 
 		//verify mail
-		if (!body.pseudo.match(regex.mail)){
+		if (!body.mail.match(regex.mail)){
 			res.redirect("/user/signup?error="+encodeURI("mail"))
 			return
 		}
 
 		//verify password
+		if (!body.password.match(regex.password)){
+			res.redirect("/user/signup?error="+encodeURI("password"))
+		}
+
+		//verify match between password and password repeat
+		if (body.password != body.passwordRepeat){
+			res.redirect("/user/signup?error="+encodeURI("passwordMatch"))
+		}
+
+		//process password
+		bcrypt.hash(body.password, saltRound, (err, hash) => {
+			if (err){
+				console.log('hash error :',err)
+				res.redirect("/user/signup?error="+encodeURI("internal"))
+				return
+			}
+		    //everithing is ok, so we can create user in bdd
+			dbPool.getConnection().then(conn=>{
+				conn.query("INSERT INTO users (pseudo, mail, password) VALUES (?,?,?)",[body.pseudo,body.mail,hash]).then((rows)=>{
+						res.redirect("/")
+					}).catch(err=>{
+						console.log('connection insert error:',err)
+						res.redirect("/user/signup?error="+encodeURI("internal"))
+					})
+
+				conn.release()
+			}).catch(err=>{
+				console.log('connection bdd error:',err)
+				res.redirect("/user/signup?error="+encodeURI("internal"))
+			})
+		})
 	})
 
 	route.get("/disconnect",csrfParse,(req,res)=>{
@@ -59,7 +89,7 @@ module.exports = dbPool => {
 					conn.query("SELECT * FROM users WHERE pseudo=?",[body.pseudo]).then(rows=>{
 						if (rows.length > 0){ //check if user exist
 							var user = rows[0]
-							bcrypt.compare(body.password,rows.password,(err,result)=>{ //check password
+							bcrypt.compare(body.password,user.password,(err,result)=>{ //check password
 								if (err){
 									console.log('bcrypt error:',err)
 									res.json({
@@ -68,13 +98,13 @@ module.exports = dbPool => {
 									})
 								} else {
 									if (result){
-										req.session.pseudo = rows.pseudo
+										req.session.pseudo = user.pseudo
 										/* only to avoid database verification on every request, 
 										 * if user have necessary permission we check db else we do nothing
 										 */
-										req.session.permissions = rows.permissions
-										req.session.image = rows.image
-										req.session.mail = rows.mail
+										req.session.permissions = user.permissions
+										req.session.image = user.image
+										req.session.mail = user.mail
 										res.json({
 											connected:true
 										})

@@ -61,6 +61,9 @@ formValidators.forEach((element)=>{
 							case "null field":
 								signInError("Veuillez remplir tous les champs")
 								break
+							case "token":
+								window.location.reload()
+								break
 							default:
 								signInError("Une erreur interne est survenue veuillez recommencer plus tard")
 								break
