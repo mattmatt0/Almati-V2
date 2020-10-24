@@ -2,7 +2,8 @@ const express = require("express")
 const bcrypt = require("bcrypt")
 const saltRound = 10
 
-const regex = require("../lib/regex.js")
+const regex = require("../lib/regex")
+const {csrfToken,csrfParse} = require("../lib/csrfToken")
 
 
 module.exports = dbPool => {
@@ -17,7 +18,13 @@ module.exports = dbPool => {
 		res.render("signUp.ejs")
 	})
 
-	route.post("/signup",(req,res)=>{
+	route.post("/signup",csrfParse,(req,res)=>{
+		//verify token
+		if (!req.validToken){
+			res.redirect("/user/signup?error="+encodeURI("csrfToken"))
+			return
+		}
+
 		//verify all fields
 		var body = req.body
 
@@ -33,19 +40,19 @@ module.exports = dbPool => {
 			return
 		}
 
-		
+		//verify password
 	})
 
-	route.get("/disconnect",(req,res)=>{
-		if (req.session.pseudo){
+	route.get("/disconnect",csrfParse,(req,res)=>{
+		if (req.session.pseudo && req.validToken){
 			req.session = {}
 		}
 		res.redirect("/")
 	})
 
-	route.post("/login",(req,res)=>{
+	route.post("/login",csrfParse,(req,res)=>{
 		var body = req.body
-		if (body.pseudo && body.password){ //verify if fields are provided
+		if (body.pseudo && body.password && req.validToken){ //verify if fields are provided
 			dbPool.getConnection().then(conn=>{
 				conn.query("SELECT * FROM users WHERE pseudo=?",[body.pseudo]).then(rows=>{
 					if (rows.length > 0){ //check if user exist

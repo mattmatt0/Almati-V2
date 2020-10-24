@@ -23,6 +23,7 @@ app.use(expressSession({
 	resave:false,
 	saveUninitialized:false,
 	cookie:{
+		SameSite:"Strict",
 		httpOnly:true,
 		maxAge:7 * 24 * 60 * 60 * 1000, //1 week
 		secure: process.env.SECURE || false,
@@ -32,7 +33,9 @@ app.use(expressSession({
 //setup db
 const db = require("./lib/setupDb")
 
-
+//setup csrf token for form
+const {csrfToken,csrfParse} = require("./lib/csrfToken")
+app.use(csrfToken)
 
 //setup body parser
 const bodyparser = require("body-parser")
@@ -45,10 +48,6 @@ app.set('view engine', 'ejs');
 //add files in public folder (pictures, javascript, css...)
 app.use(express.static(__dirname + '/public'))
 
-app.use((req,res,next) => { //generate token to avoid csrf
-	req.session.token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-	next()
-})
 
 //main route
 app.get('', function(req, res) {
