@@ -73,7 +73,3 @@ label
 {
 	color:white;
 }
-input[type="text"],textarea
-{
-	box-sizing:border-box;
-}
