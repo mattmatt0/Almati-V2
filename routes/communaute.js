@@ -20,6 +20,7 @@ route.get("/forum",csrfToken,(req,res)=>{
 	}
 	res.render('forum/forum.ejs',{})
 })
+
 route.get("/forum/:subsection/",csrfToken,(req,res)=>{
 	res.render('forum/forumSubsectionTemplate.ejs',{
 		category:req.params.subsection,
@@ -34,7 +35,7 @@ route.get("/forum/:subsection/:postId/:page",csrfToken,(req,res)=>{
 })
 route.get("/QuiSommesNous",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
-}
+})
 
 route.get("/contact",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
