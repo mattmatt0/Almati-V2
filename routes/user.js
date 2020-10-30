@@ -17,7 +17,7 @@ module.exports = dbPool => {
 			}
 			conn.query(query,[userInfo.pseudo ? userInfo.pseudo : userInfo.mail,userInfo.mail]).then(rows => {
 				var result = undefined
-				console.log(rows)
+				//console.log(rows)
 				if (rows.length == 0){//if there is no match, the user doesn't exist
 					result = false
 				} else {
@@ -47,11 +47,11 @@ module.exports = dbPool => {
 	const route = express.Router();
 
 	//in this page we put parameters of users, Sign In forgoten password...
-	route.get("",(req,res)=>{
+	route.get("",csrfToken,(req,res)=>{
 		res.end("C'est pas encore fait ;)",{})
 	})
 
-	route.get("/signup",(req,res)=>{
+	route.get("/signup",csrfToken,(req,res)=>{
 		res.render("signUp.ejs")
 	})
 
@@ -158,6 +158,7 @@ module.exports = dbPool => {
 										req.session.permissions = user.permissions
 										req.session.image = user.image
 										req.session.mail = user.mail
+										req.session.save()
 										res.json({
 											connected:true
 										})
@@ -223,7 +224,7 @@ module.exports = dbPool => {
 		})
 	})
 
-	route.get("/motDePasseOublie",(req,res)=>{
+	route.get("/motDePasseOublie",csrfToken,(req,res)=>{
 		res.end("C'est pas encore fait ;)",{})
 	})
 

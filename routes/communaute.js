@@ -1,29 +1,31 @@
 const express = require("express")
+//setup csrf token for form
+const {csrfToken,csrfParse} = require("../lib/csrfToken")
 const route = express.Router();
 
 //in this page we put news, forum, chat...
-route.get("",(req,res)=>{
+route.get("",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
-route.get("/news",(req,res)=>{
+route.get("/news",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
-route.get("/chat",(req,res)=>{
+route.get("/chat",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
-route.get("/forum",(req,res)=>{
+route.get("/forum",csrfToken,(req,res)=>{
 	res.render('forum/forum.ejs',{})
 })
-route.use("/forum",(req,res)=>{
+route.use("/forum",csrfToken,(req,res)=>{
 	res.render('forum/forumSubsectionTemplate.ejs',{url:req.urlForLink})
 })
-route.get("/QuiSommesNous",(req,res)=>{
+route.get("/QuiSommesNous",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
-route.get("/contact",(req,res)=>{
+route.get("/contact",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
-route.get("/FAQ",(req,res)=>{
+route.get("/FAQ",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
 module.exports = route;

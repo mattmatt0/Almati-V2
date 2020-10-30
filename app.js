@@ -52,10 +52,9 @@ app.use(express.static(__dirname + '/public'))
 
 //setup csrf token for form
 const {csrfToken,csrfParse} = require("./lib/csrfToken")
-app.use(csrfToken)
 
 //main route
-app.get('', function(req, res) {
+app.get('',csrfToken,function(req, res) {
     res.render('main.ejs',{})
 
 });
