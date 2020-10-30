@@ -14,14 +14,28 @@ route.get("/chat",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })
 route.get("/forum",csrfToken,(req,res)=>{
+	if(!req.url.endsWith('/'))
+	{
+		res.redirect('/communaute' + req.url + '/')
+	}
 	res.render('forum/forum.ejs',{})
 })
-route.use("/forum",csrfToken,(req,res)=>{
-	res.render('forum/forumSubsectionTemplate.ejs',{url:req.urlForLink})
+route.get("/forum/:subsection/",csrfToken,(req,res)=>{
+	res.render('forum/forumSubsectionTemplate.ejs',{
+		category:req.params.subsection,
+		categoryDescription:"CATEGORY DESCRIPTION"}
+	)
+})
+route.get("/forum/:subsection/:postId/:page",csrfToken,(req,res)=>{
+	res.render("forum/postTemplate.ejs",{
+		postTitle:"POST TITLE (id:" + req.params.postId + ")",
+		page:req.params.page}
+	)
 })
 route.get("/QuiSommesNous",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
-})
+}
+
 route.get("/contact",csrfToken,(req,res)=>{
 	res.end("C'est pas encore fait ;)",{})
 })

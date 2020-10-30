@@ -5,90 +5,34 @@
 	<title>Forum - Almati</title>
 	<%- include("../parts/include.ejs")%>
 	<link rel="stylesheet" href="/css/dark/forum/menuSubjectIcon.css">
+	<link rel="stylesheet" href="/css/dark/forum/forum.css">
 </head>
 <body>
 	<%- include("../parts/header.ejs")%>
 	<h1>Forum</h1>
 	<p>L'espace d'échange entre membres. <br/>
 	Soyez respectueux, évitez le déterrage, et évitez les trolls. Une équipe de modération pourra appliquer des sanctions et supprimera votre message s'il est innaproprié</p>
-	<h3 style = "text-align:left;font-size:20px;background:linear-gradient(#0AF,#07F);margin:0px;padding:1%">Programmation et langages web</h3>
+	<div id = "descriptionMask"></div> <!-- Makes the rest of the UI unclickable when the description is shown -->
+	<% var sectionAmount = 10;
+       for(s=0;s<sectionAmount;++s){ %>
+	<h3>CATEGORY NAME</h3>
 	<div class = "subSectionContainer">
-	</div>
-	<h3 style = "text-align:left;font-size:20px;background:linear-gradient(#0AF,#07F);margin:0px;padding:1%">Sciences</h3>
-	<div class = "subSectionContainer">
-		<a id = "math" href="forum/science/math">
-			<img src="/images/forumIcons/pi.svg">
-			<h4>Mathématiques</h4>
-		</a>
-		<a id = "physics" href="forum/science/physics">
-			<img src="/images/forumIcons/atom.svg">
-			<h4>Physique</h4>
-		</a>
-		<a id = "chemistry" href="forum/science/chemistry">
-			<img src="/images/forumIcons/erlenmeyer.svg">
-			<h4>Chimie</h4>
-		</a>
-		<a id = "biology" href="forum/science/biology">
-			<img src="/images/forumIcons/virus.svg">
-			<h4>Biologie</h4>
-		</a>
-		<a id = "economy" href="forum/science/economy">
-			<img src="/images/forumIcons/euro.svg">
-			<h4>Économie</h4>
-		</a>
-		<a id = "sociology" href="forum/science/sociology">
-			<img src="/images/forumIcons/sociology.svg">
-			<h4>Sociologie</h4>
-		</a>
-		<a id = "stats" href="forum/science/stats">
-			<img src="/images/forumIcons/statistics.svg">
-			<h4>Statistiques</h4>
-		</a>
-		<a id = "psychology" href="forum/science/psychology">
-			<img src="/images/forumIcons/brain.svg">
-			<h4>Psychologie</h4>
-		</a>
-	</div>
-	<h3 style = "text-align:left;font-size:20px;background:linear-gradient(#0AF,#07F);margin:0px;padding:1%">Almati</h3>
-	<div class = "subSectionContainer">
-		<a id = "questions" href="forum/website/questions">
-			<img src="/images/forumIcons/question.svg">
-			<h4>Questions à l'équipe</h4>
-		</a>
-		<a id = "suggestions" href="forum/website/suggestions">
-			<img src="/images/forumIcons/suggestion.svg">
-			<h4>Suggestions</h4>
-		</a>
-		<a id = "bugreport" href="forum/website/bugreport">
-			<img src="/images/forumIcons/exclamation.svg">
-			<h4>Rapports de bogues</h4>
-		</a>
-		<a id = "angery" href="forum/website/angery">
-			<img src="/images/forumIcons/angery.svg">
-			<h4>Jesuipakontan</h4>
-		</a>
+		<% var subSectionAmount = 10;
+		for(i=0;i < subSectionAmount;++i){ %>
+		<div id = "SECTION_ID" style = "background-color:hsl(<%=((i+s)/(subSectionAmount))*360%>,100%,50%)" class = "sectionLabel">
+			<a href="SECTION_PATH/">
+				<img class = "subjectIcon" src="/images/forumIcons/other.svg">
+				<h4>SUBSECTION NAME</h4>
+			</a>
+			<img class = "info" src="/images/dialog/info.png" onclick = "toogleInfo(this)">
+		</div>
+		<div class = "sectionDescription" style="background-color:hsl(<%=((i+s)/(subSectionAmount))*360%>,100%,50%)"><p>SUBSECTION DESCRIPTION</p></div>
 
+		<%}%>
 	</div>
-	<h3 style = "text-align:left;font-size:20px;background:linear-gradient(#0AF,#07F);margin:0px;padding:1%">Autres</h3>
-	<div class = "subSectionContainer">
-		<a id = "discussion" href="forum/other/discussion">
-			<img src="/images/forumIcons/discussion.svg">
-			<h4>Discussion</h4>
-		</a>
-		<a id = "debate" href="forum/other/debates">
-			<img src="/images/forumIcons/debate.svg">
-			<h4>Débats</h4>
-		</a>
-		<a id = "ad" href="forum/other/announcements">
-			<img src="/images/forumIcons/announcement.svg">
-			<h4>Annonces</h4>
-		</a>
-		<a id = "offtopic" href="forum/other/other">
-			<img src="/images/forumIcons/dot.svg">
-			<h4>Autres sujets</h4>
-		</a>
+	<%}%>
 
-	</div>
+	<script type="text/javascript" src="/js/subSection.js"></script>
 	<!-- some icons are from onlinewebfonts: http://www.onlinewebfonts.com -->
 	<!-- wikimedia commons also -->
 	<!-- svgrepo -->

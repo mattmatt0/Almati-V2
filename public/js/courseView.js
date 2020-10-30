@@ -1,0 +1,3 @@
+function deletePart(a)
+{
+}

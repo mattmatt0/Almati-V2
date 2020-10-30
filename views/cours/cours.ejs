@@ -3,19 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Tutos et cours - Almati</title>
-    <%- include("./include.ejs")%>
+    <%- include("../parts/include.ejs")%>
     <link rel="stylesheet" href="/css/dark/cours/cours.css">
 </head>
 <body>
 	<%- include("../parts/header.ejs")%>
     <div id = "presentation">
-        <h3> Tutoriaux & cours</h3>
+        <h1> Tutoriaux & cours</h1>
         <p> Sur cette page vous pouvez accéder aux tutoriaux et aux cours. Les cours sont constitués de plusieurs pages et vous permettent d'acquérir de nouvelles compétences, tandis que les tutoriaux vous permettent de faire quelque chose, sans se préoccuper de retenir.</p>
-        <input id = "courseSearch" placeholder = "Rechercher des cours, des tutoriaux..."></input><br/>
+        <input id = "courseSearch" placeholder = "Rechercher des cours, des tutoriaux..."></input>
+	<p>Impossible de trouver un cours? Vous pouvez en <a href = "/user/courses/new/">créer un.</a></p>
     </div>
         <% for(var i = 0; i < 10;++i){ %>
             <section>
-                        <h3 style = "text-align:left;font-size:50px;background:linear-gradient(#0AF,#07F);margin:0px;padding:1%">Nom de catégorie</h3>
+                        <h3 class = "categoryName">CATEGORY NAME</h3>
                     <div class="courseList">
                         <%- include("./liste_cours.ejs") %>
                 </div>

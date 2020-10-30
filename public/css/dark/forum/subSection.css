@@ -1,0 +1,131 @@
+.subjects
+{
+	display:flex;
+	flex-direction:column;
+}
+h4
+{
+	text-align:center;
+}
+.postInfo
+{
+	float:left;
+	margin-right:-100%;
+}
+.lastMessage
+{
+	margin-right:10px;
+	float:right;
+	text-align:right;
+	margin-left:-100%;
+	margin-right:50px;
+}
+.postHeaderContainer
+{
+	background-color:#002a2d;
+	border:1px solid black;
+	border-left:5px solid #0E9;
+	transition-duration:1s;
+	cursor:pointer;
+	border-radius:10px;
+	margin:5px;
+	margin-left:20px;
+	margin-right:20px;
+}
+.postHeaderContainer:hover
+{
+	transform:translateY(-1px);
+	background-color:#09E;
+	box-shadow:5px 5px 5px 5px #111;
+}
+.solved
+{
+	background-color:#031;
+}
+.solved:hover
+{
+	background-color:#0C3;
+}
+.seen
+{
+	border-left: 5px solid #555;
+}
+.closed
+{
+	background-color:#333;
+}
+.closed:hover
+{
+	background-color:#666;
+}
+.displayMoreButton
+{
+	float:right;
+	width:20px;
+	height:20px;
+	margin:25px;
+	margin-right:15px;
+}
+.contentPreview
+{
+	background-color:#222;
+	margin:10px;
+	border-radius:10px;
+	transition:border 0s, max-height 1s;
+	animation-delay:0s;
+	transition-delay:0s;
+	max-height:0px;
+	overflow:hidden;
+	border:none;
+}
+.additionalInfo
+{
+	background-color:#333;
+	color:white;
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px;
+	padding:5px;
+}
+.additionalInfo a
+{
+	float:right;
+}
+@media screen and (max-width: 800px)
+{
+	h4
+	{
+		text-align:left;
+		padding-left:10px;
+		padding-top:5px;
+		padding-bottom:5px;
+		margin-top:0px;
+		background-color:rgba(0,0,0,.2)
+	}
+	.displayMoreButton
+	{
+		margin:7.5px;
+	}
+	.postInfo, .lastMessage
+	{
+		padding-top:20px;
+	}
+	.postInfo
+	{
+		margin-left:5px;
+	}
+	.lastMessage
+	{
+		margin-right:5px;
+	}
+	.contentPreview
+	{
+		margin-top:50px;
+	}
+	.postHeaderContainer
+	{
+		margin:0;
+		border-radius:0;
+		margin-top:5px;
+	}
+}
+

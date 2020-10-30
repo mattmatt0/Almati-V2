@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Nouveau cours - Almati</title>
+    	<%- include("../parts/include.ejs")%>
+	<link rel="stylesheet" href = "/css/dark/user/courseView.css">
+	<script src = "/js/courseView.js" type="text/javascript"></script>
+</head>
+<body>
+	<%- include("../parts/header.ejs")%>
+	<h1>Créer un cours</h1>
+
+	<label for="courseTitle">Titre du cours</label><input id = "courseTitle" type = "text" value = "COURSE TITLE" autocomplete="off">
+	<label for="courseDescription">Description</label><br/><textarea id = "courseDescription"></textarea>
+	<br/>
+	<br/>
+	<h3>Parties du cours</h3>
+	<div id = "partsContainer">
+		<%for(var partID=1;partID<4;++partID){%>
+		<div class = "part">
+			<div class="partTitle">
+				<p>Partie <%=partID%>:</p><p contentEditable = "true">PART TITLE</p>
+				<img src="/images/icons/trash.svg" onclick="deletePart(<%=partID%>)">
+			</div>
+			<%for(var chapterID=1;chapterID<7;++chapterID){%>
+			<div class = "chapter">
+				<p>Chapitre <%=chapterID%>:</p><p contentEditable = "true">CHAPTER TITLE</p>
+				<img src="/images/icons/pencil.svg" onclick="document.location = 'edit/<%=partID%>/<%=chapterID%>'">
+				<img src="/images/icons/trash.svg" onclick="deleteChapter(<%=partID%>,<%=chapterID%>)">
+			</div>
+			<%}%>
+			<div class = "newChapter" onclick ="newChapter()">
+				<img src="/images/symbols/plus.svg" onclick="document.location = 'edit/<%=partID%>/<%=chapterID%>'">
+				<p>Ajouter un nouveau chapitre</p>
+			</div>
+		</div>
+		<%}%>
+		<div class = "newPart" onclick = "newPart()">
+			<img src="/images/symbols/plus.svg" onclick="document.location = 'edit/<%=partID%>/<%=chapterID%>'">
+			<p>Ajouter une nouvelle partie</p>
+		</div>
+	</div>
+    	<%- include("../parts/footer.ejs")%>
+</body>
+</html>
