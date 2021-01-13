@@ -1,0 +1,32 @@
+@use "../utils/colors" as color;
+
+
+.presentationParalax {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	height: 100vh;
+
+	text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+
+	&__text {
+		max-width: 50%;
+		font-size:20px;
+	}
+
+	&__title {
+		font-size: 25px;
+		text-align: center;
+	}
+
+	&__bigtitle {
+		font-size: 30px;
+	}
+
+	& + .presentationParalax{
+		border-top: 20px solid color.$background;
+	}
+}

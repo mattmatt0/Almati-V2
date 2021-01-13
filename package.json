@@ -1,12 +1,19 @@
 {
-  "name": "almati-v2",
+  "name": "almati-v2", 
   "version": "1.0.0",
   "description": "Almati is a free website to learn about developement and informatic",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch sass/pages:compiled-sass --style compressed",
+    "compileScss": "sass sass/pages/:compiled-sass --style compressed",
+    "scss":"nodemon -e scss -x \"npm run compileScss\"",
     "prefix": "postcss ./compiled-sass/*.css --use autoprefixer -d ./public/css/ --watch"
+  },
+  "nodemonConfig":{
+    "ignore": [
+      "public/*.js",
+      "*.json"
+    ]
   },
   "browserslist": [
     "last 4 versions",
@@ -29,6 +36,7 @@
   "homepage": "https://github.com/mattmatt0/Almati-V2#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",

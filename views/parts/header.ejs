@@ -1,0 +1,27 @@
+<header class="header">
+	<a href="/" id="header__title">
+		<h1>Almati</h1>
+	</a>
+
+	<label class="header__responsiveButton" for="header__showMenu">
+		<img src ="/images/icons/menu.svg" class ="header__responsiveButton__image">
+	</label>
+	<input type="checkbox" name="showMenu" class="header__showMenu" id="header__showMenu">
+	
+	<div class = "header__options">
+		<label class="header__options__filter" for="header__showMenu">
+			&nbsp;
+		</label>
+		<div class="header__options__choices">
+			<% if (locals.connected) {%>
+				<a href="/user/accout" class="header__options__account"><h2> Mon compte </h2></a>
+			<% } else {%>
+				<a href="#signIn" class="header__options__connect"><h2> Se connecter </h2></a>
+			<% } %>
+			<a href = "/cours" class="header__options__tuto"><h2> Tutos & Cours </h2></a>
+			<a href = "/communaute/forum" class="header__options__forum"><h2> Forum </h2></a>
+		</div>
+		
+	</div>
+	
+</header>
