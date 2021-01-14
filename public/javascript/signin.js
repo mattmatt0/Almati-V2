@@ -107,7 +107,7 @@ if (signin){ //if element exist
 		var formData = new FormData(event.target)
 
 		signinForm.classList.add("wait")
-		loginRequest.open("POST","/users/signin")
+		loginRequest.open("POST","/user/signin")
 		loginRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 		loginRequest.send(encode(formData))
 	})

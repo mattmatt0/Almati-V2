@@ -12,7 +12,7 @@ module.exports = class mariadbStore extends mixer.Mixin(session.Store,dbBaseMode
 	}
 
 	destroy(sid,callback){
-		this.runQuery(`DELETE FROM ${this.table} WHERE sid=?`,[],callback)
+		this.runQuery(`DELETE FROM ${this.table} WHERE sid=?`,[sid],callback)
 	}
 
 	clear(callback){

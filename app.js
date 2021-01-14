@@ -45,6 +45,9 @@ app.use(express.static(__dirname + '/public'))
 //setup csrf token for form
 const {csrfToken,csrfParse} = require("./middlewares/csrfToken")
 
+//setup middleware to know if user is connected or not
+app.use(require("./middlewares/connected"))
+
 //main route
 app.get('',csrfToken,function(req, res) {
     res.render('pages/index.ejs')
@@ -52,7 +55,7 @@ app.get('',csrfToken,function(req, res) {
 });
 
 //setup routes
-app.use("/users",require("./routes/user")(db))
+app.use("/user",require("./routes/user")(db))
 
 
 // If 404:
