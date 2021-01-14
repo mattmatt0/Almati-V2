@@ -52,7 +52,7 @@ app.get('',csrfToken,function(req, res) {
 });
 
 //setup routes
-
+app.use("/users",require("./routes/user")(db))
 
 
 // If 404:

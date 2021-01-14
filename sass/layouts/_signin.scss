@@ -40,9 +40,28 @@
 			width:100%;
 			color:red;
 		}
-	}
 
-	& + body{
-		overflow:none;
+		&__closeButton{
+			cursor: pointer;
+			float: right;
+			&__image {
+				height:2em;
+				width: 2em;
+			}
+		}
+		&__waitImg{
+			display:none;
+		}
+
+		$parent:&;
+
+		&.wait{
+			& *:not(#{$parent}__waitImg){
+				display:none;
+			}
+			#{$parent}__waitImg{
+				display:block;
+			}
+		}
 	}
 }

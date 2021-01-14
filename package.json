@@ -1,15 +1,15 @@
 {
-  "name": "almati-v2", 
+  "name": "almati-v2",
   "version": "1.0.0",
   "description": "Almati is a free website to learn about developement and informatic",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compileScss": "sass sass/pages/:compiled-sass --style compressed",
-    "scss":"nodemon -e scss -x \"npm run compileScss\"",
-    "prefix": "postcss ./compiled-sass/*.css --use autoprefixer -d ./public/css/ --watch"
+    "compileScss": "sass sass/pages/:compiled_sass --style compressed",
+    "scss": "nodemon -e scss -x \"npm run compileScss\"",
+    "prefix": "postcss ./compiled_sass/*.css --use autoprefixer -d ./public/css/ --watch"
   },
-  "nodemonConfig":{
+  "nodemonConfig": {
     "ignore": [
       "public/*.js",
       "*.json"
@@ -40,7 +40,9 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "extend": "^3.0.2",
     "helmet": "^4.3.1",
-    "mariadb": "^2.5.2"
+    "mariadb": "^2.5.2",
+    "ts-mixer": "^5.4.0"
   }
 }

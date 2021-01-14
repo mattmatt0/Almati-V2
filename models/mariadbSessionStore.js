@@ -1,32 +1,10 @@
 const session = require ("express-session")
+const dbBaseModel = require("../models/dbBaseModel")
+const mixer = require("ts-mixer")
 
-module.exports = class mariadbStore extends session.Store{
+module.exports = class mariadbStore extends mixer.Mixin(session.Store,dbBaseModel){
 	constructor(databasePool,table){
-		super()
-		this.pool = databasePool
-		this.table = table
-	}
-
-	runQuery(query,args,callback,value=false,index="any"){
-		this.pool.getConnection().then((conn)=>{
-			conn.query(query,args).then(rows=>{
-				if (value)
-				{
-					if (index == "any")
-						callback(null,rows)
-					else
-						callback(null,rows[index])
-				} else {
-					callback(null)
-				}
-				
-			}).catch(err=>{
-				callback(err)
-			})
-			conn.release()
-		}).catch(err=>{
-			callback(err)
-		})
+		super(databasePool,table)
 	}
 
 	all(callback){
