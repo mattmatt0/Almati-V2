@@ -21,11 +21,11 @@ if (signin){ //if element exist
 
 	//get necesary childs
 	var signinForm = signin.children[0]
-	var error = signinForm.getElementsByClassName("signinContener__form__error")[0]
+	var signInErrorDisplay = signinForm.querySelectorAll(".signinContener .form__error")[0]
 
 	//display error on the page
 	setSignInError = (errorText="") =>{
-		error.innerText = errorText
+		signInErrorDisplay.innerText = errorText
 		if (errorText)
 			console.error(errorText)
 	}
