@@ -1,18 +1,18 @@
 <div id="signIn" class="signinContener">
 
-	<form action="/users/signin?noJavascript=true" class="signinContener__form" method="POST">
-		<a class="signinContener__form__closeButton" href="#">
-			<img class="signinContener__form__closeButton__image" src="/images/icons/close.png">
+	<form action="/users/signin?noJavascript=true" class="form" method="POST">
+		<a class="form__closeButton" href="#">
+			<img class="form__closeButton__image" src="/images/icons/close.png">
 		</a>
-		<h2 class="signinContener__form__title">Connexion</h2>
-		<p class="signinContener__form__error"></p>
-		<input type="hidden" name="_csrfToken" value="<%=_csrfToken%>">
-		<label for="password" class="signinContener__form__label">Nom d'utilisateur :</label>
-		<input type="text" class="signinContener__form__input" id="pseudo" name="pseudo">
-		<label for="password" class="signinContener__form__label">Mot de passe :</label>
-		<input type="password" class="signinContener__form__input" id="password" name="password">
+		<h2 class="form__title">Connexion</h2>
+		<p class="form__error"></p>
+		<input type="hidden" name="_csrf" value="<%=_csrf%>">
+		<label for="password" class="form__label">Nom d'utilisateur :</label>
+		<input type="text" class="form__input" id="pseudo" name="pseudo">
+		<label for="password" class="form__label">Mot de passe :</label>
+		<input type="password" class="form__input" id="password" name="password">
 		<input type="submit" name="submit" value="Connexion">
-		<img class="signinContener__form__waitImg" src="/images/wait.svg">
+		<img class="form__waitImg" src="/images/wait.svg">
 	</form>
 	
 </div>

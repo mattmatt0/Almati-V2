@@ -42,7 +42,11 @@ module.exports = db => {
 		}
 	})
 
-	router.post("/signup",(req,res)=>{
+	router.get("/signup",csrfToken,(req,res)=>{
+		res.render("pages/signup.ejs")
+	})
+
+	router.post("/signup",csrfParse,(req,res)=>{
 		const body = req.body
 		const redirect = req.query.noJavascript
 
@@ -53,15 +57,27 @@ module.exports = db => {
 			if (body.password != body.passwordRepeat)
 				res.json({result:false,err:"passwordRepeat"})
 
-
-			router.userModel.create(body.pseudo,body.password,body.mail,(result,err)=>{
-				if (err)
-					res.json({result:false,err:err})
-				else
-					res.json({result:true,err:""})
-			})
+			else
+				router.userModel.create(body.pseudo,body.password,body.mail,(result,err)=>{
+					res.json({result:result,err:err})
+				})
 		} else 
 			res.json({result:false,err:"input"})
+	})
+
+	router.post("/userExist",(req,res)=>{
+		const body = req.body
+		if (body.mail){
+			router.userModel.mailExist(body.mail,(result,err)=>{
+				res.json({result:result,err:err})
+			})
+		} else if (body.pseudo) {
+			router.userModel.pseudoExist(body.pseudo,(result,err)=>{
+				res.json({result:result,err:err})
+			})
+		} else {
+			res.json({result:false,err:"input"})
+		}
 	})
 
 	//disconnect route

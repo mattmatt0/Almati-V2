@@ -40,7 +40,6 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "extend": "^3.0.2",
     "helmet": "^4.3.1",
     "mariadb": "^2.5.2",
     "ts-mixer": "^5.4.0"

@@ -6,8 +6,24 @@ const port = 8080
 
 const helmet = require("helmet")
 app.use(helmet({
-	contentSecurityPolicy: process.env.SECURE || false
+	contentSecurityPolicy :false //setup it by my own
 }))
+
+//setup content security policy 
+
+app.use((req, res, next) => {
+    res.setHeader("Content-Security-Policy",
+    			  "default-src 'self';"+
+    			  "script-src 'self';" +
+    			  "base-uri 'self';" +
+    			  "frame-ancestors 'self';"+
+    			  "img-src 'self';"+
+    			  "object-src 'none';"+
+    			  "form-action 'self';" +
+    			  "style-src 'self' fonts.googleapis.com;"+
+    			  "font-src 'self' fonts.gstatic.com;");
+    next()
+})
 
 //setup db
 const db = require("./models/setupDb")
@@ -23,7 +39,7 @@ app.use(expressSession({
 	saveUninitialized:false,
 	store:new mariadbStore(db,"sessions"),
 	cookie:{
-		SameSite:"Strict",
+		sameSite:"Strict",
 		httpOnly:true,
 		maxAge:7 * 24 * 60 * 60 * 1000, //1 week
 		secure: process.env.SECURE || false,

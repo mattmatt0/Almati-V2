@@ -19,11 +19,13 @@ module.exports = class user extends dbBaseModel{
 		this.runQuery(`SELECT * FROM ${this.table} WHERE ${field}=?`,[pseudo],(err,rows)=>{
 			if (err)
 				console.error(err)
-			if (rows){ //if user exist
+			if (rows[0]){ //if user exist
 				var user = rows[0]
 				bcrypt.compare(password,user.password,(err,result)=>{ //check password
-					if (err)
+					if (err){
 						console.error(err)
+						callback(false,"hash")
+					}
 					if (result)
 						callback(true,"",{pseudo:user.pseudo,permissions:user.permissions,image:user.image,id:user.id})
 					else
@@ -40,21 +42,44 @@ module.exports = class user extends dbBaseModel{
 	create(pseudo,password,mail,callback) {
 		if (!pseudo.match(regex.pseudo))
 			callback(false,"pseudo")
-		if (!password.match(regex.password))
+		else if (!password.match(regex.password))
 			callback(false,"password")
-		if (!mail.match(regex.mail))
+		else if (!mail.match(regex.mail))
 			callback(false,"mail")
 
-
-		bcrypt.hash(password,saltRounds,(err,hash)=>{
-			if (err)
-				callback(false,"hash")
-			this.runQuery(`INSERT INTO ${this.table} (pseudo,password,mail) VALUES (?,?,?)`,[pseudo,hash,mail],(err)=>{
-				if (err)
+		else//check pseudo
+			this.pseudoExist(pseudo,(result,err)=>{
+				if (err){
+					console.log(err)
 					callback(false,"database")
+				} else if (result){
+					callback(false,"pseudoExist")
+				} else
+					this.mailExist(mail,(result,err)=>{
+						if (err){
+							console.log(err)
+							callback(false,"database")
+						} else if (result){
+							console.log(err)
+							callback(false,"mailExist")
+						} else 
+						bcrypt.hash(password,saltRounds,(err,hash)=>{
+							if (err){
+								console.log(err)
+								callback(false,"hash")
+							}
+							this.runQuery(`INSERT INTO ${this.table} (pseudo,password,mail) VALUES (?,?,?)`,
+										[pseudo,hash,mail],
+										(err)=>{
+											if (err){
+												console.log(err)
+												callback(false,"database")
+											} else
+												callback(true,"")
+										})
+						})
+					})
 			})
-		})
-		
 	}
 
 	//check if user exist
@@ -62,8 +87,10 @@ module.exports = class user extends dbBaseModel{
 		this.runQuery(`SELECT id FROM ${this.table} WHERE pseudo=?`,[pseudo],(err,rows)=>{
 			if (err)
 				callback(false,"database")
-			else (rows)
+			else if (rows[0])
 				callback(true,"")
+			else
+				callback(false,"")
 		},true)
 	}
 
@@ -71,8 +98,10 @@ module.exports = class user extends dbBaseModel{
 		this.runQuery(`SELECT id FROM ${this.table} WHERE mail=?`,[mail],(err,rows)=>{
 			if (err)
 				callback(false,"database")
-			else (rows)
+			else if (rows[0])
 				callback(true,"")
+			else
+				callback(false,"")
 		},true)
 	}
 }

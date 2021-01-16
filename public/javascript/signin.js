@@ -23,8 +23,8 @@ if (signin){ //if element exist
 	var signinForm = signin.children[0]
 	var error = signinForm.getElementsByClassName("signinContener__form__error")[0]
 
-	//display error to the user
-	setError = (errorText="") =>{
+	//display error on the page
+	setSignInError = (errorText="") =>{
 		error.innerText = errorText
 		if (errorText)
 			console.error(errorText)
@@ -63,12 +63,12 @@ if (signin){ //if element exist
 
 	bodyOverflow(window.location.hash)
 
-	//login things
-	var loginRequest = new XMLHttpRequest()
+	//signin things
+	var signinRequest = new XMLHttpRequest()
 
-	loginRequest.addEventListener("load",(event)=>{
-		if (loginRequest.status == 200){
-			var data = JSON.parse(loginRequest.responseText)
+	signinRequest.addEventListener("load",(event)=>{
+		if (signinRequest.status == 200){
+			var data = JSON.parse(signinRequest.responseText)
 			if (data.result){
 				document.location = "#"
 				window.location.reload()
@@ -76,20 +76,20 @@ if (signin){ //if element exist
 				//console.log('Error:',data.error)
 				switch (data.err) {
 					case "pseudo":
-						setError("Le pseudo est invalide")
+						setSignInError("Le pseudo est invalide")
 						break
 					case "password":
-						setError("Le mot de passe est invalide")
+						setSignInError("Le mot de passe est invalide")
 						break
 					case "input":
-						setError("Veuillez remplir tous les champs")
+						setSignInError("Veuillez remplir tous les champs")
 						break
 					case "token":
 						console.log('invalid token')
 						window.location.reload()
 					break
 					default:
-						setError("Une erreur interne est survenue veuillez recommencer plus tard")
+						setSignInError("Une erreur interne est survenue veuillez recommencer plus tard")
 					break
 				}
 			}
@@ -107,8 +107,8 @@ if (signin){ //if element exist
 		var formData = new FormData(event.target)
 
 		signinForm.classList.add("wait")
-		loginRequest.open("POST","/user/signin")
-		loginRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-		loginRequest.send(encode(formData))
+		signinRequest.open("POST","/user/signin")
+		signinRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+		signinRequest.send(encode(formData))
 	})
 }
