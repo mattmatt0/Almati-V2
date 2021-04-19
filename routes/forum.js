@@ -9,7 +9,7 @@ module.exports = db =>{
 
 	router.get("/",csrfToken,(req,res)=>{
 		router.forumModel.getCategory((err,data)=>{
-			res.render("pages/forum.ejs",{category:data})
+			res.render("forum/forum.ejs",{category:data})
 		})
 		
 	})
