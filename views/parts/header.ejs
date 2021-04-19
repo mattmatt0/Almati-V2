@@ -1,27 +1,29 @@
-<!-- Le header en lui-même -->
-<div id = "signUp">
-<div id = "login">
-<header>
-	<a href="/" id="title">
-		<h1>&nbsp;Almati&nbsp;</h1>
+<header class="header">
+	<a href="/" id="header__title">
+		<h1>Almati</h1>
 	</a>
 
-	<div class = "options">
-		<a href="#login" class="responsive" id="connectA"><h2> Se connecter </h2></a>
-		<a href = "/cours" class="responsive" id="tutoA"><h2> Tutos & Cours </h2></a>
-		<a href = "/communaute/forum" class="responsive" id="forumA"><h2> Forum </h2></a>
-	</div>
-	<input type="checkbox" name="showMenu" id="showMenu">
-	<label class="linkMenuButton" for="showMenu">
-		<img src ="/images/dialog/menu.svg" class ="menuButton">
+	<label class="header__responsiveButton" for="header__showMenu">
+		<img src ="/images/icons/menu.svg" class ="header__responsiveButton__image">
 	</label>
-	<div id = "menuContainer">
-		<div id = "menu">
-			<a href="#login">
-			<h2 style = "background-color:#00EDFF"> Se connecter </h2></a>
-			<a href = "/cours"><h2 style = "background-color:#24f63b"> Tutos & Cours </h2></a>
-			<a href = "/communaute/forum"><h2 style = "background-color:#e0c500"> Forum </h2></a>
+	<input type="checkbox" name="showMenu" class="header__showMenu" id="header__showMenu">
+	
+	<div class = "header__options">
+		<label class="header__options__filter" for="header__showMenu">
+			&nbsp;
+		</label>
+		<div class="header__options__choices">
+			<% if (locals.connected) {%>
+				<a href="/user/account" class="header__options__account"><h2> Mon compte </h2></a>
+				<a href="/user/disconnect" class="header__options__account"><h2> Déconexion </h2></a>
+			<% } else {%>
+				<a href="#signIn" class="header__options__connect"><h2> Se connecter </h2></a>
+				<a href="/user/signup" class="header__options__connect"><h2> Créer un compte </h2></a>
+			<% } %>
+			<a href = "/cours" class="header__options__tuto"><h2> Tutos & Cours </h2></a>
+			<a href = "/forum" class="header__options__forum"><h2> Forum </h2></a>
 		</div>
+		
 	</div>
+	
 </header>
-<p class = "news"> Texte aléatoire pour la barre des nouvelles / évènements  <button id="hideNewsButton">Fermer</button></p>

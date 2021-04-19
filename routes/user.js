@@ -1,232 +1,111 @@
-const express = require("express")
-const bcrypt = require("bcrypt")
-const saltRound = 10
-
-const regex = require("../lib/regex")
-const {csrfToken,csrfParse} = require("../lib/csrfToken")
+var express = require("express")
+var userModel = require("../models/userModel")
+const {csrfToken,csrfParse} = require("../middlewares/csrfToken")
 
 
-module.exports = dbPool => {
-	//define gloab functions
-	userExists = (mode,userInfo,callback) =>{
-		dbPool.getConnection().then(conn=>{
-			if (mode == "dual"){
-				var query = `SELECT * FROM users WHERE pseudo=? AND mail=?`
-			} else {
-				var query = `SELECT * FROM users WHERE ${mode}=?`
-			}
-			conn.query(query,[userInfo.pseudo ? userInfo.pseudo : userInfo.mail,userInfo.mail]).then(rows => {
-				var result = undefined
-				//console.log(rows)
-				if (rows.length == 0){//if there is no match, the user doesn't exist
-					result = false
+module.exports = db => {
+
+	var router = express.Router();
+
+	router.userModel = new userModel(db,"users")
+	
+
+	router.post("/signin",csrfParse,(req,res)=>{
+		const body = req.body
+		const redirect = req.query.noJavascript
+
+		if (!req.validToken)
+			res.json({result:false,err:"token"})
+		else if (body.pseudo != undefined && body.password != undefined)
+			router.userModel.autenticate(req.body.pseudo,req.body.password,(result,err,user)=>{
+				if (result){
+					req.session.userId = user.id
+					req.session.pseudo = user.pseudo
+					req.session.permission = user.permission
+					if (redirect)
+						res.redirect("/")
+					else
+						res.json({result:true,err:""})
 				} else {
-					result = true
+					if (redirect)
+						res.redirect("/#signIn")
+					else
+						res.json({result:false,err:err})
 				}
-				callback({
-					result:result,
-					error:undefined
-				})
-			}).catch(err => {
-				console.log('sql error:',err)
-				callback({
-					result:false,
-					error:"internal error"
-				})
 			})
-			conn.release()
-		}).catch((err)=>{
-			console.log('sql error:',err)
-			callback({
-				result:false,
-				error:"internal error"
-			})
-		})
-	}
-
-	const route = express.Router();
-
-	//in this page we put parameters of users, Sign In forgoten password...
-	route.get("",csrfToken,(req,res)=>{
-		res.end("C'est pas encore fait ;)",{})
+		else{
+			if (redirect)
+				res.redirect("/#signIn")
+			else
+				res.json({result:false,err:"input"})
+		}
 	})
 
-	route.get("/signup",csrfToken,(req,res)=>{
-		res.render("signUp.ejs")
+	router.get("/signup",csrfToken,(req,res)=>{
+		res.render("pages/signup.ejs")
 	})
 
-	route.post("/signup",csrfParse,(req,res)=>{
-		var body = req.body
-		const savedInput = "&pseudo="+encodeURI(body.pseudo)+"&mail="+encodeURI(body.mail)
+	router.post("/signup",csrfParse,(req,res)=>{
+		const body = req.body
+		const redirect = req.query.noJavascript
 
-		//verify token
-		if (!req.validToken){
-			res.redirect("/user/signup?error="+encodeURI("csrfToken")+savedInput)
-			return
-		}
-		//verify all fields
-		
+		if (!req.validToken)
+			res.json({result:false,err:"token"})
 
-		//verify pseudo
-		if (!body.pseudo.match(regex.pseudo)){
-			res.redirect("/user/signup?error="+encodeURI("pseudo")+savedInput)
-			return
-		}
+		else if (body.pseudo != undefined && body.password != undefined && body.mail != undefined && body.passwordRepeat != undefined){
+			if (body.password != body.passwordRepeat)
+				res.json({result:false,err:"passwordRepeat"})
 
-		//verify mail
-		if (!body.mail.match(regex.mail)){
-			res.redirect("/user/signup?error="+encodeURI("mail")+savedInput)
-			return
-		}
-
-		//verify password
-		if (!body.password.match(regex.password)){
-			res.redirect("/user/signup?error="+encodeURI("password")+savedInput)
-		}
-
-		//verify match between password and password repeat
-		if (body.password != body.passwordRepeat){
-			res.redirect("/user/signup?error="+encodeURI("passwordMatch")+savedInput)
-		}
-
-		//verify is user exist
-		userExists("dual",body,(result)=>{
-			if (result.error){
-				res.redirect("/user/signup?error="+encodeURI("internal")+savedInput)
-				return
-			}
-
-			if (result.result) {
-				res.redirect("/user/signup?error="+encodeURI("exist"))
-				return
-			}
-			console.log(result)
-			//process password
-			bcrypt.hash(body.password, saltRound, (err, hash) => {
-				if (err){
-					console.log('hash error :',err)
-					res.redirect("/user/signup?error="+encodeURI("internal")+savedInput)
-					return
-				}
-			    //everithing is ok, so we can create user in bdd
-				dbPool.getConnection().then(conn=>{
-					conn.query("INSERT INTO users (pseudo, mail, password) VALUES (?,?,?)",[body.pseudo,body.mail,hash]).then((rows)=>{
-							res.redirect("/")
-						}).catch(err=>{
-							console.log('connection insert error:',err)
-							res.redirect("/user/signup?error="+encodeURI("internal")+savedInput)
-						})
-
-					conn.release()
-				}).catch(err=>{
-					console.log('connection bdd error:',err)
-					res.redirect("/user/signup?error="+encodeURI("internal")+savedInput)
+			else
+				router.userModel.create(body.pseudo,body.password,body.mail,(result,err)=>{
+					res.json({result:result,err:err})
 				})
+		} else 
+			res.json({result:false,err:"input"})
+	})
+
+	router.post("/userExist",(req,res)=>{
+		const body = req.body
+		if (body.mail){
+			router.userModel.mailExist(body.mail,(result,err)=>{
+				res.json({result:result,err:err})
 			})
-		})
-	})
-
-	route.get("/disconnect",csrfParse,(req,res)=>{
-		if (req.session.pseudo && req.validToken){
-			req.session = {}
-		}
-		res.redirect("/")
-	})
-
-	route.post("/login",csrfParse,(req,res)=>{
-		var body = req.body
-		console.log(req.validToken)
-		if (req.validToken)
-			if (body.pseudo && body.password){ //verify if fields are provided
-				dbPool.getConnection().then(conn=>{
-					conn.query("SELECT * FROM users WHERE pseudo=?",[body.pseudo]).then(rows=>{
-						if (rows.length > 0){ //check if user exist
-							var user = rows[0]
-							bcrypt.compare(body.password,user.password,(err,result)=>{ //check password
-								if (err){
-									console.log('bcrypt error:',err)
-									res.json({
-										error:"internal error",
-										connected:false
-									})
-								} else {
-									if (result){
-										req.session.pseudo = user.pseudo
-										/* only to avoid database verification on every request, 
-										 * if user have necessary permission we check db else we do nothing
-										 */
-										req.session.permissions = user.permissions
-										req.session.image = user.image
-										req.session.mail = user.mail
-										req.session.save()
-										res.json({
-											connected:true
-										})
-									} else {
-										res.json({
-											error:"password",
-											connected:false
-										})
-									}
-								}
-							})
-						} else {
-							res.json({
-								error:"pseudo",
-								connected:false
-							})
-						}
-					}).catch(err=>{
-						console.log('sql error',err)
-						res.json({
-							error:"internal error",
-							connected:false
-						})
-					})
-					conn.release()
-				}).catch(err=>{
-					console.log('sql error',err)
-					res.json({
-						error:"internal error",
-						connected:false
-					})
-				})
-			} else {
-				res.json({
-					error:"null field",
-					connected:false
-				})
-			}
-		else {
-			res.json({
-				error:"token",
-				connected:false
+		} else if (body.pseudo) {
+			router.userModel.pseudoExist(body.pseudo,(result,err)=>{
+				res.json({result:result,err:err})
 			})
-		}
-	})
-
-	route.post("/userExist",(req,res)=>{ //API to verify if pseudo or email exists in real time.
-		var body = req.body
-		var mode = ""
-		if (body.pseudo){//verify if pseudo is provided
-			mode = "pseudo"
-		} else if (body.mail){
-			mode = "mail"
 		} else {
-			res.json({
-				error:"null field"
-			})
-			return
+			res.json({result:false,err:"input"})
 		}
+	})
 
-		userExists(mode,body,(result)=>{
-			res.json(result)
+	//disconnect route
+	router.get("/disconnect",(req,res)=>{
+		req.session.destroy(err => {
+		  	console.error("error append when destroy session:")
+		  	console.error(err)
+		  	res.redirect("/")
 		})
 	})
 
-	route.get("/motDePasseOublie",csrfToken,(req,res)=>{
-		res.end("C'est pas encore fait ;)",{})
+	//accout route
+	router.get("/account",csrfToken,(req,res)=>{
+		if (req.connected){
+			router.userModel.userInfos(req.session.userId,req.session.pseudo,(err,row)=>{
+				if (err){
+					console.log(err)
+					res.redirect("/")
+				} else if (row == undefined) {
+					res.redirect("/user/disconnect")
+				} else {
+					res.render("pages/userAccount.ejs",{pseudo:row.pseudo,image:row.image})
+				}
+			})
+			
+		} else {
+			res.redirect("/")
+		}
 	})
 
-	return route
+	return router
 }

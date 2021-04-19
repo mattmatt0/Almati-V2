@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Acceuil - Almati</title>
+
+	<link rel="stylesheet" type="text/css" href="/css/index.css">
+
+	<%- include("../include.ejs")%>
+</head>
+<body>
+	<%- include("../parts/header.ejs") %>
+	<%- include("../parts/signin.ejs") %> 
+	<section class="presentationParalax parallax1">
+		<h1 class="presentationParalax__bigtitle">Bienvenue Sur Almati</h1>
+		<p class="presentationParalax__text">Un site communautaire pour acquérir de nouvelles compétences </p>
+	</section>
+	<section class="presentationParalax  parallax2">
+		<h2 class="presentationParalax__title">Un site fait par la communauté, pour la communauté</h2>
+		<p class="presentationParalax__text">Sur ce site, vous avez un forum, des tutoriaux et des cours. Le forum est un lieu d'échange entre les utilisateurs. Et les cours ainsi que les tutoriaux sont écrits par la communauté (mais aussi par nous... parfois). De là sort un contenu toujours renouvelé.</p>
+	</section>
+	<section class="presentationParalax  parallax3">
+		<h2 class="presentationParalax__title">Découvrir, avec différents formats</h2>
+		<p class="presentationParalax__text">Pour les nostalgiques de les bancs de l'école, nous avons les cours. Composés de plusieurs sections, ils contiennent tout ce qui vous est nécessaire pour débuter. Pour un sujet plus précis, vous avez les tutoriels. Plus courts, il  nécessiteront parfois des connaissances préalables.</p>
+	</section>
+	<%- include("../parts/footer.ejs") %>
+	<%- include("../scripts.ejs") %>
+</body>
+</html>

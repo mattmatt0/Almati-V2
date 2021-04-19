@@ -1,8 +1,4 @@
 const express    = require('express')
-const cours      = require("./routes/cours")
-const user       = require("./routes/user")
-const communaute = require("./routes/communaute")
-const resources  = require("./routes/resources")
 const ejs        = require("ejs")
 
 const app = express()
@@ -10,18 +6,30 @@ const port = 8080
 
 const helmet = require("helmet")
 app.use(helmet({
-	contentSecurityPolicy: process.env.SECURE || false
+	contentSecurityPolicy :false //setup it by my own
 }))
 
-// For cookies
-const cookieParser = require('cookie-parser')
-app.use(cookieParser())
+//setup content security policy 
+
+app.use((req, res, next) => {
+    res.setHeader("Content-Security-Policy",
+    			  "default-src 'self';"+
+    			  "script-src 'self';" +
+    			  "base-uri 'self';" +
+    			  "frame-ancestors 'self';"+
+    			  "img-src 'self';"+
+    			  "object-src 'none';"+
+    			  "form-action 'self';" +
+    			  "style-src 'self' fonts.googleapis.com;"+
+    			  "font-src 'self' fonts.gstatic.com;");
+    next()
+})
 
 //setup db
-const db = require("./lib/setupDb")
+const db = require("./models/setupDb")
 
 //setup session and session store
-const mariadbStore = require("./lib/mariadbSessionStore")
+const mariadbStore = require("./models/mariadbSessionStore")
 
 const expressSession = require("express-session")
 app.use(expressSession({
@@ -31,7 +39,7 @@ app.use(expressSession({
 	saveUninitialized:false,
 	store:new mariadbStore(db,"sessions"),
 	cookie:{
-		SameSite:"Strict",
+		sameSite:"Strict",
 		httpOnly:true,
 		maxAge:7 * 24 * 60 * 60 * 1000, //1 week
 		secure: process.env.SECURE || false,
@@ -51,23 +59,26 @@ app.use(express.static(__dirname + '/public'))
 
 
 //setup csrf token for form
-const {csrfToken,csrfParse} = require("./lib/csrfToken")
+const {csrfToken,csrfParse} = require("./middlewares/csrfToken")
+
+//setup middleware to know if user is connected or not
+app.use(require("./middlewares/connected"))
 
 //main route
 app.get('',csrfToken,function(req, res) {
-    res.render('main.ejs',{})
+    res.render('pages/index.ejs')
 
 });
 
-//external routes
-app.use("/user",user(db))
-app.use("/cours",cours)
-app.use("/communaute",communaute)
-app.use("/ressources", resources)
+//setup routes
+app.use("/user",require("./routes/user")(db))
+app.use("/forum",require("./routes/forum")(db))
+
+
 // If 404:
-app.use(function(req, res, next){
-    res.render('common/404.ejs',{})
-});
+app.use((req, res, next)=>{
+	res.render('pages/404.ejs',{})
+})
 
 
 app.listen(port,()=>{

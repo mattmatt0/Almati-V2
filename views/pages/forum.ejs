@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title> Forum - Almati</title>
+	<%- include("../include.ejs") %>
+
+	<link rel="stylesheet" type="text/css" href="/css/forum.css">
+</head>
+<body>
+	<%- include("../parts/header.ejs") %>
+	<%- include("../parts/signin.ejs") %>
+	<% for (c in category) { -%>
+		<section id="category<%=category[c].id%>" class="itemPresentation">
+			<h1 class="itemPresentation__title"><%=c%></h1>
+			<div class="itemPresentation__content grid">
+				<% for (var j = 0; j < category[c].subsections.length; j++) { -%>
+					<a class="itemPresentation__content__item" 
+					   href="/forum/<%=category[c].subsections[j].name%>">
+						<img src="/images/category/<%=category[c].subsections[j].image%>"
+							 class="itemPresentation__content__item__image">
+
+						<h2 class="itemPresentation__content__item__title">
+							<%=category[c].subsections[j].name%>
+						</h2>
+					</a>
+				<% } -%>
+			</div>
+		</section>
+	<% } -%>
+	
+	<%- include("../parts/footer.ejs") %>
+	<%- include("../scripts.ejs") %>
+</body>
+</html>
