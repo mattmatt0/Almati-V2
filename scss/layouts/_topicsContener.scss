@@ -1,0 +1,22 @@
+@use "../utils/colors" as color;
+
+.topicsContener {
+	min-height: 25vh;
+	&__title {
+		margin-left: clamp(10px,10%,300px);
+		margin-right: clamp(10px,10%,300px);
+		border-bottom: solid color.$topicUnderline 1px;
+	}
+
+	&__void {
+		display: none;
+		width:100%;
+		text-align: center;
+	}
+
+
+	&.void &__void{
+		display:block;
+	}
+
+}

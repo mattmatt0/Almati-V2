@@ -77,7 +77,7 @@ app.use("/forum",require("./routes/forum")(db))
 
 // If 404:
 app.use((req, res, next)=>{
-	res.render('pages/404.ejs',{})
+	res.status(404).render('pages/404.ejs',{})
 })
 
 

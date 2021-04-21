@@ -1,12 +1,13 @@
 const dbBaseModel = require("../models/dbBaseModel")
 
 module.exports = class forumModel extends dbBaseModel {
-	constructor(databasePool,table,categoryTable,subsectionTable,topicTable,userTable){
+	constructor(databasePool,table,categoryTable,subsectionTable,topicTable,messagesTable,userTable){
 		super(databasePool,table)
 		this.categoryTable = categoryTable
 		this.subsectionTable = subsectionTable
 		this.topicTable = topicTable
 		this.userTable = userTable
+		this.messagesTable = messagesTable
 	}
 
 	getCategory(callback){
@@ -25,57 +26,61 @@ module.exports = class forumModel extends dbBaseModel {
 			} else {
 				// setup data
 				var toReturn = {}
-				for (var i = 0; i<rows.length; i++){ //for each elements in rows
-					
-					if (toReturn[rows[i].name] == undefined){ //init category data
-						toReturn[rows[i].name] = {
-							id:rows[i].id,
+				rows.forEach((category)=>{
+					if (toReturn[category.name] == undefined){ //init category data
+						toReturn[category.name] = {
+							id:category.id,
 							subsections:[]
 						}	
 					}
 					
-					toReturn[rows[i].name].subsections.push({ //add sub category
-						id:rows[i].subsectionId,
-						name:rows[i].subsectionName,
-						image:rows[i].image,
-						description:rows[i].description
+					toReturn[category.name].subsections.push({ //add sub category
+						id:category.subsectionId,
+						name:category.subsectionName,
+						image:category.image,
+						description:category.description
 					})
-				}
+				})
+				
 				callback(null,toReturn)
 			}
 		},true)
 	}
 
-	categoryId(categoryName,callback){
-		this.runQuery(`SELECT id FROM ${this.categoryTable} WHERE name=?`,[categoryName],(err,rows)=>{
-			callback(err,rows[0])
-		},true)
+	subsectionId(categoryName,callback){
+		this.runQuery(`SELECT id FROM ${this.subsectionTable} WHERE name = ?`,[categoryName],(err,rows)=>{
+			callback(err,rows)
+		},true,0)
 	}
 
-	getTopicsByCategory(categoryName,maxAmout,callback){
-		this.categoryId(categoryName,(err,id)=>{
+	getTopicsByCategory(categoryName,maxAmout,pined,callback){
+		this.subsectionId(categoryName,(err,id)=>{
 			if (err){
-				console.log(err)
 				callback(err)
 			}
 			else if (id == undefined || id == null){
 				callback("category")
 			} else {
-				this.runQuery(`SELECT ${this.subsectionTable}.id AS categoryId,`+
-									` ${this.subsectionTable}.name AS categoryName`+
-									` ${this.subsectionTable}.image AS categoryImage`+
-									` ${this.subsectionTable}.description AS categoryDescription`+
-							  		` ${this.table}.id AS id`+
-							  		` ${this.table}.title AS title`+
-							  		` ${this.table}.creationDate AS creationDate`+
-							  		` ${this.table}.solved AS solved`+
-							  		` ${this.table}.responses AS responses`+
-							  		` ${this.userTable}.pseudo AS pseudo `+
-							  		` ${this.image}.pseudo AS image `+
+				id = id.id
+				this.runQuery(`SELECT ${this.subsectionTable}.id AS subsectionId,`+
+									` ${this.subsectionTable}.name AS categoryName,`+
+									` ${this.subsectionTable}.image AS categoryImage,`+
+									` ${this.subsectionTable}.description AS categoryDescription,`+
+							  		` ${this.table}.id AS id,`+
+							  		` ${this.table}.title AS title,`+
+							  		` ${this.table}.creationDate AS creationDate,`+
+							  		` ${this.table}.lastEditDate AS lastEditDate,`+
+							  		` ${this.table}.solved AS solved,`+
+							  		` (SELECT COUNT(*) FROM ${this.messagesTable} WHERE ${this.messagesTable}.topicId = ${this.table}.id) AS responses,`+
+							  		` ${this.userTable}.pseudo AS pseudo,`+
+							  		` ${this.userTable}.image AS image\n`+
 							  		` FROM ${this.subsectionTable}`+
-							  		` LEFT JOIN ${this.table} ON ${this.table}.categoryId = ${this.subsectionTable}.id `+
-							  		` INNER JOIN ${this.userTable} ON ${this.table}.userId = ${this.userTable}.id`+
-							  		` WHERE ${this.subsectionTable}.id = ?`,[id],(err,rows)=>{
+							  		` LEFT JOIN ${this.table} ON ${this.table}.subsectionId = ${this.subsectionTable}.id AND ${this.table}.pined = ?`+
+							  		` LEFT JOIN ${this.userTable} ON ${this.table}.userId = ${this.userTable}.id `+
+							  		` WHERE ${this.subsectionTable}.id = ?`+
+							  		` ORDER BY ${this.table}.lastEditDate DESC`,[pined,id],(err,rows)=>{		  			
+					
+
 					if (err)
 						callback(err)
 					else {
@@ -86,17 +91,20 @@ module.exports = class forumModel extends dbBaseModel {
 							categoryDescription:rows[0].categoryDescription,
 							topics:[]
 						}
-						for (topic in rows){
-							roReturn.topics.push({
-								id:topic.id,
-								title:topic.title,
-								creationDate:topic.creationDate,
-								solved:topic.solved,
-								responses:topic.responses,
-								pseudo:topic.pseudo,
-								image:topic.image
+						if (rows[0].id != null)
+							rows.forEach((topic)=>{
+								toReturn.topics.push({
+									id:topic.id,
+									title:topic.title,
+									creationDate:topic.creationDate,
+									lastEditDate:topic.lastEditDate,
+									solved:topic.solved,
+									responses:topic.responses,
+									pseudo:topic.pseudo,
+									image:topic.image
+								})
 							})
-						}
+						callback(null,toReturn)
 					}
 
 				},true)

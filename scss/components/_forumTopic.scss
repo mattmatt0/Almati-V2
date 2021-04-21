@@ -1,0 +1,64 @@
+@use "../utils/colors" as color;
+
+.forumTopic {
+	background-color: color.$mainTopicBackground;
+	cursor: pointer;
+	margin-left: clamp(10px,10%,300px);
+	margin-right: clamp(10px,10%,300px);
+
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+
+	padding:5px;
+	padding-left:20px;
+	padding-right:20px;
+
+	margin-bottom: 10px;
+
+	border-left:5px solid color.$unsolvedColor;
+
+	display: flex;
+	justify-content: space-between;
+	align-items:center;
+
+	&.solved {
+		border-left:5px solid color.$solvedColor;
+	}
+
+	&:hover {
+		transition-duration: .5s;
+		color:darken(color.$textColor,80%);
+		background-color: color.$hoverTopicBackground;
+		box-shadow:5px 5px 7px -3px color.$mainTopicBackground;
+	}
+
+	&__creation {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		// margin-right: clamp(10px,5%,100px);
+
+		&__userImage {
+			height: 50px;
+			width:auto;
+			margin-right: 10px;
+		}
+
+		&__text {
+			&__date {
+				margin:0;
+			}
+			&__pseudo {
+				margin:0;
+			}
+		}
+	}
+
+	&_title {
+
+	}
+
+	&__info {
+
+	}
+}

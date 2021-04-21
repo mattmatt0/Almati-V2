@@ -2,20 +2,95 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title> Informations personelles - Almati</title>
+	<title><%=topics.categoryName%> - Forum - Almati</title>
 	<%- include("../include.ejs") %>
 
 	<link rel="stylesheet" type="text/css" href="/css/userAccount.css">
+	<link rel="stylesheet" type="text/css" href="/css/forum.css">
 </head>
 <body>
 	<%- include("../parts/header.ejs") %>
 	<%- include("../parts/signin.ejs") %>
-	<section>
+	<section class="categoryBanner">
+		<div class="categoryBanner__presentation">
+			<img src="/images/category/<%=topics.categoryImage%>" class="categoryBanner__presentation__image">
+			<div class="categoryBanner__presentation__description">
+				<h1 class="categoryBanner__presentation__description__title">
+					<%=topics.categoryName%>
+				</h1>
+				<p class="categoryBanner__presentation__description__text">
+					<%=topics.categoryDescription%>
+				</p>
+			</div>
+		</div>
+
+		<button class="categoryBanner__new">
+			Nouveau sujet
+		</button>
+	</section>
+
+	<!-- Function to render all topics -->
+	<% renderTopics = (renderTopic) => {%>
+		<% renderTopic.forEach((topic)=>{%>
+			<div class="forumTopic">
+				<div class="forumTopic__creation">
+					<img class="forumTopic__creation__userImage"
+						 src="/images/users/<%=topic.image%>">
+					<div class="forumTopic__creation__text">
+						<h3 class="forumTopic__creation__text__pseudo">
+							<%=topic.pseudo%>
+						</h3>
+						<p class="forumTopic__creation__text__date">
+							Créé le :
+							<%=`${topic.creationDate.getDate()}`.padStart(2,"0") +
+							   `/${topic.creationDate.getMonth()+1}`.padStart(2,"0") +
+							   `/${topic.creationDate.getFullYear()}`%>
+							à
+							<%=`${topic.creationDate.getHours()}`.padStart(2,"0")+
+							   `:${topic.creationDate.getMinutes()}`.padStart(2,"0")+
+							   `:${topic.creationDate.getSeconds()}`.padStart(2,"0")%>
+						</p>
+					</div>
+				</div>
+				<h2 class="forumTopic__title">
+					<%=topic.title%>
+				</h2>
+				<div class="forumTopic__info">
+					<%=topic.responses%> réponses<br/>
+					Dernier message le
+					<%=`${topic.lastEditDate.getDate()}`.padStart(2,"0") +
+							   `/${topic.lastEditDate.getMonth()+1}`.padStart(2,"0") +
+							   `/${topic.lastEditDate.getFullYear()}`%>
+							à
+							<%=`${topic.lastEditDate.getHours()}`.padStart(2,"0")+
+							   `:${topic.lastEditDate.getMinutes()}`.padStart(2,"0")+
+							   `:${topic.lastEditDate.getSeconds()}`.padStart(2,"0")%>
+				</div>
+			</div>
+		<%})%>
+	<%}%>
+
+	<section class="topicsContener 
+					<%=topics.topics.length == 0 ? "void" : ""%>">
+		<h2 class="topicsContener__title">Sujets Épinglés</h2>
+		<h2 class="topicsContener__void">
+			Il n'y a aucun sujet épinglé dans cette section.
+		</h2>
 		
+		<% renderTopics(pined.topics) %>
+
+	</section>
+	<section class="topicsContener 
+					<%=topics.topics.length == 0 ? "void" : ""%>">
+		<h2 class="topicsContener__title">Sujets Récents</h2>
+		<h2 class="topicsContener__void">
+			Il n'y a aucun sujet dans cette section.
+		</h2>
+
+		<% renderTopics(topics.topics) %>
+
 	</section>
 	<%- include("../parts/footer.ejs") %>
 	<%- include("../scripts.ejs") %>
-	<script type="text/javascript" src="/javascript/validatorScript.js"></script>
-	<script type="text/javascript" src="/javascript/signup.js"></script>
 </body>
 </html>

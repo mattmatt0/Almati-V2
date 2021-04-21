@@ -5,3 +5,16 @@ $headerBackground:$background;
 $footerBackground:$background;
 $mainOptionsColor:#00EDFF;
 $baseForumCategoryColor:#00EDFF;
+
+/***************************/
+/****** TOPICS COLORS ******/
+/***************************/
+$topicUnderline:lightgrey;
+
+/*topic entry*/
+$baseTopicColor:lightgrey;
+$mainTopicBackground:transparentize($baseTopicColor,.8);
+$hoverTopicBackground:$baseTopicColor;
+
+$unsolvedColor:#09E;
+$solvedColor:#0C3;

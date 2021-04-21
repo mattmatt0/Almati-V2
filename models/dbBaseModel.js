@@ -5,8 +5,8 @@ module.exports = class dbBaseModel {
 	}
 
 	runQuery(query,args,callback,value=false,index="any"){
-		this.pool.getConnection().then((conn)=>{
-			conn.query(query,args).then(rows=>{
+		this.pool.getConnection().then(conn => {
+			conn.query(query,args).then(rows => {
 				if (value)
 				{
 					if (index == "any")
@@ -17,11 +17,11 @@ module.exports = class dbBaseModel {
 					callback(null)
 				}
 				
-			}).catch(err=>{
+			}).catch(err => {
 				callback(err)
 			})
 			conn.release()
-		}).catch(err=>{
+		}).catch(err => {
 			callback(err)
 		})
 	}

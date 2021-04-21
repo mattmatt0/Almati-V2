@@ -5,24 +5,44 @@ const {csrfToken,csrfParse} = require("../middlewares/csrfToken")
 module.exports = db =>{
 	var router = express.Router()
 
-	router.forumModel = new forumModel(db,"topic","category","subsection","messages","users")
+	router.forumModel = new forumModel(db,"topic","category","subsection","topic","messages","users")
 
 	router.get("/",csrfToken,(req,res)=>{
 		router.forumModel.getCategory((err,data)=>{
-			res.render("forum/forum.ejs",{category:data})
+			if (err){
+				console.log(err)
+				res.status(500).send("Erreur interne")
+			} else
+				res.render("forum/forum.ejs",{category:data})
 		})
 		
 	})
 
 	router.get("/test",(req,res)=>{
 		router.forumModel.getCategory((err,data)=>{
-			res.json({err:err,data:data})
+			if (err){
+				console.log(err)
+				res.status(500).send("Erreur interne")
+			} else
+				res.json({err:err,data:data})
 		})
 	})
 
 	router.get("/:category",csrfToken,(req,res)=>{
-		router.forumModel.getTopicsByCategory(req.params.category,10,(err,data)=>{
-			res.render("pages/topicList.ejs",{topics:data})
+		router.forumModel.getTopicsByCategory(req.params.category,10,false,(err,topics)=>{
+			if (err){
+				console.log(err)
+				res.status(500).send("Erreur interne")
+			}
+			else
+				router.forumModel.getTopicsByCategory(req.params.category,10,true,(err,pined)=>{
+					if (err){
+						console.log(err)
+						res.status(500).send("Erreur interne")
+					} else {
+						res.render("forum/topicList.ejs",{topics:topics,pined:pined})
+					}
+				})
 		})
 	})
 

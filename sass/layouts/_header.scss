@@ -1,0 +1,118 @@
+@use "../utils/colors" as colors;
+
+.header {
+	background-color: colors.$headerBackground;
+	padding-left: 1%;
+	padding-right: 0%;
+	height:80px;
+	display:flex;
+	align-items:center;
+
+	a {
+		text-decoration:none;
+		color:colors.$textColor;
+	}
+	
+ 
+	&__title {
+		margin-left:10px; 
+		color: #0AF;
+		float:left;
+	}
+
+	&__title h1 {
+		margin:0;
+	}
+
+	&__showMenu{
+		visibility: hidden;
+		width: min-content;
+	}
+
+	&__options{
+		display:flex;
+		margin-left:auto;
+		&__choices{
+			display:flex;
+
+			@for $i from 1 to 10 {
+				:nth-child(#{$i}){
+					filter: hue-rotate(($i - 1) * -60deg);
+				}
+			}
+
+			a {
+				height:80px;
+				color:colors.$mainOptionsColor;
+				background:darken(colors.$mainOptionsColor, 40%);
+				border-bottom:2px solid colors.$mainOptionsColor;
+				transition-duration: 1s;
+				cursor: pointer;
+				text-decoration: none;
+				width:200px;
+				text-align:center;
+			}
+
+			a:hover {
+				background: colors.$mainOptionsColor;
+				color:colors.$textColor;
+			}
+		}
+
+		&__filter{
+			display:none;
+		}
+	}
+
+
+	&__responsiveButton{
+		display:none;
+
+		&__image{
+			width:50px;
+			height:50px;
+		}
+	}
+	
+
+	@media screen and (max-width: 990px){
+		&__responsiveButton{
+			display:inline-block;
+			margin-left:auto;
+		}
+
+		&__options{
+			transition-timing-function: cubic-bezier(1,.4,0,1.11);
+			transition-duration:.8s;
+			background:none;
+			z-index: 999999;
+			position:absolute;
+			width:100%;
+			height:100%;
+			top:80px;
+			left:100%;
+
+			&__filter{
+				display:block;
+				width:100%;
+			}
+
+			&__choices {
+				flex-direction: column;
+				justify-content: left;
+				align-items: end;
+				background: colors.$headerBackground;
+			}
+
+			a {
+				background:none;
+				border:none;
+			}
+		}
+
+		&__showMenu:checked + &__options{
+			display:flex;
+			left:0;
+		}
+	}
+}

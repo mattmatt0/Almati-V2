@@ -42,7 +42,7 @@ module.exports = db => {
 	})
 
 	router.get("/signup",csrfToken,(req,res)=>{
-		res.render("pages/signup.ejs")
+		res.render("user/signup.ejs")
 	})
 
 	router.post("/signup",csrfParse,(req,res)=>{
@@ -98,7 +98,7 @@ module.exports = db => {
 				} else if (row == undefined) {
 					res.redirect("/user/disconnect")
 				} else {
-					res.render("pages/userAccount.ejs",{pseudo:row.pseudo,image:row.image})
+					res.render("user/userAccount.ejs",{pseudo:row.pseudo,image:row.image})
 				}
 			})
 			

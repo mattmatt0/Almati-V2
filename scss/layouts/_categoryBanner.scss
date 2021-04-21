@@ -1,0 +1,39 @@
+@use "../utils/colors" as color;
+
+.categoryBanner {
+	width:auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: left;
+	padding-left: clamp(10px,10%,300px);
+	padding-right: clamp(10px,10%,300px);
+	align-items: center;
+	justify-content: space-around;
+
+	background-color:lighten(color.$background,2%);
+	border-bottom: solid darken(color.$textColor,5%) 2px;
+
+	&__presentation{
+		display: flex;
+		align-items: center;
+		&__image {
+			height:5em;
+			width:auto;
+		}
+
+		&__description{
+			margin:10px;
+			&__title {
+				text-transform: capitalize;
+			}
+
+			&__text {
+				
+			}
+		}
+	}
+
+	&__new {
+		
+	}
+}

@@ -1,10 +1,7 @@
 @use "../base/base";
 @use "../layouts/itemPresentation";
-@use "../layouts/categoryBanner";
-@use "../layouts/topicsContener";
-@use "../components/forumTopic";
 @use "../utils/colors" as color;
 
 .itemPresentation__content__item {
 	background:color.$baseForumCategoryColor;
-} 
+}

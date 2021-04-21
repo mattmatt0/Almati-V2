@@ -76,10 +76,10 @@ CREATE TABLE IF NOT EXISTS topic (
 	title VARCHAR(60) NOT NULL UNIQUE,
 	userId SMALLINT UNSIGNED NOT NULL,
 	subsectionId SMALLINT  UNSIGNED NOT NULL,
-	creation DATETIME DEFAULT NOW(),
+	creationDate DATETIME DEFAULT NOW(),
 	lastEditDate DATETIME DEFAULT NOW(),
 	solved BOOL NOT NULL DEFAULT false,
-	responses INT NOT NULL DEFAULT 0,
+	pined BOOL NOT NULL DEFAULT false,
 	CONSTRAINT fk_topic_subsectionId FOREIGN KEY (subsectionId) REFERENCES subsection(id),
 	CONSTRAINT fk_topic_userId FOREIGN KEY (userId) REFERENCES users(id)	
 );
@@ -93,8 +93,14 @@ CREATE TABLE IF NOT EXISTS messages (
 	message TEXT NOT NULL,
 	creation DATETIME DEFAULT NOW(),
 	CONSTRAINT fk_message_userId FOREIGN KEY(userId) REFERENCES users(id),
-	CONSTRAINT fk_message_topicId FOREIGN KEY(topicId) REFERENCES topic(id) ON DELETE CASCADE
+	CONSTRAINT fk_message_topicId FOREIGN KEY(topicId) REFERENCES topic(id) ON DELETE CASCADE,
+
+
 );
+
+CREATE TRIGGER after_insert_messages AFTER INSERT ON messages FOR EACH ROW UPDATE topic SET lastEditDate=NOW() WHERE id=NEW.topicId;
+CREATE TRIGGER after_update_messages AFTER UPDATE ON messages FOR EACH ROW UPDATE topic SET lastEditDate=NOW() WHERE id=NEW.topicId;
+
 
 DESCRIBE messages;
 
