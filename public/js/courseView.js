@@ -1,3 +1,0 @@
-function deletePart(a)
-{
-}
