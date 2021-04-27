@@ -1,4 +1,4 @@
-const express    = require('express')
+const express    = require("express")
 const ejs        = require("ejs")
 
 const app = express()
@@ -24,6 +24,7 @@ app.use((req, res, next) => {
     			  "font-src 'self' fonts.gstatic.com;");
     next()
 })
+
 
 //setup db
 const db = require("./models/setupDb")
@@ -52,10 +53,10 @@ app.use(bodyparser.urlencoded({extended:false}))
  
 
 //the view engine
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
 //add files in public folder (pictures, javascript, css...)
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + "/public"))
 
 
 //setup csrf token for form
@@ -65,10 +66,14 @@ const {csrfToken,csrfParse} = require("./middlewares/csrfToken")
 app.use(require("./middlewares/connected"))
 
 //main route
-app.get('',csrfToken,function(req, res) {
-    res.render('pages/index.ejs')
+app.get("",csrfToken,function(req, res) {
+    res.render("pages/index.ejs")
+})
 
-});
+//test routes
+app.get("/test",csrfToken,function(req, res) {
+    res.render("test/wysiwyg.ejs")
+})
 
 //setup routes
 app.use("/user",require("./routes/user")(db))
@@ -77,7 +82,7 @@ app.use("/forum",require("./routes/forum")(db))
 
 // If 404:
 app.use((req, res, next)=>{
-	res.status(404).render('pages/404.ejs',{})
+	res.status(404).render("pages/404.ejs",{})
 })
 
 

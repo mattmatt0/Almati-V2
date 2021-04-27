@@ -11,8 +11,8 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "public/*.js",
-      "*.json"
+      "./public/js/*.js",
+      "./*.json" 
     ]
   },
   "browserslist": [
