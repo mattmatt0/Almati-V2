@@ -9,7 +9,6 @@ module.exports = {
 			req.session._csrf = token
 			req.session.save()
 			res.locals._csrf = token
-			console.log('new token',token)
 		}
 		next()
 	},
