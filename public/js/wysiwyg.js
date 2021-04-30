@@ -113,11 +113,11 @@ class ToolBar {
 	}
 
 	update(){
-		var currentElement = getCurrentElementType()
-	}
-
-	update(){
-
+		// var currentElementType = getCurrentElementType()
+		// if (~this.forElement.indexOf(currentElementType))
+		// 	this.disable()
+		// else
+		// 	this.enable()
 	}
 
 	show(){
@@ -243,8 +243,43 @@ window.Element = class Element {
 		return newElement
 	}
 
+	static focusElement = (element) => {
+		var editor = this.getEditorFromElement(element)
+
+		editor.querySelectorAll(".selected,.focused").forEach((element)=>{
+			element.classList.remove("selected")
+			element.classList.remove("focused")
+		})
+
+		this.getElementFromEditable(element).classList.add("focused")
+	}
+
 	//cursor manipulation
+	static createRangeWithMultipleChild = (element,ofset) => {
+		var result = null
+		for (var i = 0; i<element.childNodes.length; i++){
+			var lookElement = element.childNodes[i]
+			if (lookElement.nodeType == Node.TEXT_NODE){
+				if (lookElement.length < ofset)
+					ofset -= lookElement.length
+				else {
+					return [ofset, lookElement]
+					break
+				}
+			} else if (lookElement.childNodes.length > 0){
+				[ofset, result] = exploreChildNodes(lookElement,ofset)
+				if (result != null)
+					return [ofset, result]
+			}
+		}
+		return [ofset, null]
+	}
+
 	static mouseInElement = (element,end=false) => { //insert mouse at start of any element
+		element = this.getElementFromEditable(element)
+
+		this.focusElement(element)
+
 		element = this.getEditableFromElement(element)
 		var range = document.createRange()
 		var selection = window.getSelection()
@@ -252,22 +287,20 @@ window.Element = class Element {
 
 
 		if (end == true && !this.isEmpty(element)) //check if not empty because if element is empty pos = 1 cause error
-			pos = element.childNodes.length-1
+			pos = element.childNodes.length
 
 		if (typeof end == "number"){ //number pos are only valid if element contain only text
-			range.setStart(this.getTextNodeFromElement(element),end)
-		} else {
-			range.setStart(this.getEditableFromElement(element), pos)
+			[pos,element] = this.createRangeWithMultipleChild(element,end)
 		}
+
+
+		range.setStart(element, pos)
 
 		//prevent from bugs in certains browser
 		range.collapse(true)
 
 		selection.removeAllRanges()
 		selection.addRange(range)
-
-		//prevent from bugs in certains browser
-		element.focus()
 	}
 
 	static mouseInPreviousElement = (element) => {
@@ -308,14 +341,7 @@ window.Element = class Element {
 
 	static clickManager = (event) => { 
 		var target = event.target
-		var editor = this.getEditorFromElement(target)
-
-		editor.querySelectorAll(".selected,.focused").forEach((element)=>{
-			element.classList.remove("selected")
-			element.classList.remove("focused")
-		})
-
-		Element.getElementFromEditable(target).classList.add("focused")
+		this.focusElement(target)
 	}
 
 	static keyManager = (event) => {
@@ -448,9 +474,11 @@ document.querySelectorAll(".wysiwyg").forEach((editor) => {
 	editor.setAttribute("id", "editor-"+editorId)
 
 	var formatToolBar = new FormatToolBar(editorId,0,["Element"],"/images/icons",formatCurrentElement, ["bold","italic","underline"])
-	
+	var editorIdcp = Number(editorId)
+
 	editor.querySelector(".wysiwyg__editor").addEventListener("click", (event)=>{
-		getToolBarsByEditorId(editorId).forEach((bar)=>{
+
+		getToolBarsByEditorId(editorIdcp).forEach((bar)=>{
 			bar.update()
 		})
 	})
