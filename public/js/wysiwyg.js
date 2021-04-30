@@ -224,9 +224,9 @@ window.Element = class Element {
 	static nextElement = (element) => this.getElementFromEditable(element).nextElementSibling
 
 	//manipulate element content
-	static setElementContent = (element,text) => this.getEditableFromElement(element).textContent = text
-	static addElementContent = (element,text) => this.getEditableFromElement(element).textContent += text
-	static getElementContent = (element) => this.getEditableFromElement(element).textContent
+	static setElementContent = (element,text) => this.getEditableFromElement(element).innerHTML = text
+	static addElementContent = (element,text) => this.getEditableFromElement(element).innerHTML += text
+	static getElementContent = (element) => this.getEditableFromElement(element).innerHTML
 
 
 	//manipulate element
