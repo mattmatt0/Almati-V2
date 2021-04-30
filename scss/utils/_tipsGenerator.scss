@@ -1,0 +1,10 @@
+@mixin tipsGenerator ($name,$color) {
+	&-#{$name} {
+		@extend .tips;
+		background-color: $color;
+	}
+
+	&-#{$name}::before {
+		background:center / contain url("/images/icons/#{$name}.png")
+	}
+}

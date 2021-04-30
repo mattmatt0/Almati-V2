@@ -1,0 +1,23 @@
+@use "../utils/colors" as color;
+@use "../utils/tipsGenerator" as tips;
+
+
+.tips {
+	font-weight: bold;
+	color: color.$textColor;
+	padding:5px;
+	padding-left: 96px;
+	min-height: 64px;
+
+	&::before {
+		width: 96px;
+		height: 64px;
+		margin-left: -96px;
+		float: left;
+		content: " ";
+	}
+
+	@each $tipName, $color in color.$tipsColor {
+		@include tips.tipsGenerator($tipName,$color)
+	}
+}

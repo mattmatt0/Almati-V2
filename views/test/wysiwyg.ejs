@@ -4,11 +4,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Test wysiwyg - Almati</title>
+	<%- include("../parts/include.ejs")%>
+	<link rel="stylesheet" type="text/css" href="/css/courses.css">
+	<link rel="stylesheet" type="text/css" href="/prismJS/prism.css">
 </head>
 <body>
+	<%- include("../parts/header.ejs") %>
+	<%- include("../parts/signin.ejs") %> 
 	<!-- Almati wysiwyg editor -->
 	<%- include("../parts/wysiwyg.ejs",{title:"test 1"}) %>
+	
 
+	<%- include("../parts/footer.ejs") %>
+	<%- include("../parts/scripts.ejs") %>
+	<script type="text/javascript" src="/prismJS/prism.js"></script>
 	<script type="text/javascript" src="/js/wysiwyg.js"></script>
 </body>
 </html>

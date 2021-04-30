@@ -2,6 +2,7 @@
 @use "../layouts/categoryBanner";
 @use "../layouts/topicsContener";
 @use "../components/forumTopic";
+@use "../layouts/wysiwyg";
 @use "../utils/colors" as color;
 
 .itemPresentation__content__item {

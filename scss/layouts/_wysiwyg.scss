@@ -1,3 +1,64 @@
+@use "../utils/colors" as colors;
+
 .wysiwyg {
-	
+	margin-left: clamp(5px,10%,300px);
+	margin-right: clamp(5px,10%,300px);
+
+
+	&__toolBar {
+		background-color: #333;
+		display: flex;
+		flex-wrap: wrap;
+
+		&__group {
+			display: flex;
+
+			&.hidden {
+				display: none;
+			}
+
+			&__button {
+				background-color:colors.$buttonBackground;
+				border: 1px solid colors.$buttonBorder;
+				border-radius: 5px;
+				transition-duration: 1s;
+				cursor: pointer;
+				height: 45px;
+				width: 45px;
+				padding:0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				&:hover {
+					background-color: colors.$buttonHover ;
+					box-shadow: 0px 3px 5px 5px rgba(16,16,16,.5);
+				}
+
+				& img {
+					height:25px;
+					width:auto;
+				}
+
+				&.disabled {
+					background-color:#575757;
+					&:hover {
+						background-color:#575757;
+					}
+				}
+			}
+
+			$parent:&;
+			&.disabled {
+				#{$parent}__button {
+					background-color:#575757;
+					&:hover {
+						background-color:#575757;
+					}
+				}
+			}
+		}
+	}
+
+
 }
