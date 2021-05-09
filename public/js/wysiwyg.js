@@ -21,9 +21,9 @@ window.focusEditor = (element) => {
 window.getCurrentEditor = () => document.querySelector(".currentEditor")
 
 window.getCurrentEditorId = () => {
-	var editor = getCurrentEditor() 
+	var editor = getCurrentEditor()
 	if (editor)
-		return editor.getAttribute("id").split("-")[1]
+		return editor.parentElement.getAttribute("id").split("-")[1]
 
 	return null
 }
@@ -47,7 +47,10 @@ window.getCurrentElement = (editorId=-1) => {
 }
 
 window.getCurrentElementType = (editorId=-1) => {
-	
+	if (editorId == -1)
+		editorId = getCurrentEditorId()
+
+
 	var element = getCurrentElement(editorId)
 
 	if (!element)
@@ -64,6 +67,7 @@ window.getCurrentElementType = (editorId=-1) => {
 
 window.formatCurrentElement = (editorId,command) => {
 	var focusedElementType = getCurrentElementType(editorId)
+	console.log(focusedElementType)
 	if (focusedElementType)
 		window[focusedElementType].formatManager(command)
 }
@@ -215,6 +219,7 @@ class FormatToolBar extends ToolBar {
 		super.update()
 		this.formats.forEach((format)=>{
 			var button = document.getElementById(`button-${format}-${this.barId}`)
+			console.log(format,document.queryCommandState(format))
 			if (document.queryCommandState(format)){
 				button.classList.add("active")
 			} else {
@@ -228,7 +233,7 @@ class FormatToolBar extends ToolBar {
 /********************************/
 
 
-toolBar["textFormat"] = new FormatToolBar(0,["Element"],"/images/icons",formatCurrentElement, ["bold","italic","underline"])
+toolBar["changeFormat"] = new FormatToolBar(0,["Element"],"/images/icons",formatCurrentElement, ["bold","italic","underline"])
 toolBar["reset"] = new ToolBar(1,["Element"],false,[
 	{
 		name:"reset",
