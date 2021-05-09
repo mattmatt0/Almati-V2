@@ -20,7 +20,7 @@ app.use((req, res, next) => {
     			  "img-src 'self';"+
     			  "object-src 'none';"+
     			  "form-action 'self';" +
-    			  "style-src 'self' fonts.googleapis.com;"+
+    			  "style-src 'self' fonts.googleapis.com 'unsafe-inline';"+
     			  "font-src 'self' fonts.gstatic.com;");
     next()
 })
@@ -66,12 +66,12 @@ const {csrfToken,csrfParse} = require("./middlewares/csrfToken")
 app.use(require("./middlewares/connected"))
 
 //main route
-app.get("",csrfToken,function(req, res) {
+app.get("",csrfToken,(req, res) => {
     res.render("pages/index.ejs")
 })
 
 //test routes
-app.get("/test",csrfToken,function(req, res) {
+app.get("/test",csrfToken,(req, res) => {
     res.render("test/wysiwyg.ejs")
 })
 

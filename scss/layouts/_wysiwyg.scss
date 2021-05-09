@@ -9,6 +9,9 @@
 		background-color: #333;
 		display: flex;
 		flex-wrap: wrap;
+		position: sticky;
+		top: 0;
+		z-index: 99;
 
 		&__group {
 			display: flex;
@@ -21,7 +24,7 @@
 				background-color:colors.$buttonBackground;
 				border: 1px solid colors.$buttonBorder;
 				border-radius: 5px;
-				transition-duration: 1s;
+				transition-duration: .5s;
 				cursor: pointer;
 				height: 45px;
 				width: 45px;
@@ -30,20 +33,29 @@
 				align-items: center;
 				justify-content: center;
 
-				&:hover {
-					background-color: colors.$buttonHover ;
-					box-shadow: 0px 3px 5px 5px rgba(16,16,16,.5);
+				&.active {
+					background-color:darken(colors.$buttonHover,10%);
 				}
 
 				& img {
 					height:25px;
 					width:auto;
+					transition-duration: .5s;
 				}
 
-				&.disabled {
-					background-color:#575757;
+				&:hover {
+					background-color: colors.$buttonHover ;
+
+					& img {
+						filter: brightness(1000%)
+					}
+				}
+
+				&:disabled{
+					background-color:colors.$buttonDisabled;
+					cursor: default;
 					&:hover {
-						background-color:#575757;
+						background-color:colors.$buttonDisabled;
 					}
 				}
 			}
@@ -51,14 +63,37 @@
 			$parent:&;
 			&.disabled {
 				#{$parent}__button {
-					background-color:#575757;
+					background-color:colors.$buttonDisabled;
 					&:hover {
-						background-color:#575757;
+						background-color:colors.$buttonDisabled;
 					}
 				}
 			}
 		}
 	}
 
-
+	&__editor {
+		&__code {
+			background-color: #272822;
+			box-sizing: border-box;
+			width: 100%;
+			border:none;
+			padding: 1em;
+			margin: .5em 0;
+			overflow: auto;
+			border-radius: 0.3em;
+			color:colors.$textColor;
+			text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+			font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+			font-size: 1em;
+			text-align: left;
+			white-space: pre;
+			word-spacing: normal;
+			word-break: normal;
+			word-wrap: normal;
+			line-height: 1.5;
+			tab-size: 4;
+			hyphens: none;
+		}
+	}
 }

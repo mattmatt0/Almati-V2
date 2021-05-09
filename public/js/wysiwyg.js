@@ -1,51 +1,90 @@
 /********************************/
 /******* UTILITY FUNCTIONS ******/
 /********************************/
-getCurrentElementType = (editorId=-1) => {
-	var target = document.getElementById("editor-"+editorId).querySelector(".focused")
+
+window.focusEditor = (element) => {
+	var type = element.getAttribute("type")
+
+	if (window[type]){
+		document.querySelectorAll(".currentEditor").forEach((editor)=>{
+			editor.classList.remove("currentEditor")
+		})
+
+		target = window[type].getEditorFromElement(element)
+
+		target.classList.add("currentEditor")
+	} else {
+		throw "Element is not suported"
+	}
+}
+
+window.getCurrentEditor = () => document.querySelector(".currentEditor")
+
+window.getCurrentEditorId = () => {
+	var editor = getCurrentEditor() 
+	if (editor)
+		return editor.getAttribute("id").split("-")[1]
+
+	return null
+}
+
+
+window.getCurrentElement = (editorId=-1) => {
+	if (editorId == -1)
+		var editor = getCurrentEditor()
+	else
+		var editor = document.getElementById(`editor-${editorId}`)
+
+	if (!editor)
+		return null
+
+	var target = editor.querySelector(".focused")
+
 	if (!target)
-		return
+		return null
 
-	var targetType = target.getAttribute("type")
+	return target
+}
 
-	if (window[targetType]){
-		return targetType
+window.getCurrentElementType = (editorId=-1) => {
+	
+	var element = getCurrentElement(editorId)
+
+	if (!element)
+		return null
+
+	var elementType = element.getAttribute("type")
+
+	if (window[elementType]){
+		return elementType
 	} else {
 		throw "Current element is not suported"
 	}
 }
 
-formatCurrentElement = (editorId,command) => {
+window.formatCurrentElement = (editorId,command) => {
 	var focusedElementType = getCurrentElementType(editorId)
 	if (focusedElementType)
 		window[focusedElementType].formatManager(command)
 }
 
-window.toolBar = []
+window.toolBar = {}
+window.toolBarContener = document.createElement("nav")
+toolBarContener.classList.add("wysiwyg__toolBar")
 
-window.getToolBarById = (editorId,barId) => {
-	for (var i = 0; i<toolBar.length; i++)
-		if (toolBar[i].editorId == editorId && toolBar[i].barId == barId) return toolBar[i]
+
+window.getToolBarById = (barId) => {
+	for (var i in toolBar)
+		if (toolBar[i].barId == barId) return toolBar[i]
 }
 
 window.getToolBarByButtonId = (buttonId) => {
 	var parseid = ToolBar.buttonIdRegex.exec(buttonId)
 	if (parseid){
-		return getToolBarById(parseid[2],parseid[3])
+		return getToolBarById(parseid[2])
 	} else {
 		throw "Bad button id"
 	}
-}
-
-window.getToolBarsByEditorId = (editorId) => {
-	if (!document.getElementById("editor-"+editorId))
-		throw `Editor with id ${editorId} doesn't exist`
-	var result = []
-	toolBar.forEach((bar)=>{
-		if (bar.editorId == editorId)
-			result.push(bar)
-	})
-	return result
 }
 
 
@@ -53,15 +92,11 @@ window.getToolBarsByEditorId = (editorId) => {
 /******* TOOLS BAR CLASS ********/
 /********************************/
 class ToolBar {
-	static buttonIdRegex = /button\.([a-z]+)\.([0-9]+)\.([0-9]+)/
+	static buttonIdRegex = /button-([a-zA-Z_0-9\-]+)-([0-9]+)/
 
-	constructor(editorId,barId,forElement,hidden=false,buttonList=[]){
-		var editor = document.getElementById("editor-"+editorId)
-		if (!editor){
-			throw "Editor don't exist"
-		}
+	constructor(barId,forElement,hide=false,buttonList=[]){
 
-		if (editor.querySelector("#tooBar-"+barId)){
+		if (toolBarContener.querySelector("#tooBar-"+barId)){
 			throw "Duplicate tool bar"
 		}
 		
@@ -74,21 +109,25 @@ class ToolBar {
 		this.group.classList.add("wysiwyg__toolBar__group")
 		this.group.setAttribute("id", "toolBar-"+barId)
 
-		if (hidden)
-			this.hide()
+		this.hide = hide
 
-		editor.querySelector(".wysiwyg__toolBar").appendChild(this.group)
+		toolBarContener.appendChild(this.group)
 
 		buttonList.forEach((button)=>{
 			this.addButton(button.name,button.image,button.action)
 		})
+	}
 
-		window.toolBar.push(this)
+	addButtons(buttonList){
+		buttonList.forEach((button)=>{
+			this.addButton(button.name,button.image,button.action)
+		})
 	}
 
 	addButton(name,image,action){
 		var button = document.createElement("button")
-		button.setAttribute("id", `button.${name}.${this.editorId}.${this.barId}`)
+		button.setAttribute("id", `button-${name}-${this.barId}`)
+		button.setAttribute("name", name)
 		button.classList.add("wysiwyg__toolBar__group__button")
 
 		var imageContent = document.createElement("img")
@@ -97,15 +136,16 @@ class ToolBar {
 
 		button.addEventListener("click", (event)=>{
 			var target = event.target
+
 			if (target.nodeName == "IMG")
 				target = target.parentNode
+
 			var buttonData = ToolBar.buttonIdRegex.exec(target.getAttribute("id"))
 			if (!buttonData)
 				throw "Bad button id"
 			action({
 				name:buttonData[1],
-				editorId:buttonData[2],
-				barId:buttonData[3]
+				barId:buttonData[2]
 			})
 		})
 
@@ -113,11 +153,18 @@ class ToolBar {
 	}
 
 	update(){
-		// var currentElementType = getCurrentElementType()
-		// if (~this.forElement.indexOf(currentElementType))
-		// 	this.disable()
-		// else
-		// 	this.enable()
+		var currentElementType = getCurrentElementType()
+		if (this.forElement.indexOf(currentElementType)>-1){
+			if (this.hidde)
+				this.show()
+			else
+				this.enable()
+		} else {
+			if (this.hidde)
+				this.hide()
+			else
+				this.disable()
+		}
 	}
 
 	show(){
@@ -134,29 +181,72 @@ class ToolBar {
 
 	disable(){
 		this.group.classList.add("disabled")
+		this.group.querySelectorAll(".wysiwyg__toolBar__group__button").forEach((button)=>{
+			button.disabled = true
+		})
 	}
 
-	ensable(){
+	enable(){
 		this.group.classList.remove("disabled")
+		this.group.querySelectorAll(".wysiwyg__toolBar__group__button").forEach((button)=>{
+			button.disabled = false
+		})
 	}
 }
 
 class FormatToolBar extends ToolBar {
-	constructor(editorId,barId,forElement,imageBase,formatMethod,formats){
+	constructor(barId,forElement,imageBase,formatMethod,formats){
 		var buttons = []
 		formats.forEach((format)=>{
 			buttons.push({
 				name:format,
 				image:imageBase+"/"+format+".png",
 				action:(buttonData)=>{
-					formatMethod(buttonData.editorId,format)
+					formatMethod(getCurrentEditorId(),format)
 				}
 			})
 		})
 
-		super(editorId,barId,forElement,false,buttons)
+		super(barId,forElement,false,buttons)
+		this.formats = formats
+	}
+
+	update(){
+		super.update()
+		this.formats.forEach((format)=>{
+			var button = document.getElementById(`button-${format}-${this.barId}`)
+			if (document.queryCommandState(format)){
+				button.classList.add("active")
+			} else {
+				button.classList.remove("active")
+			}
+		})
 	}
 }
+/********************************/
+/******* TOOL BAR CREATION ******/
+/********************************/
+
+
+toolBar["textFormat"] = new FormatToolBar(0,["Element"],"/images/icons",formatCurrentElement, ["bold","italic","underline"])
+toolBar["reset"] = new ToolBar(1,["Element"],false,[
+	{
+		name:"reset",
+		image:"/images/icons/reset.png",
+		action:()=>{
+			var element = getCurrentElement()
+			console.log("Reset element",element)
+			
+			if (element){
+
+				Element.resetElement(element)
+			}
+		}
+	}
+])
+toolBar["changeType"] = new ToolBar(2,["Element"],false)
+
+
 /********************************/
 /******* ELEMENT MANAGMENT ******/
 /********************************/
@@ -168,11 +258,13 @@ class FormatToolBar extends ToolBar {
 /********************************/
 window.Element = class Element {
 
+	static contentNodeName = "p"
+
 	static createElement = () => {
 		var element = document.createElement("div")
 		element.classList.add("wysiwyg__editor__element")
 		element.setAttribute("type", this.name)
-		var content = document.createElement("p")
+		var content = document.createElement(this.contentNodeName)
 		content.setAttribute("contenteditable", "true")
 
 		element.appendChild(content)
@@ -196,11 +288,25 @@ window.Element = class Element {
 		return element.childNodes[0]
 	}
 
+	static getEditableFromTextNode = (textNode) => {
+		var element = textNode.parentElement
+		while (element.getAttribute("contentEditable") != "true")
+			element = element.parentElement
+
+		return element
+	}
+
 	static getElementFromEditable = (element) => {
+
 		var max = 5, i = 0
-		while (!element.classList.contains("wysiwyg__editor__element") && i<max)
+		if (element.nodeType == Node.TEXT_NODE)
+			element = element.parentNode
+
+		while (!element.classList.contains("wysiwyg__editor__element") && i<max){
 			element = element.parentNode
 			i += 1
+		}
+
 		if (element.classList.contains("wysiwyg__editor__element"))
 			return element
 		
@@ -224,34 +330,68 @@ window.Element = class Element {
 	static nextElement = (element) => this.getElementFromEditable(element).nextElementSibling
 
 	//manipulate element content
-	static setElementContent = (element,text) => this.getEditableFromElement(element).innerHTML = text
-	static addElementContent = (element,text) => this.getEditableFromElement(element).innerHTML += text
+	static setElementContent = (element,text) => this.getEditableFromElement(element).innerHTML = this.checkFormat(text,element.getAttribute("type"))
+	static addElementContent = (element,text) => this.getEditableFromElement(element).innerHTML += this.checkFormat(text,element.getAttribute("type"))
 	static getElementContent = (element) => this.getEditableFromElement(element).innerHTML
 
 
 	//manipulate element
 	static deleteElement = (element) => this.getEditorFromElement(element).removeChild(this.getElementFromEditable(element))
-	static insertElement = (element,content) => {
-		var newElement = this.createElement()
-		newElement.addEventListener("click",this.clickManager)
-		newElement.addEventListener("keydown",this.keyManager)
+	static insertElement = (element,type,content) => {
 
-		this.setElementContent(newElement,content)
+		if (window[type]){
+			var newElement = window[type].createElement()
+			newElement.addEventListener("click",window[type].clickManager)
+			newElement.addEventListener("keydown",window[type].keyManager)
 
-		this.getElementFromEditable(element).insertAdjacentElement("afterend", newElement)
+			window[type].setElementContent(newElement,content)
 
-		return newElement
+			window[type].getElementFromEditable(element).insertAdjacentElement("afterend", newElement)
+
+			return newElement
+		} else {
+			throw "Element not suported"
+		}
 	}
 
 	static focusElement = (element) => {
 		var editor = this.getEditorFromElement(element)
+		element = this.getElementFromEditable(element)
 
-		editor.querySelectorAll(".selected,.focused").forEach((element)=>{
-			element.classList.remove("selected")
-			element.classList.remove("focused")
+		editor.querySelectorAll(".selected,.focused").forEach((focusedElement)=>{
+			if (focusedElement != element){
+				var type = focusedElement.getAttribute("type")
+				if (window[type])
+					window[type].unfocusElement(focusedElement)
+				else
+					throw "Element not suported"
+			}
 		})
 
-		this.getElementFromEditable(element).classList.add("focused")
+		element.classList.add("focused")
+		focusEditor(element)
+	}
+
+	static unfocusElement = (element) => {
+		this.getElementFromEditable(element).classList.remove("selected")
+		this.getElementFromEditable(element).classList.remove("focused")
+	}
+	
+	static splitElement = (element,splitNode,ofset) => {
+		var result = document.createTextNode("")
+		result.textContent = splitNode.textContent.substring(ofset)
+		splitNode.textContent = splitNode.textContent.substring(0,ofset)
+
+		while (splitNode != element){
+			var temp = splitNode.parentElement.cloneNode(false)
+			temp.appendChild(result)
+			result = temp
+			while (splitNode.nextSibling)
+				result.appendChild(splitNode.nextSibling)
+			splitNode = splitNode.parentNode
+		}
+
+		return result
 	}
 
 	//cursor manipulation
@@ -267,7 +407,7 @@ window.Element = class Element {
 					break
 				}
 			} else if (lookElement.childNodes.length > 0){
-				[ofset, result] = exploreChildNodes(lookElement,ofset)
+				[ofset, result] = this.createRangeWithMultipleChild(lookElement,ofset)
 				if (result != null)
 					return [ofset, result]
 			}
@@ -276,31 +416,48 @@ window.Element = class Element {
 	}
 
 	static mouseInElement = (element,end=false) => { //insert mouse at start of any element
-		element = this.getElementFromEditable(element)
+		var type = element.getAttribute("type")
 
-		this.focusElement(element)
+		if (window[type]){
+			element = window[type].getElementFromEditable(element)
 
-		element = this.getEditableFromElement(element)
-		var range = document.createRange()
-		var selection = window.getSelection()
-		var pos = 0
+			window[type].focusElement(element)
+
+			element = window[type].getEditableFromElement(element)
+			var range = document.createRange()
+			
+			var pos = 0
 
 
-		if (end == true && !this.isEmpty(element)) //check if not empty because if element is empty pos = 1 cause error
-			pos = element.childNodes.length
+			if (end == true && !window[type].isEmpty(element)) //check if not empty because if element is empty pos = 1 cause error
+				pos = element.childNodes.length
 
-		if (typeof end == "number"){ //number pos are only valid if element contain only text
-			[pos,element] = this.createRangeWithMultipleChild(element,end)
+			if (typeof end == "number"){ //number pos are only valid if element contain only text
+				[pos,element] = window[type].createRangeWithMultipleChild(element,end)
+			}
+
+
+			range.setStart(element, pos)
+
+			//prevent from bugs in certains browser
+			range.collapse(true)
+
+			window[type].mousePositionFromRange(range)
+		} else {
+			throw "Element is not suported"
 		}
+	}
 
-
-		range.setStart(element, pos)
-
-		//prevent from bugs in certains browser
-		range.collapse(true)
-
+	static mousePositionFromRange = (range) => {
+		var selection = window.getSelection()
 		selection.removeAllRanges()
 		selection.addRange(range)
+	}
+
+	static getRange = () => {
+		var selection = window.getSelection()
+		if (selection.rangeCount > 0)
+			return selection.getRangeAt(0)
 	}
 
 	static mouseInPreviousElement = (element) => {
@@ -317,23 +474,51 @@ window.Element = class Element {
 		}
 	}
 
-	//cursor position gesture
-	static getCursorPosition = (selection = window.getSelection()) => selection.anchorOffset
-
 	static getCursorAtEnd = () => { //get if cursor is at end of element
 		var selection = window.getSelection()
 		
-		// sometimes, the cursor moove to the element insted of textNode so fix that
-		if (selection.focusNode.nodeType == Node.TEXT_NODE)
-			return this.getCursorPosition(selection) >= selection.focusNode.textContent.length
-		else if (this.isEmpty(selection.focusNode))
+		if (selection.anchorNode.nodeName == this.contentNodeName.toUpperCase()){
+			return selection.anchorOffset == 1
+		}
+
+		var childs = this.getEditableFromTextNode(selection.anchorNode).childNodes
+		var last = childs[childs.length - 1]
+
+
+
+		if (last.nodeName == "BR")
 			return true
-		else
-			return selection.focusOffset == 1
+
+		while (last.nodeType != Node.TEXT_NODE)
+			last = last.childNodes[0]
+
+		return (
+			last == selection.anchorNode && 
+			selection.anchorOffset == selection.anchorNode.length
+		)
 	}
 
 	//get if cursor is at start of element
-	static getCursorAtStart = () => this.getCursorPosition() == 0
+	static getCursorAtStart = () => {
+		var selection = window.getSelection()
+
+		if (selection.anchorNode.nodeName == this.contentNodeName.toUpperCase()){
+			return selection.anchorOffset == 0
+		}
+
+		var first = this.getEditableFromTextNode(selection.anchorNode).childNodes[0]
+
+		if (first.nodeName == "BR")
+			return true
+
+		while (first.nodeType != Node.TEXT_NODE)
+			first = first.childNodes[0]
+
+		return (
+			first == selection.anchorNode && 
+			selection.anchorOffset == 0
+		)
+	}
 
 	/********************************/
 	/***** ELEMENT EVENT GESTURE ****/
@@ -341,23 +526,33 @@ window.Element = class Element {
 
 	static clickManager = (event) => { 
 		var target = event.target
-		this.focusElement(target)
+		var type = this.getElementFromEditable(target).getAttribute("type")
+		if (window[type]){
+			window[type].focusElement(target)
+		} else {
+			throw "Element is not suported"
+		}
+
 	}
 
 	static keyManager = (event) => {
 		var target = event.target
 		switch (event.keyCode) {
 			case 13: //take enter and create a new element after the current element
+				event.stopPropagation()
+				event.preventDefault()
+				var currentRange = this.getRange()
 				var content = ""
 
 				if (!this.getCursorAtEnd()){
-					content = this.getElementContent(target).substring(this.getCursorPosition())
-					this.setElementContent(target,this.getElementContent(target).substring(0, this.getCursorPosition()))
+					content = this.splitElement(this.getEditableFromTextNode(currentRange.commonAncestorContainer),
+												currentRange.commonAncestorContainer,
+												currentRange.startOffset).innerHTML
 				}
 
-				this.mouseInElement(this.insertElement(target,content))
-				event.stopPropagation()
-				event.preventDefault()
+				var newElement = this.insertElement(this.getElementFromEditable(target),"Element",content)
+
+				this.mouseInElement(newElement)
 				break;
 			case 8: //backspace
 				if (window.getSelection().isCollapsed)
@@ -408,6 +603,27 @@ window.Element = class Element {
 	}
 
 
+	static resetElement = (element) => {
+		var mousePos = this.getRange()
+		element = this.getElementFromEditable(element)
+
+		element = element.cloneNode(true)
+		element.addEventListener("click", this.clickManager)
+		element.addEventListener("keydown", this.keyManager)
+
+		var type = element.getAttribute("type")
+
+		if (window[type]){
+			var p = document.createElement("p")
+			p.setAttribute("contenteditable", "true")
+			p.innerHTML = window[element.getAttribute("type")].getElementContent(element)
+			element.setAttribute("type", "Element")
+			element.replaceChild(p, window[type].getEditableFromElement(element))
+		} else {
+			throw "Element is not suported"
+		}
+	}
+
 
 	static allowedCommands = ["bold","italic","underline"]
 	static formatManager(command) {
@@ -415,16 +631,60 @@ window.Element = class Element {
 			document.execCommand(command)
 		}
 	}
+
+
+	static checkFormat = (element,type="Element") => {
+		if (!window[type])
+			throw "Element is not suported"
+
+		if (element.nodeType){
+			var type = element.getAttribute("type")
+			if (window[type])
+				var text = window[type].getElementContent(element)
+		} else {
+			var text = element
+		}
+
+		console.log(window[type].allowedCommands)
+		console.log(text)
+
+		if (window[type].allowedCommands.indexOf("bold") == -1){
+			text = text.replace(/<\/?(b|strong)>/g,"")
+		}
+
+		if (window[type].allowedCommands.indexOf("italic") == -1){
+			text = text.replace(/<\/?(i|em)>/g,"")
+		}
+
+		if (window[type].allowedCommands.indexOf("underline") == -1){
+			text = text.replace(/\/?<(u)>/g,"")
+		}
+
+		if (element.nodeType){
+			element.innerHTML = text
+		}
+
+		console.log(text)
+
+		return text
+	}
 }
 
 window.Tips = class Tips extends Element{
 	static allowedCommands = []
 
+	static types = Object.freeze({
+		INFO:"info",
+		ERROR:"error",
+		GOOD:"good",
+		WARNING:"warning"
+	})
+
 	static createElement = () => {
 		var element = document.createElement("div")
 		element.classList.add("wysiwyg__editor__element")
 		element.setAttribute("type", this.name)
-		var content = document.createElement("p")
+		var content = document.createElement(this.contentNodeName)
 		content.setAttribute("contenteditable", "true")
 		content.classList.add("tips-info")
 
@@ -434,33 +694,251 @@ window.Tips = class Tips extends Element{
 
 	static availablesTypes = ["info","error","good","warning"]
 
-	static changeType(type){
+	static changeType(element,type){
 		if (~this.availablesTypes.indexOf(type)){
-			var currentFocus = document.querySelector(".focused")
+			var mousePos = this.getRange()
 
-			var currentFocus = this.getEditableFromElement(currentFocus)
-			currentFocus.className = ""
-			currentFocus.classList.add("tips-"+type)
+			element = this.getElementFromEditable(element)
+
+			var p = document.createElement("p")
+			p.classList.add(`tips-${type}`)
+			p.innerHTML = window[element.getAttribute("type")].getElementContent(element)
+			p.setAttribute("contenteditable", "true")
+			
+			element.setAttribute("type", this.name)
+			element.replaceChild(p, this.getEditableFromElement(element))
 		}
 	}
 }
 
+toolBar["changeType"].addButtons([
+	{
+		name:"goodTips",
+		image:"/images/icons/good.png",
+		action:()=>{
+			var element = getCurrentElement()
+			
+			if (element){
+				Tips.changeType(element,"good")
+			}
+		}
+	},
+	{
+		name:"errorTips",
+		image:"/images/icons/error.png",
+		action:()=>{
+			var element = getCurrentElement()
+			
+			if (element){
+				Tips.changeType(element,"error")
+			}
+		}
+	},
+	{
+		name:"warningTips",
+		image:"/images/icons/warning.png",
+		action:()=>{
+			var element = getCurrentElement()
+			
+			if (element){
+				Tips.changeType(element,"warning")
+			}
+		}
+	},
+	{
+		name:"infoTips",
+		image:"/images/icons/info.png",
+		action:()=>{
+			var element = getCurrentElement()
+			
+			if (element){
+				Tips.changeType(element,"info")
+			}
+		}
+	}
+])
+
+toolBar["changeType"].forElement.push("Tips")
+toolBar["reset"].forElement.push("Tips")
+
 window.Title = class Title extends Element{
 	static allowedCommands = []
+	static contentNodeName = "h2"
 
+	static changeType(element){
+		var mousePos = this.getRange()
 
-	static createElement = () => {
+		element = this.getElementFromEditable(element)
+
+		var h2 = document.createElement("h2")
+		h2.setAttribute("contenteditable", "true")
+		h2.innerHTML = window[element.getAttribute("type")].getElementContent(element)
+		element.setAttribute("type", this.name)
+		element.replaceChild(h2, this.getEditableFromElement(element))
+	}
+}
+
+toolBar["changeType"].addButtons([
+	{
+		name:"title",
+		image:"/images/icons/title.png",
+		action:()=>{
+			var element = getCurrentElement()
+			
+			if (element){
+				Title.changeType(element)
+			}
+		}
+	}
+])
+
+toolBar["changeType"].forElement.push("Title")
+toolBar["reset"].forElement.push("Title")
+
+var codeSelect = document.createElement("select")
+codeSelect.classList.add("wysiwyg__editor__codeSelect")
+for (var l in Prism.languages) {
+	var option = document.createElement("option")
+	option.textContent = l
+	option.setAttribute("value", l)
+	codeSelect.appendChild(option)
+}
+
+window.Code = class Code extends Element {
+	static contentNodeName = "pre"
+
+	static getEditableFromElement(element){
+		if (element.nodeName == "TEXTAREA" || element.nodeName == "CODE")
+			return element
+		else if (element.nodeName == "SELECT")
+			return element.nextElementSibling
+		else if (element.nodeName == "OPTION")
+			return element.parentElement.nextElementSibling
+		else
+			return element.querySelector("code,textarea")
+	}
+
+	static setElementContent = (element,text) => {
+		super.setElementContent(element,text)
+		Prism.highlightElement(this.getEditableFromElement(element))
+	}
+	static addElementContent = (element,text) => {
+		super.addElementContent(element,text)
+		Prism.highlightElement(this.getEditableFromElement(element))
+	}
+	static getElementContent = (element) => this.getEditableFromElement(element).textContent
+
+	static createElement(){
 		var element = document.createElement("div")
 		element.classList.add("wysiwyg__editor__element")
 		element.setAttribute("type", this.name)
-		var content = document.createElement("h2")
-		content.setAttribute("contenteditable", "true")
-		content.classList.add("tips-info")
-
+		var content = document.createElement(this.contentNodeName)
+		var code = document.createElement("code")
+		code.classList.add("language-plaintext")
 		element.appendChild(content)
+
 		return element
 	}
+
+
+	static getCodeAreaFromElement(element){
+		element = this.getElementFromEditable(element)
+		return element.querySelector(".code-toolbar")
+	}
+
+	static getElementLanguage = (element) => this.getElementFromEditable(element).querySelector("pre[class*='language-']").className.split("-")[1]
+
+	static focusElement(element){
+		super.focusElement(element)
+		element = this.getEditableFromElement(element)
+		if (element.nodeName != "TEXTAREA"){
+			var textarea = document.createElement("textarea")
+			textarea.classList.add("wysiwyg__editor__code")
+			textarea.textContent = this.getElementContent(element)
+			textarea.addEventListener("keypress",this.setTextAreaHeight)
+
+			element = this.getElementFromEditable(element)
+
+
+			codeSelect.value = this.getElementLanguage(element)
+			element.insertAdjacentElement("afterbegin",codeSelect)
+
+			this.getElementFromEditable(element).replaceChild(textarea, this.getCodeAreaFromElement(element))
+			
+
+			textarea.style.height = `${textarea.scrollHeight}px`
+
+			textarea.focus()
+		} else {
+			element.style.height = `${element.scrollHeight}px`
+		}
+	}
+
+	static getCursorAtStart(){
+		var selection = window.getSelection()
+		return selection.anchorNode.selectionStart == 0
+	}
+
+	static getCursorAtEnd(){
+		var selection = window.getSelection()
+		return selection.anchorNode.selectionStart == selection.anchorNode.textContent.length
+	}
+
+	static setTextAreaHeight(event){
+		event.target.style.height = `${event.target.scrollHeight}px`
+	}
+
+	static unfocusElement(element){
+		super.unfocusElement(element)
+		this.getElementFromEditable(element).removeChild(codeSelect)
+		var content = document.createElement(this.contentNodeName)
+		var code = document.createElement("code")
+		code.classList.add(`language-${codeSelect.value}`)
+		code.textContent = this.getElementContent(element)
+
+		content.appendChild(code)	
+		element.replaceChild(content, this.getEditableFromElement(element))
+
+		Prism.highlightElement(code)
+	}
+
+	static mouseInElement(element,end=false){
+		element = getEditableFromElement(element)
+		pos = 0
+
+		if (typeof end == "number")
+			pos = end
+		else if (end)
+			pos = element.textContent.length
+
+		element.selectionEnd = end
+	}
+
+
+	static keyManager = (event) => {
+		var target = event.target
+		switch (event.keyCode) {
+			case 38: //arrow up
+			case 37: //arrow left
+				if (this.getCursorAtStart())
+					this.mouseInPreviousElement(target)
+				
+				break;
+			case 40: //arrow down
+			case 39: //arrow right
+				if (this.getCursorAtEnd())
+					this.mouseInNextElement(target)
+				break;
+
+			default:
+				console.log(event.keyCode)
+				break;
+		}
+	}
 }
+
+toolBar["changeType"].forElement.push("Code")
+toolBar["reset"].forElement.push("Code")
 
 
 /********************************/
@@ -470,23 +948,36 @@ var editorId = 0
 
 
 document.querySelectorAll(".wysiwyg").forEach((editor) => {
-	//set id for undo/redo stack
+	//set id for undo/redo stack and for mutiple editors
 	editor.setAttribute("id", "editor-"+editorId)
 
-	var formatToolBar = new FormatToolBar(editorId,0,["Element"],"/images/icons",formatCurrentElement, ["bold","italic","underline"])
-	var editorIdcp = Number(editorId)
+	if (editorId == 0){
+		editor.insertAdjacentElement("afterBegin",toolBarContener)
+	}
 
-	editor.querySelector(".wysiwyg__editor").addEventListener("click", (event)=>{
 
-		getToolBarsByEditorId(editorIdcp).forEach((bar)=>{
-			bar.update()
-		})
+	editor.addEventListener("click",()=>{
+		for (var bar in toolBar){
+			toolBar[bar].update()
+		}
 	})
+
+	editor.addEventListener("keydown",()=>{
+		for (var bar in toolBar){
+			toolBar[bar].update()
+		}
+	})
+
+
+	var editorIdcp = Number(editorId)
 
 	//add event listener to all elements in editor
 	editor.querySelectorAll(".wysiwyg__editor__element").forEach((element)=>{
-		element.addEventListener("click",Element.clickManager)
-		element.addEventListener("keydown",Element.keyManager)
+		var type = element.getAttribute("type")
+		if (window[type]){
+			element.addEventListener("click",window[type].clickManager)
+			element.addEventListener("keydown",window[type].keyManager)
+		}
 	})
 
 	editorId += 1
