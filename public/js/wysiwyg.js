@@ -98,6 +98,17 @@ window.getToolBarByButtonId = (buttonId) => {
 class ToolBar {
 	static buttonIdRegex = /button-([a-zA-Z_0-9\-]+)-([0-9]+)/
 
+	/**
+	 * Constructor for toolBar
+	 *
+	 * @author robotechnic
+	 *
+	 * @param  {int}       barId      id of the bar
+	 * @param  {Array}     forElement list of all element allowed for the bar ["all"] to include all elements
+	 * @param  {Boolean}   hide       if is true, on element not suported, this tool bar disapear else, toolbar only disabled
+	 * @param  {Array}     buttonList list of json buttons to create new buttons
+	 *
+	 */
 	constructor(barId,forElement,hide=false,buttonList=[]){
 
 		if (toolBarContener.querySelector("#tooBar-"+barId)){
@@ -122,12 +133,28 @@ class ToolBar {
 		})
 	}
 
+	/**
+	 * add buttons to tool bar based on a json list
+	 *
+	 * @author robotechnic
+	 *
+	 * @param  {Array} buttonList list of json buttons
+	 */
 	addButtons(buttonList){
 		buttonList.forEach((button)=>{
 			this.addButton(button.name,button.image,button.action)
 		})
 	}
 
+	/**
+	 * Add buttons with parameters
+	 *
+	 * @author robotechnic
+	 *
+	 * @param  {string}   name   name of the button
+	 * @param  {string}   image  url of button image
+	 * @param  {function} action callback on click
+	 */
 	addButton(name,image,action){
 		var button = document.createElement("button")
 		button.setAttribute("id", `button-${name}-${this.barId}`)
@@ -156,18 +183,25 @@ class ToolBar {
 		this.group.appendChild(button)
 	}
 
+	/**
+	 * update tool bar based on supported elements
+	 *
+	 * @author robotechnic
+	 */
 	update(){
-		var currentElementType = getCurrentElementType()
-		if (this.forElement.indexOf(currentElementType)>-1){
-			if (this.hidde)
-				this.show()
-			else
-				this.enable()
-		} else {
-			if (this.hidde)
-				this.hide()
-			else
-				this.disable()
+		if (this.forElement[0] != "all"){
+			var currentElementType = getCurrentElementType()
+			if (this.forElement.indexOf(currentElementType)>-1){
+				if (this.hidde)
+					this.show()
+				else
+					this.enable()
+			} else {
+				if (this.hidde)
+					this.hide()
+				else
+					this.disable()
+			}
 		}
 	}
 
@@ -219,7 +253,6 @@ class FormatToolBar extends ToolBar {
 		super.update()
 		this.formats.forEach((format)=>{
 			var button = document.getElementById(`button-${format}-${this.barId}`)
-			console.log(format,document.queryCommandState(format))
 			if (document.queryCommandState(format)){
 				button.classList.add("active")
 			} else {
@@ -600,10 +633,6 @@ window.Element = class Element {
 				if (this.getCursorAtEnd())
 					this.mouseInNextElement(target)
 				break;
-
-			default:
-				console.log(event.keyCode)
-				break;
 		}
 	}
 
@@ -649,9 +678,6 @@ window.Element = class Element {
 		} else {
 			var text = element
 		}
-
-		console.log(window[type].allowedCommands)
-		console.log(text)
 
 		if (window[type].allowedCommands.indexOf("bold") == -1){
 			text = text.replace(/<\/?(b|strong)>/g,"")
@@ -809,6 +835,8 @@ for (var l in Prism.languages) {
 	codeSelect.appendChild(option)
 }
 
+
+toolBar["insertElement"] = new ToolBar(3,["all"])
 window.Code = class Code extends Element {
 	static contentNodeName = "pre"
 
@@ -824,14 +852,22 @@ window.Code = class Code extends Element {
 	}
 
 	static setElementContent = (element,text) => {
-		super.setElementContent(element,text)
+		console.log(element)
+		this.getEditableFromElement(element).textContent = this.checkFormat(text,element.getAttribute("type"))
 		Prism.highlightElement(this.getEditableFromElement(element))
 	}
 	static addElementContent = (element,text) => {
 		super.addElementContent(element,text)
 		Prism.highlightElement(this.getEditableFromElement(element))
 	}
-	static getElementContent = (element) => this.getEditableFromElement(element).textContent
+	static getElementContent = (element) => {
+		element = this.getEditableFromElement(element)
+
+		if (element.nodeName == "TEXTAREA")
+			return element.value
+		else
+			return element.textContent
+	}
 
 	static createElement(){
 		var element = document.createElement("div")
@@ -840,6 +876,7 @@ window.Code = class Code extends Element {
 		var content = document.createElement(this.contentNodeName)
 		var code = document.createElement("code")
 		code.classList.add("language-plaintext")
+		content.appendChild(code)
 		element.appendChild(content)
 
 		return element
@@ -879,6 +916,29 @@ window.Code = class Code extends Element {
 		}
 	}
 
+	static unfocusElement(element){
+		console.log(this.getElementContent(element))
+		super.unfocusElement(element)
+		this.getElementFromEditable(element).removeChild(codeSelect)
+		var content = document.createElement(this.contentNodeName)
+		var code = document.createElement("code")
+		code.classList.add(`language-${codeSelect.value}`)
+
+		code.textContent = this.getElementContent(element)
+
+		content.appendChild(code)	
+		element.replaceChild(content, this.getEditableFromElement(element))
+
+		Prism.highlightElement(code)
+	}
+
+	static insertElement(element,content=" ",after=true){
+		element = super.insertElement(element,"Code",content)
+		if (after && !element.nextElementSibling){
+			super.insertElement(element,"Element"," ")
+		}
+	}
+
 	static getCursorAtStart(){
 		var selection = window.getSelection()
 		return selection.anchorNode.selectionStart == 0
@@ -893,19 +953,7 @@ window.Code = class Code extends Element {
 		event.target.style.height = `${event.target.scrollHeight}px`
 	}
 
-	static unfocusElement(element){
-		super.unfocusElement(element)
-		this.getElementFromEditable(element).removeChild(codeSelect)
-		var content = document.createElement(this.contentNodeName)
-		var code = document.createElement("code")
-		code.classList.add(`language-${codeSelect.value}`)
-		code.textContent = this.getElementContent(element)
-
-		content.appendChild(code)	
-		element.replaceChild(content, this.getEditableFromElement(element))
-
-		Prism.highlightElement(code)
-	}
+	
 
 	static mouseInElement(element,end=false){
 		element = getEditableFromElement(element)
@@ -934,16 +982,19 @@ window.Code = class Code extends Element {
 				if (this.getCursorAtEnd())
 					this.mouseInNextElement(target)
 				break;
-
-			default:
-				console.log(event.keyCode)
-				break;
 		}
 	}
 }
 
 toolBar["changeType"].forElement.push("Code")
 toolBar["reset"].forElement.push("Code")
+
+toolBar["insertElement"].addButton("insertCode","/images/icons/code.png",(button)=>{
+	var currentElement = getCurrentElement()
+	if (currentElement){
+		Code.insertElement(currentElement,"")
+	}
+})
 
 
 /********************************/
