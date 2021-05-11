@@ -14,7 +14,7 @@ window.focusEditor = (element) => {
 
 		target.classList.add("currentEditor")
 	} else {
-		throw "Element is not suported"
+		throw `Element ${type} is not suported`
 	}
 }
 
@@ -294,7 +294,7 @@ toolBar["changeType"] = new ToolBar(2,["Element"],false)
 /********************************/
 /****** BASE ELEMENT CLASS ******/
 /********************************/
-window.Element = class Element {
+window.Element = class Element{
 
 	static contentNodeName = "p"
 
@@ -456,22 +456,24 @@ window.Element = class Element {
 					return [ofset, result]
 			}
 		}
-		return [ofset, null]
+
+		return [ofset, element]
 	}
 
 	static mouseInElement = (element,end=false) => { //insert mouse at start of any element
+		element = this.getElementFromEditable(element)
 		var type = element.getAttribute("type")
 
+
 		if (window[type]){
-			element = window[type].getElementFromEditable(element)
 
 			window[type].focusElement(element)
 
 			element = window[type].getEditableFromElement(element)
+
 			var range = document.createRange()
 			
 			var pos = 0
-
 
 			if (end == true && !window[type].isEmpty(element)) //check if not empty because if element is empty pos = 1 cause error
 				pos = element.childNodes.length
@@ -480,7 +482,6 @@ window.Element = class Element {
 				[pos,element] = window[type].createRangeWithMultipleChild(element,end)
 			}
 
-
 			range.setStart(element, pos)
 
 			//prevent from bugs in certains browser
@@ -488,7 +489,7 @@ window.Element = class Element {
 
 			window[type].mousePositionFromRange(range)
 		} else {
-			throw "Element is not suported"
+			throw `Element ${type} is not suported`
 		}
 	}
 
@@ -520,12 +521,20 @@ window.Element = class Element {
 
 	static getCursorAtEnd = () => { //get if cursor is at end of element
 		var selection = window.getSelection()
+
+		var element = selection.anchorNode
+
+
+		if (this.isEmpty(this.getEditableFromTextNode(element)))
+			return true
 		
-		if (selection.anchorNode.nodeName == this.contentNodeName.toUpperCase()){
+		if (element.nodeName == this.contentNodeName.toUpperCase()){
 			return selection.anchorOffset == 1
 		}
 
-		var childs = this.getEditableFromTextNode(selection.anchorNode).childNodes
+
+
+		var childs = element.childNodes
 		var last = childs[childs.length - 1]
 
 
@@ -537,8 +546,8 @@ window.Element = class Element {
 			last = last.childNodes[0]
 
 		return (
-			last == selection.anchorNode && 
-			selection.anchorOffset == selection.anchorNode.length
+			last == element && 
+			selection.anchorOffset == element.length
 		)
 	}
 
@@ -546,11 +555,13 @@ window.Element = class Element {
 	static getCursorAtStart = () => {
 		var selection = window.getSelection()
 
-		if (selection.anchorNode.nodeName == this.contentNodeName.toUpperCase()){
+		var element = selection.anchorNode
+
+		if (element.nodeName == this.contentNodeName.toUpperCase()){
 			return selection.anchorOffset == 0
 		}
 
-		var first = this.getEditableFromTextNode(selection.anchorNode).childNodes[0]
+		var first = this.getEditableFromTextNode(element).childNodes[0]
 
 		if (first.nodeName == "BR")
 			return true
@@ -559,7 +570,7 @@ window.Element = class Element {
 			first = first.childNodes[0]
 
 		return (
-			first == selection.anchorNode && 
+			first == element && 
 			selection.anchorOffset == 0
 		)
 	}
@@ -574,7 +585,7 @@ window.Element = class Element {
 		if (window[type]){
 			window[type].focusElement(target)
 		} else {
-			throw "Element is not suported"
+			throw `Element ${type} is not suported`
 		}
 
 	}
@@ -623,7 +634,7 @@ window.Element = class Element {
 				if (window.getSelection().isCollapsed)
 					if (this.getCursorAtEnd() && this.nextElement(target)){
 						var ofset = this.getElementContent(target).length
-						this.addElementContent(target,this.getElementContent(this.nextElement(target)))
+						this.addElementContent(this.getElementFromEditable(target),this.getElementContent(this.nextElement(target)))
 						this.mouseInElement(target,ofset)
 						this.deleteElement(this.nextElement(target))
 						event.preventDefault()
@@ -660,7 +671,7 @@ window.Element = class Element {
 
 			return newElement
 		} else {
-			throw "Element is not suported"
+			throw `Element ${type} is not suported`
 		}
 	}
 
@@ -675,7 +686,7 @@ window.Element = class Element {
 
 	static checkFormat = (element,type="Element") => {
 		if (!window[type])
-			throw "Element is not suported"
+			throw `Element ${type} is not suported`
 
 		if (element.nodeType){
 			var type = element.getAttribute("type")
@@ -836,8 +847,17 @@ for (var l in Prism.languages) {
 	codeSelect.appendChild(option)
 }
 
+toolBar["deleteElement"] = new ToolBar(3,[""],true)
+toolBar["deleteElement"].addButton("delete","/images/icons/delete.png",(button)=>{
+	var currentElement = getCurrentElement()
+	var currentElementType = currentElement.getAttribute("type")
+	if (window[currentElementType])
+		if (window[currentElementType].deleteElement)
+			window[currentElementType].deleteElement(currentElement)
+})
 
-toolBar["insertElement"] = new ToolBar(3,["all"])
+toolBar["insertElement"] = new ToolBar(4,["all"])
+
 window.Code = class Code extends Element {
 	static contentNodeName = "pre"
 
@@ -943,6 +963,11 @@ window.Code = class Code extends Element {
 		}
 	}
 
+	static deleteElement(element){
+		element = this.getElementFromEditable(element)
+		element.parentNode.removeChild(element)
+	}
+
 	static getCursorAtStart(){
 		var selection = window.getSelection()
 		return selection.anchorNode.selectionStart == 0
@@ -986,6 +1011,7 @@ window.Code = class Code extends Element {
 
 toolBar["changeType"].forElement.push("Code")
 toolBar["reset"].forElement.push("Code")
+toolBar["deleteElement"].forElement.push("Code")
 
 toolBar["insertElement"].addButton("insertCode","/images/icons/code.png",(button)=>{
 	var currentElement = getCurrentElement()
@@ -993,6 +1019,45 @@ toolBar["insertElement"].addButton("insertCode","/images/icons/code.png",(button
 		Code.insertElement(currentElement,"")
 	}
 })
+
+window.Image = class Image extends Element {
+	static contentNodeName = "img"
+
+	static createElement(){
+		var element = document.createElement("div")
+		element.classList.add("wysiwyg__editor__element")
+		element.setAttribute("type", this.name)
+		var content = document.createElement(this.contentNodeName)
+		var code = document.createElement("code")
+		code.classList.add("language-plaintext")
+		content.appendChild(code)
+		element.appendChild(content)
+
+		return element
+	}
+
+	static insertElement(element,content=" ",after=true){
+		element = super.insertElement(element,"Image",content)
+		if (after && !element.nextElementSibling){
+			super.insertElement(element,"Element"," ")
+		}
+	}
+
+	static deleteElement(element){
+		this.getEditableFromElement(element).parentNode.removeChild(element)
+	}
+}
+
+toolBar["deleteElement"].forElement.push("Image")
+
+toolBar["insertElement"].addButton("insertImage","/images/icons/image.png",(button)=>{
+	var currentElement = getCurrentElement()
+	if (currentElement){
+		Image.insertElement(currentElement,"")
+	}
+})
+
+
 
 
 /********************************/
