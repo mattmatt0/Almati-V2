@@ -109,7 +109,7 @@ class ToolBar {
 	 * @param  {Array}     buttonList list of json buttons to create new buttons
 	 *
 	 */
-	constructor(barId,forElement,hide=false,buttonList=[]){
+	constructor(barId,forElement,hidde=false,buttonList=[]){
 
 		if (toolBarContener.querySelector("#tooBar-"+barId)){
 			throw "Duplicate tool bar"
@@ -124,7 +124,7 @@ class ToolBar {
 		this.group.classList.add("wysiwyg__toolBar__group")
 		this.group.setAttribute("id", "toolBar-"+barId)
 
-		this.hide = hide
+		this.hidde = hidde
 
 		toolBarContener.appendChild(this.group)
 
@@ -911,29 +911,31 @@ window.Code = class Code extends Element {
 	static getElementLanguage = (element) => this.getElementFromEditable(element).querySelector("pre[class*='language-']").className.split("-")[1]
 
 	static focusElement(element){
-		super.focusElement(element)
-		element = this.getEditableFromElement(element)
-		if (element.nodeName != "TEXTAREA"){
-			var textarea = document.createElement("textarea")
-			textarea.classList.add("wysiwyg__editor__code")
-			textarea.textContent = this.getElementContent(element)
-			textarea.addEventListener("keypress",this.setTextAreaHeight)
-			textarea.addEventListener("click",this.setTextAreaHeight)
+		element = this.getElementFromEditable(element)
+		if (!element.classList.contains("focused")){
+			super.focusElement(element)
+			if (element.nodeName != "TEXTAREA"){
+				var textarea = document.createElement("textarea")
+				textarea.classList.add("wysiwyg__editor__code")
+				textarea.textContent = this.getElementContent(element)
+				textarea.addEventListener("keypress",this.setTextAreaHeight)
+				textarea.addEventListener("click",this.setTextAreaHeight)
 
-			element = this.getElementFromEditable(element)
+				element = this.getElementFromEditable(element)
 
 
-			codeSelect.value = this.getElementLanguage(element)
-			element.insertAdjacentElement("afterbegin",codeSelect)
+				codeSelect.value = this.getElementLanguage(element)
+				element.insertAdjacentElement("afterbegin",codeSelect)
 
-			this.getElementFromEditable(element).replaceChild(textarea, this.getCodeAreaFromElement(element))
-			
+				this.getElementFromEditable(element).replaceChild(textarea, this.getCodeAreaFromElement(element))
+				
 
-			textarea.style.height = `${textarea.scrollHeight}px`
+				textarea.style.height = `${textarea.scrollHeight}px`
 
-			textarea.focus()
-		} else {
-			element.style.height = `${element.scrollHeight}px`
+				textarea.focus()
+			} else {
+				element.style.height = `${element.scrollHeight}px`
+			}
 		}
 	}
 
@@ -963,10 +965,6 @@ window.Code = class Code extends Element {
 		}
 	}
 
-	static deleteElement(element){
-		element = this.getElementFromEditable(element)
-		element.parentNode.removeChild(element)
-	}
 
 	static getCursorAtStart(){
 		var selection = window.getSelection()
@@ -1022,18 +1020,43 @@ toolBar["insertElement"].addButton("insertCode","/images/icons/code.png",(button
 
 window.Image = class Image extends Element {
 	static contentNodeName = "img"
+	static defaultImage = "/images/icons/image.png"
+
+
+	static getEditableFromElement(element){
+		element = this.getElementFromEditable(element)
+		if (element.classList.contains("focused"))
+			return element.querySelector("input")
+		return null
+	}
+
+	static getImageFromElement = (element) => this.getElementFromEditable(element).querySelector("img")
 
 	static createElement(){
 		var element = document.createElement("div")
 		element.classList.add("wysiwyg__editor__element")
 		element.setAttribute("type", this.name)
 		var content = document.createElement(this.contentNodeName)
-		var code = document.createElement("code")
-		code.classList.add("language-plaintext")
-		content.appendChild(code)
+		content.setAttribute("src", this.defaultImage)
 		element.appendChild(content)
 
 		return element
+	}
+
+	static setElementContent(element,content){
+		var image = this.getImageFromElement(element)
+		element = this.getEditableFromElement(element)
+		if (content == undefined || content == null || content == ""){
+			content = this.defaultImage	
+		}
+
+		if (element)
+			if (element.nodeName == "INPUT"){
+				element.value = content
+				image.setAttribute("src", content)
+			}
+		else
+			image.setAttribute("src", content)
 	}
 
 	static insertElement(element,content=" ",after=true){
@@ -1043,8 +1066,36 @@ window.Image = class Image extends Element {
 		}
 	}
 
-	static deleteElement(element){
-		this.getEditableFromElement(element).parentNode.removeChild(element)
+
+	static focusElement(element){
+		element = this.getElementFromEditable(element)
+		if (!element.classList.contains("focused")){
+			super.focusElement(element)
+		
+			var input = document.createElement("input")
+			input.setAttribute("placeholder","Image url")
+			input.setAttribute("type","url")
+			input.classList.add("wysiwyg__editor__imageUrl")
+
+			console.log("insert")
+			element.insertAdjacentElement("afterbegin",input)
+		}
+	}
+
+	static processImageUrl(element,url){
+		var image = this.getImageFromElement(element)
+		var holdUrl = image.getAttribute("src")
+
+		
+	}
+
+	static unfocusElement(element){
+		super.unfocusElement(element)
+		var url = element.querySelector(".wysiwyg__editor__imageUrl")
+
+		processImageUrl(element,url)
+
+		element.removeChild(element.querySelector(".wysiwyg__editor__imageUrl"))
 	}
 }
 

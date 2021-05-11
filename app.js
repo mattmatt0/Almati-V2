@@ -25,28 +25,6 @@ app.use((req, res, next) => {
     next()
 })
 
-
-//setup db
-const db = require("./models/setupDb")
-
-//setup session and session store
-const mariadbStore = require("./models/mariadbSessionStore")
-
-const expressSession = require("express-session")
-app.use(expressSession({
-	secret:process.env.SESSION_SECRET || "default secret 123548962@/*-+ ;)",
-	name:"sessionID",
-	resave:false,
-	saveUninitialized:false,
-	store:new mariadbStore(db,"sessions"),
-	cookie:{
-		sameSite:"Strict",
-		httpOnly:true,
-		maxAge:7 * 24 * 60 * 60 * 1000, //1 week
-		secure: process.env.SECURE || false,
-	}
-}))
-
 //setup body parser
 const bodyparser = require("body-parser")
 app.use(bodyparser.urlencoded({extended:false}))
@@ -58,6 +36,30 @@ app.set("view engine", "ejs");
 //add files in public folder (pictures, javascript, css...)
 app.use(express.static(__dirname + "/public"))
 
+
+//setup db
+const db = require("./lib/setupDb")
+
+//setup session and session store
+const mariadbStore = require("./models/mariadbSessionStore")
+
+const expressSession = require("express-session")
+const store = new mariadbStore({pool:db,table:"sessions"})
+
+
+app.use(expressSession({
+	secret:process.env.SESSION_SECRET || "default secret 123548962@/*-+ ;)",
+	name:"sessionID",
+	resave:false,
+	saveUninitialized:false,
+	store:store,
+	cookie:{
+		sameSite: process.env.SECURE? "Strict" : "None",
+		httpOnly:true,
+		maxAge:7 * 24 * 60 * 60 * 1000, //1 week
+		secure: process.env.SECURE || false,
+	}
+}))
 
 //setup csrf token for form
 const {csrfToken,csrfParse} = require("./middlewares/csrfToken")

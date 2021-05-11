@@ -5,7 +5,7 @@ module.exports = class dbBaseModel {
 		this.table = table
 	}
 
-	runQuery(query,args,callback,value=false,index="any"){
+	runQuery(query,args,callback,value=false,index="all"){
 
 
 
@@ -13,7 +13,7 @@ module.exports = class dbBaseModel {
 			conn.query(query,args).then(rows => {
 				if (value)
 				{
-					if (index == "any")
+					if (index == "all")
 						callback(null,rows)
 					else
 						callback(null,rows[index])

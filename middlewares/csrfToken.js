@@ -14,7 +14,6 @@ module.exports = {
 	},
 
 	csrfParse : (req,res,next) => {
-		console.log("body:",req.body._csrf, "session:", req.session._csrf)
 		if (req.body._csrf == req.session._csrf){
 			req.validToken = true
 		} else {

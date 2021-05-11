@@ -82,8 +82,10 @@ module.exports = db => {
 	//disconnect route
 	router.get("/disconnect",(req,res)=>{
 		req.session.destroy(err => {
-		  	console.error("error append when destroy session:")
-		  	console.error(err)
+			if (err){
+			  	console.error("error append when destroy session:")
+			  	console.error(err)
+		  	}
 		  	res.redirect("/")
 		})
 	})
@@ -93,7 +95,7 @@ module.exports = db => {
 		if (req.connected){
 			router.userModel.userInfos(req.session.userId,req.session.pseudo,(err,row)=>{
 				if (err){
-					console.log(err)
+					console.error(err)
 					res.redirect("/")
 				} else if (row == undefined) {
 					res.redirect("/user/disconnect")

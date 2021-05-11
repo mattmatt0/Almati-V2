@@ -27,6 +27,7 @@ DESCRIBE users;
 #session store shema
 CREATE TABLE IF NOT EXISTS sessions (
 	sid VARCHAR(100) NOT NULL UNIQUE PRIMARY KEY,
+	expire DATETIME NOT NULL,
 	session TEXT DEFAULT "{}"
 );
 
