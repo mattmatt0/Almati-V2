@@ -327,11 +327,15 @@ window.Element = class Element {
 	}
 
 	static getEditableFromTextNode = (textNode) => {
-		var element = textNode.parentElement
-		while (element.getAttribute("contentEditable") != "true")
-			element = element.parentElement
+		if (textNode.nodeType == Node.TEXT_NODE){
+			var element = textNode.parentElement
+			while (element.getAttribute("contentEditable") != "true")
+				element = element.parentElement
 
-		return element
+			return element
+		} else {
+			return this.getEditableFromElement(textNode)
+		}
 	}
 
 	static getElementFromEditable = (element) => {
@@ -375,8 +379,7 @@ window.Element = class Element {
 
 	//manipulate element
 	static deleteElement = (element) => this.getEditorFromElement(element).removeChild(this.getElementFromEditable(element))
-	static insertElement = (element,type,content) => {
-
+	static insertElement = (element,type,content,afterElement = true) => {
 		if (window[type]){
 			var newElement = window[type].createElement()
 			newElement.addEventListener("click",window[type].clickManager)
@@ -384,7 +387,10 @@ window.Element = class Element {
 
 			window[type].setElementContent(newElement,content)
 
-			window[type].getElementFromEditable(element).insertAdjacentElement("afterend", newElement)
+			if (afterElement)
+				window[type].getElementFromEditable(element).insertAdjacentElement("afterend", newElement)
+			else
+				element.appendChild(newElement)
 
 			return newElement
 		} else {
@@ -582,11 +588,12 @@ window.Element = class Element {
 				var currentRange = this.getRange()
 				var content = ""
 
-				if (!this.getCursorAtEnd()){
+				if (!this.getCursorAtEnd() && !this.isEmpty(target)){
 					content = this.splitElement(this.getEditableFromTextNode(currentRange.commonAncestorContainer),
 												currentRange.commonAncestorContainer,
 												currentRange.startOffset).innerHTML
 				}
+
 
 				var newElement = this.insertElement(this.getElementFromEditable(target),"Element",content)
 
@@ -641,18 +648,17 @@ window.Element = class Element {
 		var mousePos = this.getRange()
 		element = this.getElementFromEditable(element)
 
-		element = element.cloneNode(true)
-		element.addEventListener("click", this.clickManager)
-		element.addEventListener("keydown", this.keyManager)
+		var newElement = this.createElement("")
+		newElement.addEventListener("click", this.clickManager)
+		newElement.addEventListener("keydown", this.keyManager)
 
 		var type = element.getAttribute("type")
 
 		if (window[type]){
-			var p = document.createElement("p")
-			p.setAttribute("contenteditable", "true")
-			p.innerHTML = window[element.getAttribute("type")].getElementContent(element)
-			element.setAttribute("type", "Element")
-			element.replaceChild(p, window[type].getEditableFromElement(element))
+			this.setElementContent(newElement,window[element.getAttribute("type")].getElementContent(element))
+			element.parentNode.replaceChild(newElement, element)
+
+			return newElement
 		} else {
 			throw "Element is not suported"
 		}
@@ -695,8 +701,6 @@ window.Element = class Element {
 			element.innerHTML = text
 		}
 
-		console.log(text)
-
 		return text
 	}
 }
@@ -729,15 +733,12 @@ window.Tips = class Tips extends Element{
 		if (~this.availablesTypes.indexOf(type)){
 			var mousePos = this.getRange()
 
+			var element = super.resetElement(element)
 			element = this.getElementFromEditable(element)
-
-			var p = document.createElement("p")
-			p.classList.add(`tips-${type}`)
-			p.innerHTML = window[element.getAttribute("type")].getElementContent(element)
-			p.setAttribute("contenteditable", "true")
-			
+			this.getEditableFromElement(element).classList.add(`tips-${type}`)
 			element.setAttribute("type", this.name)
-			element.replaceChild(p, this.getEditableFromElement(element))
+
+			return element
 		}
 	}
 }
@@ -852,7 +853,6 @@ window.Code = class Code extends Element {
 	}
 
 	static setElementContent = (element,text) => {
-		console.log(element)
 		this.getEditableFromElement(element).textContent = this.checkFormat(text,element.getAttribute("type"))
 		Prism.highlightElement(this.getEditableFromElement(element))
 	}
@@ -898,6 +898,7 @@ window.Code = class Code extends Element {
 			textarea.classList.add("wysiwyg__editor__code")
 			textarea.textContent = this.getElementContent(element)
 			textarea.addEventListener("keypress",this.setTextAreaHeight)
+			textarea.addEventListener("click",this.setTextAreaHeight)
 
 			element = this.getElementFromEditable(element)
 
@@ -916,8 +917,11 @@ window.Code = class Code extends Element {
 		}
 	}
 
+	static setTextAreaHeight(event){
+		event.target.style.height = `${event.target.scrollHeight}px`
+	}
+
 	static unfocusElement(element){
-		console.log(this.getElementContent(element))
 		super.unfocusElement(element)
 		this.getElementFromEditable(element).removeChild(codeSelect)
 		var content = document.createElement(this.contentNodeName)
@@ -947,13 +951,7 @@ window.Code = class Code extends Element {
 	static getCursorAtEnd(){
 		var selection = window.getSelection()
 		return selection.anchorNode.selectionStart == selection.anchorNode.textContent.length
-	}
-
-	static setTextAreaHeight(event){
-		event.target.style.height = `${event.target.scrollHeight}px`
-	}
-
-	
+	}	
 
 	static mouseInElement(element,end=false){
 		element = getEditableFromElement(element)
@@ -1011,6 +1009,11 @@ document.querySelectorAll(".wysiwyg").forEach((editor) => {
 		editor.insertAdjacentElement("afterBegin",toolBarContener)
 	}
 
+	var contener = document.createElement("div")
+	contener.classList.add("wysiwyg__editor")
+	editor.appendChild(contener)
+
+	Element.insertElement(contener,"Element","",false)
 
 	editor.addEventListener("click",()=>{
 		for (var bar in toolBar){
